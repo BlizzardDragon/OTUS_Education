@@ -5,10 +5,11 @@ using UnityEngine;
 public class RoadSpawner : MonoBehaviour
 {
     [SerializeField] private IRoadTarget _roadTarget;
+    private Transform _targetTransform;
     private float _targetStartPosZ;
 
     private void Start()
     {
-        _targetStartPosZ = _roadTarget.GetPosition().z;
+        _targetTransform = _roadTarget.Transform;
     }
 }

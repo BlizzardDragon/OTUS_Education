@@ -4,5 +4,5 @@ using UnityEngine;
 
 interface IRoadTarget
 {
-    Vector3 GetPosition();
+    Transform Transform { get; }
 }
