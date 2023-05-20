@@ -7,11 +7,20 @@ using UnityEngine;
 public class Player : MonoBehaviour, IRoadTarget
 {
     public Transform Transform => transform;
-    [SerializeField] private Rigidbody _rigidbody;
-    
+    private Rigidbody _rigidbody;
+
+
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+        FindRoadSpawner();
+    }
+
+    public void FindRoadSpawner() => FindObjectOfType<RoadSpawner>().AddRoadTarget(this);
 
     public void Move(Vector3 offset)
     {
 
     }
+
 }

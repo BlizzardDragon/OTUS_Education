@@ -6,9 +6,10 @@ using UnityEngine;
 public enum GameState
 {
     Off = 0,
-    Playing = 1,
-    Pause = 2,
-    Finished = 3
+    Preparing = 1,
+    Playing = 2,
+    Pause = 3,
+    Finished = 4
 }
 
 public class GameManager : MonoBehaviour
@@ -18,8 +19,10 @@ public class GameManager : MonoBehaviour
     private readonly List<IGameUpdateListener> _updateListeners = new();
     private readonly List<IGameFixedUpdateListener> _fixedUpdateListeners = new();
     private readonly List<IGameLateUpdateListener> _lateUpdateListeners = new();
-    private readonly float _fixedDeltaTime = Time.fixedDeltaTime;
+    private float _fixedDeltaTime;
 
+
+    private void Awake() => _fixedDeltaTime = Time.fixedDeltaTime;
 
     private void Update()
     {
@@ -59,20 +62,55 @@ public class GameManager : MonoBehaviour
 
         _listeners.Add(listener);
 
-        if(listener is IGameUpdateListener updateListener)
+        if (listener is IGameUpdateListener updateListener)
         {
             _updateListeners.Add(updateListener);
         }
 
-        if(listener is IGameFixedUpdateListener fixedUpdateListener)
+        if (listener is IGameFixedUpdateListener fixedUpdateListener)
         {
             _fixedUpdateListeners.Add(fixedUpdateListener);
         }
 
-        if(listener is IGameLateUpdateListener lateUpdateListener)
+        if (listener is IGameLateUpdateListener lateUpdateListener)
         {
             _lateUpdateListeners.Add(lateUpdateListener);
         }
+    }
+
+    public void RemoveListener(IGameListener listener)
+    {
+        if (listener == null) return;
+
+        _listeners.Remove(listener);
+
+        if (listener is IGameUpdateListener updateListener)
+        {
+            _updateListeners.Remove(updateListener);
+        }
+
+        if (listener is IGameFixedUpdateListener fixedUpdateListener)
+        {
+            _fixedUpdateListeners.Remove(fixedUpdateListener);
+        }
+
+        if (listener is IGameLateUpdateListener lateUpdateListener)
+        {
+            _lateUpdateListeners.Remove(lateUpdateListener);
+        }
+    }
+
+    public void PrepareForGame()
+    {
+        foreach (var listener in _listeners)
+        {
+            if (listener is IGamePrepareListener prepareListener)
+            {
+                prepareListener.OnPrepareGame();
+            }
+        }
+
+        State = GameState.Playing;
     }
 
     public void StartGame()

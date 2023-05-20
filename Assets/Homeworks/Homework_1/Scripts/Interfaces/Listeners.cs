@@ -2,6 +2,11 @@
 
 public interface IGameListener { }
 
+public interface IGamePrepareListener : IGameListener
+{
+    void OnPrepareGame();
+}
+
 public interface IGameStartListener : IGameListener
 {
     void OnStartGame();
