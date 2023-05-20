@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 
-public class Input : MonoBehaviour, IGameStartListener, IGamePauseListener, IGameResumeListener, IGameFinishListener
+public class Input : MonoBehaviour, IGameFixedUpdateListener
 {
     public Action<Vector3> OnMove;
 
@@ -14,13 +14,8 @@ public class Input : MonoBehaviour, IGameStartListener, IGamePauseListener, IGam
         enabled = false;
     }
 
-    private void FixedUpdate()
+    void IGameFixedUpdateListener.OnFixedUpdate(float fixedDeltaTime)
     {
         OnMove?.Invoke(Vector3.forward);
     }
-
-    void IGameStartListener.OnStartGame() => enabled = true;
-    void IGamePauseListener.OnPauseGame() => enabled = false;
-    void IGameResumeListener.OnResumeGame() => enabled = true;
-    void IGameFinishListener.OnFinishGame() => enabled = false;
 }

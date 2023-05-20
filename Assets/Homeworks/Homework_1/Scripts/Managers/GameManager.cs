@@ -14,14 +14,65 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     public GameState State { get; private set; }
-    private List<IGameListener> _listeners = new();
+    private readonly List<IGameListener> _listeners = new();
+    private readonly List<IGameUpdateListener> _updateListeners = new();
+    private readonly List<IGameFixedUpdateListener> _fixedUpdateListeners = new();
+    private readonly List<IGameLateUpdateListener> _lateUpdateListeners = new();
+    private readonly float _fixedDeltaTime = Time.fixedDeltaTime;
 
+
+    private void Update()
+    {
+        if (State != GameState.Playing) return;
+
+        float deltaTime = Time.deltaTime;
+        for (int i = 0; i < _updateListeners.Count; i++)
+        {
+            _updateListeners[i].OnUpdate(deltaTime);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (State != GameState.Playing) return;
+
+        for (int i = 0; i < _fixedUpdateListeners.Count; i++)
+        {
+            _fixedUpdateListeners[i].OnFixedUpdate(_fixedDeltaTime);
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (State != GameState.Playing) return;
+
+        float deltaTime = Time.deltaTime;
+        for (int i = 0; i < _lateUpdateListeners.Count; i++)
+        {
+            _lateUpdateListeners[i].OnLateUpdate(deltaTime);
+        }
+    }
 
     public void AddListener(IGameListener listener)
     {
         if (listener == null) return;
 
         _listeners.Add(listener);
+
+        if(listener is IGameUpdateListener updateListener)
+        {
+            _updateListeners.Add(updateListener);
+        }
+
+        if(listener is IGameFixedUpdateListener fixedUpdateListener)
+        {
+            _fixedUpdateListeners.Add(fixedUpdateListener);
+        }
+
+        if(listener is IGameLateUpdateListener lateUpdateListener)
+        {
+            _lateUpdateListeners.Add(lateUpdateListener);
+        }
     }
 
     public void StartGame()
