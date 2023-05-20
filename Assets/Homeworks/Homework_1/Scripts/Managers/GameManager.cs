@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
 
     public void AddListener(IGameListener listener)
     {
-        if(listener == null) return;
-        
+        if (listener == null) return;
+
         _listeners.Add(listener);
     }
 
@@ -75,5 +75,4 @@ public class GameManager : MonoBehaviour
 
         State = GameState.Finished;
     }
-
 }

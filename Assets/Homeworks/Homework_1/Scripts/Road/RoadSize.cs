@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class RoadSize : MonoBehaviour
 {
+    [SerializeField] private bool _isShared;
     [SerializeField] private Vector3 _roadScale = Vector3.one;
     [SerializeField] private BoxCollider _boxCollider;
 
@@ -17,7 +18,7 @@ public class RoadSize : MonoBehaviour
     {
         var roadParts = GetComponentsInChildren<RoadPart>();
         Vector2 tiling = new Vector2(_roadScale.x, _roadScale.z);
-        foreach (var part in roadParts) part.SetTiling(tiling);
+        foreach (var part in roadParts) part.SetTiling(tiling, _isShared);
         return roadParts.Length;
     }
 }

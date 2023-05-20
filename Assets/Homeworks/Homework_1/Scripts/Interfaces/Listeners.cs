@@ -1,3 +1,5 @@
+
+
 public interface IGameListener { }
 
 public interface IGameStartListener : IGameListener
@@ -18,5 +20,20 @@ public interface IGamePauseListener : IGameListener
 public interface IGameResumeListener : IGameListener
 {
     void OnResumeGame();
+}
+
+public interface IGameUpdateListener : IGameListener
+{
+    void OnUpdate(float deltaTime);
+}
+
+public interface IGameFixedUpdateListener : IGameListener
+{
+    void OnFixedUpdate(float fixedDeltaTime);
+}
+
+public interface IGameLateUpdateListener : IGameListener
+{
+    void OnLateUpdate(float deltaTime);
 }
 
