@@ -13,6 +13,8 @@ public class RoadSpawner : MonoBehaviour, IGamePrepareListener
     private List<Road> _roads = new();
 
 
+    public void SetRoadTarget(IRoadTarget roadTarget) => _roadTarget = roadTarget;
+
     public void OnPrepareGame()
     {
         SpawnFirstRoad();
@@ -56,6 +58,4 @@ public class RoadSpawner : MonoBehaviour, IGamePrepareListener
         _spawnPosition = currentPosition;
         return _spawnPosition += Vector3.forward * _roadPrefab.RoadLength;
     }
-
-    public void SetRoadTarget(IRoadTarget roadTarget) => _roadTarget = roadTarget;
 }

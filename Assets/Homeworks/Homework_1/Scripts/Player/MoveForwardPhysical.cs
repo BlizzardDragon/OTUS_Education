@@ -10,6 +10,7 @@ public class MoveForwardPhysical : MonoBehaviour, IGameFixedUpdateListener, IIni
 
     void IGameFixedUpdateListener.OnFixedUpdate(float fixedDeltaTime)
     {
-        OnMove?.Invoke(Vector3.forward * fixedDeltaTime);
+        var direction = Vector3.forward * fixedDeltaTime; 
+        OnMove?.Invoke(direction);
     }
 }

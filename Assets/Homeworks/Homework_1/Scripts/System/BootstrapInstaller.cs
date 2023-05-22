@@ -39,7 +39,7 @@ public sealed class BootstrapInstaller : MonoBehaviour
 
 
 
-//// Variation.
+//// Find variation.
 // public sealed class GameListenersInstaller : MonoBehaviour
 // {
 //     [SerializeField] private MonoBehaviour[] _listeners;
