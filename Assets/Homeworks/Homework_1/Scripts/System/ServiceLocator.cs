@@ -25,7 +25,7 @@ public static class ServiceLocator
         var result = new List<T>();
         foreach (var service in _services)
         {
-            if(service is T tService)
+            if (service is T tService)
             {
                 result.Add(tService);
             }
@@ -34,8 +34,18 @@ public static class ServiceLocator
         return result;
     }
 
-    public static void AddService(object service)
+    public static void AddService(object newService)
     {
-        _services.Add(service);
+        foreach (var service in _services)
+        {
+            if (service == newService)
+            {
+                throw new System.Exception($"Service {service.GetType().Name} is already in the list!");
+            }
+            else
+            {
+                _services.Add(newService);
+            }
+        }
     }
 }

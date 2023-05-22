@@ -10,6 +10,7 @@ public sealed class BootstrapInstaller : MonoBehaviour
     {
         InstallServices();
         InstallGameManager();
+        ServiceLocator.GetService<IRoadTarget>().InstallTarget();
     }
     
     private void OnEnable()
