@@ -4,15 +4,9 @@ using UnityEngine;
 using System;
 
 
-public class Input : MonoBehaviour, IGameFixedUpdateListener
+public class MoveForwardPhysical : MonoBehaviour, IGameFixedUpdateListener
 {
     public Action<Vector3> OnMove;
-
-
-    private void Awake()
-    {
-        enabled = false;
-    }
 
     void IGameFixedUpdateListener.OnFixedUpdate(float fixedDeltaTime)
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveController : MonoBehaviour, IGameStartListener, IGameFinishListener
 {
-    [SerializeField] private Input _input;
+    [SerializeField] private MoveForwardPhysical _input;
     [SerializeField] private Player _player;
 
 

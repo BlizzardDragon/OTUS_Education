@@ -1,0 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+public static class ServiceLocator
+{
+    private static readonly List<object> _services = new List<object>();
+
+    public static T GetService<T>()
+    {
+        foreach (var service in _services)
+        {
+            if (service is T result)
+            {
+                return result;
+            }
+        }
+
+        throw new System.Exception($"Service of type {typeof(T).Name} is not found!");
+    }
+
+    public static List<T> GetServices<T>()
+    {
+        var result = new List<T>();
+        foreach (var service in _services)
+        {
+            if(service is T tService)
+            {
+                result.Add(tService);
+            }
+        }
+
+        return result;
+    }
+
+    public static void AddService(object service)
+    {
+        _services.Add(service);
+    }
+}

@@ -16,7 +16,7 @@ public class Player : MonoBehaviour, IRoadTarget
         FindRoadSpawner();
     }
 
-    public void FindRoadSpawner() => FindObjectOfType<RoadSpawner>().AddRoadTarget(this);
+    public void FindRoadSpawner() => ServiceLocator.GetService<RoadSpawner>().SetRoadTarget(this);
 
     public void Move(Vector3 offset)
     {

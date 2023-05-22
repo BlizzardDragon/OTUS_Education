@@ -12,7 +12,7 @@ public enum GameState
     Finished = 4
 }
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IInitListener
 {
     public GameState State { get; private set; }
     private readonly List<IGameListener> _listeners = new();

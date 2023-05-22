@@ -57,5 +57,5 @@ public class RoadSpawner : MonoBehaviour, IGamePrepareListener
         return _spawnPosition += Vector3.forward * _roadPrefab.RoadLength;
     }
 
-    public void AddRoadTarget(IRoadTarget roadTarget) => _roadTarget = roadTarget;
+    public void SetRoadTarget(IRoadTarget roadTarget) => _roadTarget = roadTarget;
 }

@@ -1,5 +1,5 @@
 
-
+public interface IInitListener { }
 public interface IGameListener { }
 
 public interface IGamePrepareListener : IGameListener
