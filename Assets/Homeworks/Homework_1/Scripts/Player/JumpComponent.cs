@@ -41,10 +41,15 @@ public class JumpComponent : MonoBehaviour, IGameStartListener, IGameResumeListe
         if (_isGrounded)
         {
             int newPosition = _currentPosition + offsetDirection;
-            if (newPosition >= 0 && newPosition < _jumpTargets.Length)
+            if (newPosition < 0)
             {
-                _coroutine = StartCoroutine(Jump(newPosition, offsetDirection));
+                newPosition = 0;
             }
+            if (newPosition > _jumpTargets.Length - 1)
+            {
+                newPosition = _jumpTargets.Length - 1;
+            }
+            _coroutine = StartCoroutine(Jump(newPosition, offsetDirection));
         }
     }
 

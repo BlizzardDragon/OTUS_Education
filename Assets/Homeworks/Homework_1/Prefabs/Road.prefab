@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6561081911486339824}
   - component: {fileID: 6561081911486339827}
   - component: {fileID: 6561081911486339826}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoadPart (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6561081911882027255}
   - component: {fileID: 6561081911882027252}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Road
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 6561081912156051856}
   - component: {fileID: 6561081912156051859}
   - component: {fileID: 6561081912156051858}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoadPart (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6561081912843431651}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Parts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6561081912858424453}
   - component: {fileID: 6561081912858424474}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ BoxCollider:
   m_GameObject: {fileID: 6561081912858424452}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3, y: 1, z: 1}
   m_Center: {x: 0, y: -0.5, z: 0.5}
@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 6561081913283455601}
   - component: {fileID: 6561081913283455600}
   - component: {fileID: 6561081913283455607}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoadPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}

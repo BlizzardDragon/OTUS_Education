@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 31942821}
   - component: {fileID: 31942824}
   - component: {fileID: 31942823}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -726,7 +726,7 @@ GameObject:
   - component: {fileID: 308301218}
   - component: {fileID: 308301217}
   - component: {fileID: 308301216}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -784,7 +784,7 @@ Rigidbody:
   m_GameObject: {fileID: 308301214}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.15
+  m_Drag: 0.1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 1
@@ -801,7 +801,7 @@ GameObject:
   m_Component:
   - component: {fileID: 326640851}
   - component: {fileID: 326640852}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Scale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1039,7 +1039,7 @@ GameObject:
   - component: {fileID: 362011916}
   - component: {fileID: 362011918}
   - component: {fileID: 362011917}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: DeathTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1054,7 +1054,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362011915}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1072,7 +1072,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 5, z: 1}
+  m_Size: {x: 10, y: 10, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &362011918
 MonoBehaviour:
@@ -1210,6 +1210,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 462888841}
+  - component: {fileID: 462888843}
+  - component: {fileID: 462888842}
   m_Layer: 5
   m_Name: LoseScreen
   m_TagString: Untagged
@@ -1234,11 +1236,49 @@ RectTransform:
   m_Father: {fileID: 1613817151}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &462888842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462888840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.8901961}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &462888843
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462888840}
+  m_CullTransparentMesh: 1
 --- !u!1 &498996726
 GameObject:
   m_ObjectHideFlags: 0
@@ -1417,7 +1457,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 570805338}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: JumpTargets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1452,7 +1492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 578284690}
   - component: {fileID: 578284691}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MidleTarget
   m_TagString: Untagged
   m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
@@ -1700,7 +1740,7 @@ GameObject:
   m_Component:
   - component: {fileID: 809068525}
   - component: {fileID: 809068526}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftTarget
   m_TagString: Untagged
   m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
@@ -1973,7 +2013,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1173326583}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2274,7 +2314,7 @@ GameObject:
   - component: {fileID: 1332631428}
   - component: {fileID: 1332631431}
   - component: {fileID: 1332631430}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2808,7 +2848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8509804, g: 0.48286557, b: 0.2784314, a: 1}
+  m_Color: {r: 0.8509804, g: 0.2784314, b: 0.2784314, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2842,7 +2882,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1670952052}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3362,7 +3402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1922622256}
   - component: {fileID: 1922622257}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightTarget
   m_TagString: Untagged
   m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
@@ -3410,7 +3450,8 @@ GameObject:
   - component: {fileID: 1948614972}
   - component: {fileID: 1948614971}
   - component: {fileID: 1948614974}
-  m_Layer: 0
+  - component: {fileID: 1948614975}
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3507,6 +3548,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c7175ee1d3e1f94393006e73d9cfcca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &1948614975
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948614969}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2033425335
 GameObject:
   m_ObjectHideFlags: 0
