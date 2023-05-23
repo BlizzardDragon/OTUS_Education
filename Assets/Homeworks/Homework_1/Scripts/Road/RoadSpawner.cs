@@ -9,7 +9,8 @@ public class RoadSpawner : MonoBehaviour, IGamePrepareListener, IGameUpdateListe
     [SerializeField] private Road _roadPrefab;
     private IRoadTarget _roadTarget;
     private Vector3 _spawnPosition;
-    private float _startPosZ;
+    private float _oldPositionZ;
+    private bool _isFirstStart = true;
     private List<Road> _roads = new();
 
 
@@ -17,16 +18,18 @@ public class RoadSpawner : MonoBehaviour, IGamePrepareListener, IGameUpdateListe
 
     public void OnUpdate(float deltaTime)
     {
-        float distance = _roadTarget.Transform.position.z - _startPosZ;
-        if(distance >= _roadPrefab.RoadLength)
+        float distance = _roadTarget.Transform.position.z - _oldPositionZ;
+        if (distance >= _roadPrefab.RoadLength)
         {
             SpawnNextRoad(_spawnPosition, true);
-            _startPosZ += _roadPrefab.RoadLength;
+            _oldPositionZ += _roadPrefab.RoadLength;
         }
     }
 
     public void OnPrepareGame()
     {
+        if (!_isFirstStart) return;
+
         SetTargetStartPosZ();
         SpawnFirstRoad();
 
@@ -42,9 +45,11 @@ public class RoadSpawner : MonoBehaviour, IGamePrepareListener, IGameUpdateListe
             .SetLink(gameObject)
             .Append(delay)
             .Append(spawn);
+
+        _isFirstStart = false;
     }
 
-    private void SetTargetStartPosZ() => _startPosZ = _roadTarget.Transform.position.z;
+    private void SetTargetStartPosZ() => _oldPositionZ = _roadTarget.Transform.position.z;
 
     private void SpawnFirstRoad()
     {

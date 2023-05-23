@@ -9,30 +9,34 @@ using System;
 public class CountdownText : MonoBehaviour, IGamePrepareListener, IInitListener
 {
     public Action OnGameStarted;
+    public Action OnGameResumed;
     [SerializeField] private TextMeshProUGUI _countdownText;
     [SerializeField] private Image _background;
+    [SerializeField] private GameObject _pauseButton;
     private Color _backgroundStartColor;
-    private int _currentTimerValue;
+    private Color _textStartColor;
+    private int _countdownValue;
+    private bool _isFirstStart = true;
     private const int TIMER_VALUE = 3;
     private const float FADE_TIME = 1;
     private const int LOOPS = TIMER_VALUE;
     private const int BACKGROUND_FADE_TIME = TIMER_VALUE;
 
-    public void OnPrepareGame()
-    {
-        PlayCountdown();
-    }
+
+    public void OnPrepareGame() => PlayCountdown();
 
     private void PlayCountdown()
     {
         _backgroundStartColor = _background.color;
+        _textStartColor = _countdownText.color;
         _background.enabled = true;
-        _currentTimerValue = TIMER_VALUE;
+        _countdownText.enabled = true;
+        _countdownValue = TIMER_VALUE;
 
         DOTween.Sequence()
+            .AppendCallback(SetText)
             .Append(_countdownText.transform.DOScale(0, 0))
             .Append(_countdownText.transform.DOScale(1.5f, FADE_TIME))
-            .AppendCallback(SetText)
             .SetEase(Ease.OutCirc)
             .SetLoops(LOOPS);
 
@@ -44,24 +48,35 @@ public class CountdownText : MonoBehaviour, IGamePrepareListener, IInitListener
         DOTween.Sequence()
             .SetLink(gameObject)
             .Append(_background.DOFade(0, BACKGROUND_FADE_TIME))
-            .AppendCallback(InvokeStartGame)
-            .AppendCallback(HideBackground);
+            .AppendCallback(InvokePlayGame)
+            .AppendCallback(ShowGameScreen);
     }
 
     private void SetText()
     {
-        _currentTimerValue--;
-        _countdownText.text = _currentTimerValue.ToString();
+        _countdownText.text = _countdownValue.ToString();
+        _countdownValue--;
     }
 
-    private void HideBackground()
+    private void ShowGameScreen()
     {
         _background.enabled = false;
         _background.color = _backgroundStartColor;
+        _countdownText.color = _textStartColor;
+        _countdownText.enabled = false;
+        _pauseButton.SetActive(true);
     }
 
-    private void InvokeStartGame()
+    private void InvokePlayGame()
     {
-        OnGameStarted?.Invoke();
+        if (_isFirstStart)
+        {
+            OnGameStarted?.Invoke();
+            _isFirstStart = false;
+        }
+        else
+        {
+            OnGameResumed?.Invoke();
+        }
     }
 }

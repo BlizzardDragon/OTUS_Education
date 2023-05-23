@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour, IInitListener
             }
         }
 
-        State = GameState.Playing;
+        State = GameState.Pause;
     }
 
     public void StartGame()

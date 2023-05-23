@@ -16,11 +16,13 @@ public sealed class BootstrapInstaller : MonoBehaviour
     private void OnEnable()
     {
         ServiceLocator.GetService<CountdownText>().OnGameStarted += ServiceLocator.GetService<GameManager>().StartGame;
+        ServiceLocator.GetService<CountdownText>().OnGameResumed += ServiceLocator.GetService<GameManager>().ResumeGame;
     }
 
     private void OnDisable()
     {
         ServiceLocator.GetService<CountdownText>().OnGameStarted -= ServiceLocator.GetService<GameManager>().StartGame;
+        ServiceLocator.GetService<CountdownText>().OnGameResumed -= ServiceLocator.GetService<GameManager>().ResumeGame;
     }
 
     private void InstallServices() => GetComponent<ServiceLocatorInstaller>().InstallServices();

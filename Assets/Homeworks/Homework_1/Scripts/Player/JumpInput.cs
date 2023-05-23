@@ -12,11 +12,11 @@ public class JumpInput : MonoBehaviour, IGameUpdateListener, IInitListener
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
-            OnMovedToSide(-1);
+            OnMovedToSide?.Invoke(-1);
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
-            OnMovedToSide(1);
+            OnMovedToSide?.Invoke(1);
         }
     }
 }

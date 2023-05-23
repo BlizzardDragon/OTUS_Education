@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 
 [RequireComponent(typeof(Rigidbody))]
-public class JumpComponent : MonoBehaviour, IGameStartListener, IGamePauseListener, IGameFinishListener
+public class JumpComponent : MonoBehaviour, IGameStartListener, IGameResumeListener, IGamePauseListener, IGameFinishListener
 {
     [SerializeField] private Transform _view;
     [SerializeField] private Transform[] _jumpTargets;
@@ -19,19 +19,18 @@ public class JumpComponent : MonoBehaviour, IGameStartListener, IGamePauseListen
 
     private void Awake() => _rigidbody = GetComponent<Rigidbody>();
 
-    public void OnStartGame()
+    public void OnStartGame() => Subscribe();
+    public void OnResumeGame() => Subscribe();
+    public void OnPauseGame() => Unsubscribe();
+    public void OnFinishGame() => Unsubscribe();
+
+    private void Subscribe()
     {
         ServiceLocator.GetService<JumpInput>().OnMovedToSide += PrepareToJump;
         _isPlaying = true;
     }
 
-    public void OnPauseGame()
-    {
-        ServiceLocator.GetService<JumpInput>().OnMovedToSide -= PrepareToJump;
-        _isPlaying = false;
-    }
-
-    public void OnFinishGame()
+    private void Unsubscribe()
     {
         ServiceLocator.GetService<JumpInput>().OnMovedToSide -= PrepareToJump;
         _isPlaying = false;
@@ -68,7 +67,7 @@ public class JumpComponent : MonoBehaviour, IGameStartListener, IGamePauseListen
             }
             else
             {
-                rotation = new Vector3(0, 0, Mathf.Sin((1 -t) * Mathf.PI / 2) * 180);
+                rotation = new Vector3(0, 0, Mathf.Sin((1 - t) * Mathf.PI / 2) * 180);
             }
             _view.rotation = Quaternion.Euler(rotation);
 
