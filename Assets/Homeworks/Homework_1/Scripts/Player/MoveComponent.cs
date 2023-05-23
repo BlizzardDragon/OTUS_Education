@@ -4,11 +4,13 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(Rigidbody))]
-public class MoveComponent : MonoBehaviour, IGameStartListener, IGameResumeListener, IGamePauseListener, IGameFinishListener
+public class MoveComponent : MonoBehaviour, IGameUpdateListener, IGameStartListener, IGameResumeListener, IGamePauseListener, IGameFinishListener
 {
     private Rigidbody _rigidbody;
     private Vector3 _oldVelocity;
-    private const float ACCELERATION = 50;
+    private float _acceleration = 50;
+    private float _time;
+    private const float COMPLEXITY = 0.1f;
 
 
     private void Awake() => _rigidbody = GetComponent<Rigidbody>();
@@ -27,9 +29,16 @@ public class MoveComponent : MonoBehaviour, IGameStartListener, IGameResumeListe
         ServiceLocator.GetService<MoveForwardPhysical>().OnMove -= Move;
     }
 
+    public void OnUpdate(float deltaTime)
+    {
+        _acceleration += deltaTime * COMPLEXITY;
+        _time += deltaTime;
+        Debug.Log($"Acceleration = {_acceleration}, Time = {(int)_time}");
+    }
+
     private void Move(Vector3 direction)
     {
-        Vector3 force = new Vector3(0, 0, direction.z) * ACCELERATION;
+        Vector3 force = new Vector3(0, 0, direction.z) * _acceleration;
         _rigidbody.AddForce(force, ForceMode.Acceleration);
     }
 
