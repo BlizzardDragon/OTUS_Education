@@ -39,14 +39,19 @@ public class EnemySpawner : MonoBehaviour, IGameUpdateListener, IGameStartListen
         }
         else
         {
+            int oldIndex = -1;
             while (enemyCount < 2)
             {
                 int index = Random.Range(0, _jumpTargets.Length);
+                if (enemyCount > 0)
+                {
+                    if (index == oldIndex) continue;
+                }
                 SpawnEnemy(index, roadSpawnPosition);
+                oldIndex = index;
                 enemyCount++;
             }
         }
-
     }
 
     private void SpawnEnemy(int index, Vector3 roadSpawnPosition)
