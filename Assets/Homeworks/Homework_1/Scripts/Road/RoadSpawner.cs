@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 
 public class RoadSpawner : MonoBehaviour, IGamePrepareListener, IGameUpdateListener, IInitListener
 {
+    public Action<Vector3> OnSpawnRoad;
     [SerializeField] private Road _roadPrefab;
     private IRoadTarget _roadTarget;
     private Vector3 _spawnPosition;
@@ -61,17 +63,20 @@ public class RoadSpawner : MonoBehaviour, IGamePrepareListener, IGameUpdateListe
 
     private void SpawnNextRoad(Vector3 currentPosition, bool removeLastRoad)
     {
-        Road newRoad = Instantiate(_roadPrefab, GetSpawnPosition(currentPosition), Quaternion.identity, transform);
+        Vector3 roadSpawnPosition = GetNextSpawnPosition(currentPosition);
+        Road newRoad = Instantiate(_roadPrefab, roadSpawnPosition, Quaternion.identity, transform);
         _roads.Add(newRoad);
 
         if (removeLastRoad)
         {
             Destroy(_roads[0].gameObject);
             _roads.RemoveAt(0);
+            
+            OnSpawnRoad?.Invoke(roadSpawnPosition);
         }
     }
 
-    private Vector3 GetSpawnPosition(Vector3 currentPosition)
+    private Vector3 GetNextSpawnPosition(Vector3 currentPosition)
     {
         _spawnPosition = currentPosition;
         return _spawnPosition += Vector3.forward * _roadPrefab.RoadLength;
