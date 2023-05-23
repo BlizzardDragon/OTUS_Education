@@ -36,16 +36,22 @@ public static class ServiceLocator
 
     public static void AddService(object newService)
     {
+        // Хотел сделать перед добавлением проверку на наличие сирвиса в списке, но при этом, почему-то, сервисы перестают добавляться.
         foreach (var service in _services)
         {
             if (service == newService)
             {
-                throw new System.Exception($"Service {service.GetType().Name} is already in the list!");
+                throw new System.Exception($"Service object of type {service.GetType().Name} is already in the list!");
             }
             else
             {
-                _services.Add(newService);
+                if (service.GetType() == newService.GetType())
+                {
+                    Debug.LogWarning($"Service of type {service.GetType().Name} is already in the list!");
+                }
             }
         }
+        
+        _services.Add(newService);
     }
 }

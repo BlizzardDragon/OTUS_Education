@@ -4,19 +4,30 @@ using UnityEngine;
 using DG.Tweening;
 
 
-public class RoadSpawner : MonoBehaviour, IGamePrepareListener
+public class RoadSpawner : MonoBehaviour, IGamePrepareListener, IGameUpdateListener, IInitListener
 {
     [SerializeField] private Road _roadPrefab;
     private IRoadTarget _roadTarget;
-    private float _targetStartPosZ;
     private Vector3 _spawnPosition;
+    private float _startPosZ;
     private List<Road> _roads = new();
 
 
     public void SetRoadTarget(IRoadTarget roadTarget) => _roadTarget = roadTarget;
 
+    public void OnUpdate(float deltaTime)
+    {
+        float distance = _roadTarget.Transform.position.z - _startPosZ;
+        if(distance >= _roadPrefab.RoadLength)
+        {
+            SpawnNextRoad(_spawnPosition, true);
+            _startPosZ += _roadPrefab.RoadLength;
+        }
+    }
+
     public void OnPrepareGame()
     {
+        SetTargetStartPosZ();
         SpawnFirstRoad();
 
         Sequence delay = DOTween.Sequence()
@@ -32,6 +43,8 @@ public class RoadSpawner : MonoBehaviour, IGamePrepareListener
             .Append(delay)
             .Append(spawn);
     }
+
+    private void SetTargetStartPosZ() => _startPosZ = _roadTarget.Transform.position.z;
 
     private void SpawnFirstRoad()
     {

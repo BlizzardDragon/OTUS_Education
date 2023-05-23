@@ -1,6 +1,7 @@
 using UnityEngine;
 
 
+[RequireComponent(typeof(Rigidbody))]
 public class Player : MonoBehaviour, IRoadTarget, IInitListener
 {
     public Transform Transform => transform;

@@ -16,7 +16,7 @@ public class CountdownText : MonoBehaviour, IGamePrepareListener, IInitListener
     private const int TIMER_VALUE = 3;
     private const float FADE_TIME = 1;
     private const int LOOPS = TIMER_VALUE;
-    private const int BACKGROUND_FADE_TIME = TIMER_VALUE * 2;
+    private const int BACKGROUND_FADE_TIME = TIMER_VALUE;
 
     public void OnPrepareGame()
     {
@@ -26,6 +26,7 @@ public class CountdownText : MonoBehaviour, IGamePrepareListener, IInitListener
     private void PlayCountdown()
     {
         _backgroundStartColor = _background.color;
+        _background.enabled = true;
         _currentTimerValue = TIMER_VALUE;
 
         DOTween.Sequence()
@@ -41,9 +42,10 @@ public class CountdownText : MonoBehaviour, IGamePrepareListener, IInitListener
             .SetLoops(LOOPS);
 
         DOTween.Sequence()
+            .SetLink(gameObject)
             .Append(_background.DOFade(0, BACKGROUND_FADE_TIME))
             .AppendCallback(InvokeStartGame)
-            .AppendCallback(SetStartColor);
+            .AppendCallback(HideBackground);
     }
 
     private void SetText()
@@ -52,8 +54,9 @@ public class CountdownText : MonoBehaviour, IGamePrepareListener, IInitListener
         _countdownText.text = _currentTimerValue.ToString();
     }
 
-    private void SetStartColor()
+    private void HideBackground()
     {
+        _background.enabled = false;
         _background.color = _backgroundStartColor;
     }
 
