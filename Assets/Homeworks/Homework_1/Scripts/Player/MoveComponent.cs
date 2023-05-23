@@ -26,7 +26,6 @@ public class MoveComponent : MonoBehaviour, IGameStartListener, IGameFinishListe
     private void Move(Vector3 direction)
     {
         Vector3 force = new Vector3(0, 0, direction.z) * ACCELERATION;
-        Debug.Log(force);
         _rigidbody.AddForce(force, ForceMode.Acceleration);
     }
 }
