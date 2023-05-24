@@ -57,6 +57,7 @@ public class EnemySpawner : MonoBehaviour, IGameUpdateListener, IGameStartListen
     private void SpawnEnemy(int index, Vector3 roadSpawnPosition)
     {
         Vector3 spawnPosition = new Vector3(_jumpTargets[index].position.x, roadSpawnPosition.y, roadSpawnPosition.z);
-        Instantiate(_enemyPrefab, spawnPosition, Quaternion.identity, transform);
+        Enemy newEnemy = Instantiate(_enemyPrefab, spawnPosition, Quaternion.identity, transform);
+        newEnemy.Install();
     }
 }

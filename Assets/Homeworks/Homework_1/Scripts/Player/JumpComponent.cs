@@ -7,6 +7,7 @@ using DG.Tweening;
 public class JumpComponent : MonoBehaviour, IGameStartListener, IGameResumeListener, IGamePauseListener, IGameFinishListener
 {
     [SerializeField] private Transform _view;
+    [SerializeField] private AudioSource _jumpSound;
     [SerializeField] private Transform[] _jumpTargets;
     private Rigidbody _rigidbody;
     private Coroutine _coroutine;
@@ -55,6 +56,7 @@ public class JumpComponent : MonoBehaviour, IGameStartListener, IGameResumeListe
 
     private IEnumerator Jump(int newPosition, int offsetDirection)
     {
+        // _jumpSound.Play();
         _isGrounded = false;
         int oldPosition = _currentPosition;
         _currentPosition = newPosition;
