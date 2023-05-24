@@ -776,6 +776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7644bfa66350c49ba73037aafbc433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerRigidbody: {fileID: 31942822}
 --- !u!54 &308301218
 Rigidbody:
   m_ObjectHideFlags: 0

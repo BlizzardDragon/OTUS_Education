@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class MoveComponent : MonoBehaviour, IGameUpdateListener, IGameStartListener, IGameResumeListener, IGamePauseListener, IGameFinishListener
 {
+    [SerializeField] private Rigidbody _playerRigidbody;
     private Rigidbody _rigidbody;
     private Vector3 _oldVelocity;
     private float _acceleration = 50;
@@ -38,8 +39,12 @@ public class MoveComponent : MonoBehaviour, IGameUpdateListener, IGameStartListe
 
     private void Move(Vector3 direction)
     {
+        _playerRigidbody.interpolation = RigidbodyInterpolation.None;
+
         Vector3 force = new Vector3(0, 0, direction.z) * _acceleration;
         _rigidbody.AddForce(force, ForceMode.Acceleration);
+        
+        _playerRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
     }
 
     private void StopMove()
