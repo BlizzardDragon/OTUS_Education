@@ -8,6 +8,7 @@ public class CollisionDetector : MonoBehaviour, IInitListener
 {
     public event Action OnEnemyCollision;
 
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.collider.GetComponent<EnemyCollider>())

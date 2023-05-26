@@ -6,6 +6,7 @@ public class RoadPart : MonoBehaviour
     private const float END_VALUE = 1f;
     private const float DURATION = 0.5f;
 
+
     private void Awake()
     {
         MeshRenderer renderer = GetComponent<MeshRenderer>();

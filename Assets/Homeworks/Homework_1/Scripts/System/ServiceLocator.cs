@@ -7,6 +7,7 @@ public static class ServiceLocator
 {
     private static readonly List<object> _services = new List<object>();
 
+
     public static T GetService<T>()
     {
         foreach (var service in _services)

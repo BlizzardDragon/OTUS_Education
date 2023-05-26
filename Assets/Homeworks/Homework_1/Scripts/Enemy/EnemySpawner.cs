@@ -6,9 +6,9 @@ public class EnemySpawner : MonoBehaviour, IGameUpdateListener, IGameStartListen
 {
     [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private Transform[] _jumpTargets;
-    private const float TIME_MAX_DIFFICULTY = 300;
     private float _chanceThreshold;
     private float _time;
+    private const float TIME_MAX_DIFFICULTY = 300;
 
 
     public void OnStartGame()

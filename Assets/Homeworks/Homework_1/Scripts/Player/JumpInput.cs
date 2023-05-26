@@ -8,6 +8,7 @@ public class JumpInput : MonoBehaviour, IGameUpdateListener, IInitListener
 {
     public event Action<int> OnMovedToSide;
 
+
     public void OnUpdate(float deltaTime)
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow) ||

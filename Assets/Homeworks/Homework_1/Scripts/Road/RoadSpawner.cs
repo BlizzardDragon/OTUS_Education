@@ -7,13 +7,13 @@ using System;
 
 public class RoadSpawner : MonoBehaviour, IGamePrepareListener, IGameUpdateListener, IInitListener
 {
-    public event Action<Vector3> OnSpawnRoad;
     [SerializeField] private Road _roadPrefab;
     private IRoadTarget _roadTarget;
+    private List<Road> _roads = new();
     private Vector3 _spawnPosition;
     private float _oldPositionZ;
     private bool _isFirstStart = true;
-    private List<Road> _roads = new();
+    public event Action<Vector3> OnSpawnRoad;
 
 
     public void SetRoadTarget(IRoadTarget roadTarget) => _roadTarget = roadTarget;

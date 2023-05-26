@@ -8,8 +8,6 @@ using System;
 
 public class CountdownText : MonoBehaviour, IGamePrepareListener, IInitListener
 {
-    public event Action OnGameStarted;
-    public event Action OnGameResumed;
     [SerializeField] private TextMeshProUGUI _countdownText;
     [SerializeField] private Image _background;
     [SerializeField] private GameObject _pauseButton;
@@ -22,6 +20,8 @@ public class CountdownText : MonoBehaviour, IGamePrepareListener, IInitListener
     private const float SCALE_TEXT = 1.5f;
     private const int LOOPS = TIMER_VALUE;
     private const int BACKGROUND_FADE_TIME = TIMER_VALUE;
+    public event Action OnGameStarted;
+    public event Action OnGameResumed;
 
 
     public void OnPrepareGame() => PlayCountdown();

@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class Road : MonoBehaviour
 {
-    public float RoadLength
-    {
-        get { return _roadScale.z; }
-    }
+    public float RoadLength => _roadScale.z;
     [SerializeField] private bool _isShared;
     [SerializeField] private Vector3 _roadScale = Vector3.one;
     [SerializeField] private BoxCollider _boxCollider;
+    
 
     private void OnValidate()
     {
