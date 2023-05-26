@@ -36,7 +36,6 @@ public static class ServiceLocator
 
     public static void AddService(object newService)
     {
-        // Хотел сделать перед добавлением проверку на наличие сирвиса в списке, но при этом почему-то сервисы перестают добавляться.
         foreach (var service in _services)
         {
             if (service == newService)

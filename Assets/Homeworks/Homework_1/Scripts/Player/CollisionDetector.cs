@@ -6,7 +6,7 @@ using System;
 
 public class CollisionDetector : MonoBehaviour, IInitListener
 {
-    public Action OnEnemyCollision;
+    public event Action OnEnemyCollision;
 
     private void OnCollisionEnter(Collision other)
     {

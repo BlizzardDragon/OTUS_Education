@@ -7,7 +7,7 @@ using System;
 
 public class RoadSpawner : MonoBehaviour, IGamePrepareListener, IGameUpdateListener, IInitListener
 {
-    public Action<Vector3> OnSpawnRoad;
+    public event Action<Vector3> OnSpawnRoad;
     [SerializeField] private Road _roadPrefab;
     private IRoadTarget _roadTarget;
     private Vector3 _spawnPosition;

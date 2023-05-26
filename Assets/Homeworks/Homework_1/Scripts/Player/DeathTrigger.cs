@@ -5,7 +5,7 @@ using System;
 
 public class DeathTrigger : MonoBehaviour, IInitListener
 {
-    public Action OnEnemyKilled;
+    public event Action OnEnemyKilled;
 
 
     private void OnTriggerEnter(Collider other)

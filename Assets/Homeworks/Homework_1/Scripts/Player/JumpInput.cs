@@ -6,7 +6,7 @@ using System;
 
 public class JumpInput : MonoBehaviour, IGameUpdateListener, IInitListener
 {
-    public Action<int> OnMovedToSide;
+    public event Action<int> OnMovedToSide;
 
     public void OnUpdate(float deltaTime)
     {

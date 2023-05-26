@@ -8,8 +8,8 @@ using System;
 
 public class CountdownText : MonoBehaviour, IGamePrepareListener, IInitListener
 {
-    public Action OnGameStarted;
-    public Action OnGameResumed;
+    public event Action OnGameStarted;
+    public event Action OnGameResumed;
     [SerializeField] private TextMeshProUGUI _countdownText;
     [SerializeField] private Image _background;
     [SerializeField] private GameObject _pauseButton;
@@ -19,6 +19,7 @@ public class CountdownText : MonoBehaviour, IGamePrepareListener, IInitListener
     private bool _isFirstStart = true;
     private const int TIMER_VALUE = 3;
     private const float FADE_TIME = 1;
+    private const float SCALE_TEXT = 1.5f;
     private const int LOOPS = TIMER_VALUE;
     private const int BACKGROUND_FADE_TIME = TIMER_VALUE;
 
@@ -36,7 +37,7 @@ public class CountdownText : MonoBehaviour, IGamePrepareListener, IInitListener
         DOTween.Sequence()
             .AppendCallback(SetText)
             .Append(_countdownText.transform.DOScale(0, 0))
-            .Append(_countdownText.transform.DOScale(1.5f, FADE_TIME))
+            .Append(_countdownText.transform.DOScale(SCALE_TEXT, FADE_TIME))
             .SetEase(Ease.OutCirc)
             .SetLoops(LOOPS);
 

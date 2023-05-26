@@ -4,8 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Player : MonoBehaviour, IRoadTarget, IGameFinishListener, IInitListener
 {
-    // [SerializeField] private LayerMask _player;
-    // [SerializeField] private LayerMask _road;
     [SerializeField] private AudioSource _startSound;
     [SerializeField] private AudioSource _loseSound;
     public Transform Transform => transform;
