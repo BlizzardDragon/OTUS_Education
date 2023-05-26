@@ -11,6 +11,7 @@ public class MoveComponent : MonoBehaviour, IGameUpdateListener, IGameStartListe
     private Vector3 _oldVelocity;
     private float _acceleration = 50;
     private float _time;
+    private float _timer;
     private const float COMPLEXITY = 0.1f;
 
 
@@ -34,7 +35,13 @@ public class MoveComponent : MonoBehaviour, IGameUpdateListener, IGameStartListe
     {
         _acceleration += deltaTime * COMPLEXITY;
         _time += deltaTime;
-        Debug.Log($"Acceleration = {_acceleration}, Time = {(int)_time}");
+
+        _timer += deltaTime;
+        if (_timer > 1)
+        {
+            _timer -= 1;
+            Debug.Log($"Acceleration = {_acceleration}, Time = {(int)_time}");
+        }
     }
 
     private void Move(Vector3 direction)
@@ -43,7 +50,7 @@ public class MoveComponent : MonoBehaviour, IGameUpdateListener, IGameStartListe
 
         Vector3 force = new Vector3(0, 0, direction.z) * _acceleration;
         _rigidbody.AddForce(force, ForceMode.Acceleration);
-        
+
         _playerRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
     }
 

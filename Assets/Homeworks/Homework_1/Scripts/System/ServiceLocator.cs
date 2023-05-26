@@ -54,4 +54,6 @@ public static class ServiceLocator
 
         _services.Add(newService);
     }
+
+    public static void ClearServices() => _services.Clear();
 }

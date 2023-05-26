@@ -29,7 +29,9 @@ public class Enemy : MonoBehaviour, IInitListener
         _rigidbody.MovePosition(_startPos + Vector3.up * 2);
 
         _startColor = _meshRenderer.material.color;
-        _meshRenderer.material.DOFade(0, 0);
+        Color newColor = _startColor;
+        newColor.a = 0;
+        _meshRenderer.material.color = newColor;
     }
 
     private void PlaySound()

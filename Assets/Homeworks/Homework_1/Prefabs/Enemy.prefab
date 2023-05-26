@@ -450,6 +450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _meshRenderer: {fileID: 4509070791805456437}
   _audioSource: {fileID: 862428076520816121}
+  _rigidbody: {fileID: 1526791247139489826}
 --- !u!54 &1526791247139489826
 Rigidbody:
   m_ObjectHideFlags: 0

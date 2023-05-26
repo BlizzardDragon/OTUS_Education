@@ -12,7 +12,7 @@ public sealed class BootstrapInstaller : MonoBehaviour
         InstallGameManager();
         ServiceLocator.GetService<IRoadTarget>().InstallTarget();
     }
-    
+
     private void OnEnable()
     {
         ServiceLocator.GetService<CountdownText>().OnGameStarted += ServiceLocator.GetService<GameManager>().StartGame;
@@ -25,6 +25,11 @@ public sealed class BootstrapInstaller : MonoBehaviour
         ServiceLocator.GetService<CountdownText>().OnGameStarted -= ServiceLocator.GetService<GameManager>().StartGame;
         ServiceLocator.GetService<CountdownText>().OnGameResumed -= ServiceLocator.GetService<GameManager>().ResumeGame;
         ServiceLocator.GetService<CollisionDetector>().OnEnemyCollision -= ServiceLocator.GetService<GameManager>().FinishGame;
+    }
+
+    private void OnDestroy()
+    {
+        ServiceLocator.ClearServices();
     }
 
     private void InstallServices() => GetComponent<ServiceLocatorInstaller>().InstallServices();
