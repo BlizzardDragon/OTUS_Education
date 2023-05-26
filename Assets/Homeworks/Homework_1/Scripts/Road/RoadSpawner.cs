@@ -5,7 +5,7 @@ using DG.Tweening;
 using System;
 
 
-public class RoadSpawner : MonoBehaviour, IGamePrepareListener, IGameUpdateListener, IInitListener
+public class RoadSpawner : MonoBehaviour, IGamePrepareListener, IGameUpdateListener, IService
 {
     [SerializeField] private Road _roadPrefab;
     private IRoadTarget _roadTarget;

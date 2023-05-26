@@ -5,7 +5,7 @@ using System;
 
 public static class ServiceLocator
 {
-    private static readonly List<object> _services = new List<object>();
+    private static readonly List<IService> _services = new List<IService>();
 
 
     public static T GetService<T>()
@@ -35,7 +35,7 @@ public static class ServiceLocator
         return result;
     }
 
-    public static void AddService(object newService)
+    public static void AddService(IService newService)
     {
         foreach (var service in _services)
         {

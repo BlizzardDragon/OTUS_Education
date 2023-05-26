@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour, IGameUpdateListener, IGameStartListener, IGameFinishListener, IInitListener
+public class EnemySpawner : MonoBehaviour, IGameUpdateListener, IGameStartListener, IGameFinishListener, IService
 {
     [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private Transform[] _jumpTargets;

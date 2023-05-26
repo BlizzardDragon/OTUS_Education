@@ -6,7 +6,7 @@ public class ServiceLocatorInstaller : MonoBehaviour
 {
     public void InstallServices()
     {
-        IInitListener[] initListeners = GetComponentsInChildren<IInitListener>();
+        IService[] initListeners = GetComponentsInChildren<IService>();
         foreach (var listener in initListeners)
         {
             ServiceLocator.AddService(listener);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Enemy : MonoBehaviour, IInitListener
+public class Enemy : MonoBehaviour, IService
 {
     [SerializeField] private MeshRenderer _meshRenderer;
     [SerializeField] private AudioSource _audioSource;

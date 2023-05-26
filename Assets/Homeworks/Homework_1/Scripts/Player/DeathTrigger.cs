@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class DeathTrigger : MonoBehaviour, IInitListener
+public class DeathTrigger : MonoBehaviour, IService
 {
     public event Action OnEnemyKilled;
 

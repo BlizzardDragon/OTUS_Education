@@ -2,7 +2,7 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(Rigidbody))]
-public class Player : MonoBehaviour, IRoadTarget, IGameFinishListener, IInitListener
+public class Player : MonoBehaviour, IRoadTarget, IGameFinishListener, IService
 {
     public Transform Transform => transform;
     [SerializeField] private AudioSource _startSound;

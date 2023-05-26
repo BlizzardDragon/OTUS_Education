@@ -6,7 +6,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using System;
 
-public class CountdownText : MonoBehaviour, IGamePrepareListener, IInitListener
+public class CountdownText : MonoBehaviour, IGamePrepareListener, IService
 {
     [SerializeField] private TextMeshProUGUI _countdownText;
     [SerializeField] private Image _background;

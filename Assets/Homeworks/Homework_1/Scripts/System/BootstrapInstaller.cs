@@ -15,16 +15,20 @@ public sealed class BootstrapInstaller : MonoBehaviour
 
     private void OnEnable()
     {
-        ServiceLocator.GetService<CountdownText>().OnGameStarted += ServiceLocator.GetService<GameManager>().StartGame;
-        ServiceLocator.GetService<CountdownText>().OnGameResumed += ServiceLocator.GetService<GameManager>().ResumeGame;
-        ServiceLocator.GetService<CollisionDetector>().OnEnemyCollision += ServiceLocator.GetService<GameManager>().FinishGame;
+        var gameManager = ServiceLocator.GetService<GameManager>();
+
+        ServiceLocator.GetService<CountdownText>().OnGameStarted += gameManager.StartGame;
+        ServiceLocator.GetService<CountdownText>().OnGameResumed += gameManager.ResumeGame;
+        ServiceLocator.GetService<CollisionDetector>().OnEnemyCollision += gameManager.FinishGame;
     }
 
     private void OnDisable()
     {
-        ServiceLocator.GetService<CountdownText>().OnGameStarted -= ServiceLocator.GetService<GameManager>().StartGame;
-        ServiceLocator.GetService<CountdownText>().OnGameResumed -= ServiceLocator.GetService<GameManager>().ResumeGame;
-        ServiceLocator.GetService<CollisionDetector>().OnEnemyCollision -= ServiceLocator.GetService<GameManager>().FinishGame;
+        var gameManager = ServiceLocator.GetService<GameManager>();
+
+        ServiceLocator.GetService<CountdownText>().OnGameStarted -= gameManager.StartGame;
+        ServiceLocator.GetService<CountdownText>().OnGameResumed -= gameManager.ResumeGame;
+        ServiceLocator.GetService<CollisionDetector>().OnEnemyCollision -= gameManager.FinishGame;
     }
 
     private void OnDestroy()

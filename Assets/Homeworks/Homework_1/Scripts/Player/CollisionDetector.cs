@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 
-public class CollisionDetector : MonoBehaviour, IInitListener
+public class CollisionDetector : MonoBehaviour, IService
 {
     public event Action OnEnemyCollision;
 

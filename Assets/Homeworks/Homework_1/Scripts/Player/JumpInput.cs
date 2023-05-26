@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 
-public class JumpInput : MonoBehaviour, IGameUpdateListener, IInitListener
+public class JumpInput : MonoBehaviour, IGameUpdateListener, IService
 {
     public event Action<int> OnMovedToSide;
 
