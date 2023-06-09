@@ -6,8 +6,5 @@ using UnityEngine;
 namespace Architecture.DI
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class InjectAttribute : Attribute
-    {
-
-    }
+    public class InjectAttribute : Attribute { }
 }

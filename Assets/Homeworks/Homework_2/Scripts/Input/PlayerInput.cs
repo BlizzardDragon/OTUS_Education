@@ -1,3 +1,4 @@
+using Architecture.DI;
 using UnityEngine;
 
 namespace ShootEmUp
@@ -9,7 +10,7 @@ namespace ShootEmUp
         private float _horizontalDirection;
 
 
-        // [InjectAttribute]
+        [Inject]
         public void Construct(MoveComponent moveComponent, CharacterController characterController)
         {
             _moveComponent = moveComponent;
