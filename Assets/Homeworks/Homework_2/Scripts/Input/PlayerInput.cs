@@ -1,5 +1,6 @@
-using Architecture.DI;
+using FrameworkUnity.Architecture.DI;
 using UnityEngine;
+
 
 namespace ShootEmUp
 {

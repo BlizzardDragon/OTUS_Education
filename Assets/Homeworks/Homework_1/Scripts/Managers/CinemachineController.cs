@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using FrameworkUnity.Interfaces.Listeners.GameListeners;
+
 
 public class CinemachineController : MonoBehaviour, IGamePauseListener, IGamePrepareListener, IGameResumeListener
 {

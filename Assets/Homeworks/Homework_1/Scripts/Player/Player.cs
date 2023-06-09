@@ -1,4 +1,6 @@
-using Architecture.Locators;
+using FrameworkUnity.Architecture.Locators;
+using FrameworkUnity.Interfaces.Listeners.GameListeners;
+using FrameworkUnity.Interfaces.Services;
 using UnityEngine;
 
 

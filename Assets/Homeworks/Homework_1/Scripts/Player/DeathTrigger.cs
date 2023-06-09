@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using FrameworkUnity.Interfaces.Services;
+
 
 public class DeathTrigger : MonoBehaviour, IService
 {

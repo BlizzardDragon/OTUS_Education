@@ -1,8 +1,9 @@
 using System;
 using System.Reflection;
-using Architecture.Locators;
+using FrameworkUnity.Architecture.Locators;
 
-namespace Architecture.DI
+
+namespace FrameworkUnity.Architecture.DI
 {
     public static class DependencyInjector
     {

@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using Architecture.Locators;
+using FrameworkUnity.Architecture.Locators;
+using FrameworkUnity.Interfaces.Listeners.GameListeners;
+
 
 [RequireComponent(typeof(Rigidbody))]
 public class JumpComponent : MonoBehaviour, IGameStartListener, IGameResumeListener, IGamePauseListener, IGameFinishListener

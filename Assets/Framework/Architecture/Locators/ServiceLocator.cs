@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using FrameworkUnity.Interfaces.Services;
 
 
-namespace Architecture.Locators
+namespace FrameworkUnity.Architecture.Locators
 {
     public static class ServiceLocator
     {

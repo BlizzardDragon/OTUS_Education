@@ -1,7 +1,8 @@
+using FrameworkUnity.Interfaces.Services;
 using UnityEngine;
 
 
-namespace Architecture.Locators
+namespace FrameworkUnity.Architecture.Locators
 {
     public class ServiceLocatorInstaller : MonoBehaviour
     {

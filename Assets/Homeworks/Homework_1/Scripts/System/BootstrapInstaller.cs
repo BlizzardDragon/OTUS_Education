@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Architecture.Locators;
+using FrameworkUnity.Architecture.Locators;
+using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using UnityEngine;
 
 

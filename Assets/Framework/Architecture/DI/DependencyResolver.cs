@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Architecture.DI
+namespace FrameworkUnity.Architecture.DI
 {
     public class DependencyResolver : MonoBehaviour
     {
