@@ -12,6 +12,22 @@ namespace FrameworkUnity.Architecture.Locators
         private static readonly List<IService> _services = new List<IService>();
 
 
+        public static object GetService(Type serviceType)
+        {
+            foreach (var service in _services)
+            {
+                Debug.Log($"service = {service.GetType().Name}");
+                Debug.Log($"serviceType = {serviceType.Name}");
+
+                if (serviceType.IsInstanceOfType(service))
+                {
+                    return service;
+                }
+            }
+
+            throw new System.Exception($"Service of type {serviceType.Name} is not found!");
+        }
+
         public static T GetService<T>()
         {
             foreach (var service in _services)
@@ -23,19 +39,6 @@ namespace FrameworkUnity.Architecture.Locators
             }
 
             throw new System.Exception($"Service of type {typeof(T).Name} is not found!");
-        }
-
-        public static object GetService(Type serviceType)
-        {
-            foreach (var service in _services)
-            {
-                if (serviceType.IsInstanceOfType(service))
-                {
-                    return service;
-                }
-            }
-
-            throw new System.Exception($"Service of type {serviceType.Name} is not found!");
         }
 
         public static List<T> GetServices<T>()
@@ -58,13 +61,13 @@ namespace FrameworkUnity.Architecture.Locators
             {
                 if (service == newService)
                 {
-                    throw new System.Exception($"Service object of type {service.GetType().Name} is already in the list!");
+                    throw new System.Exception($"Service object of type {newService.GetType().Name} is already in the list!");
                 }
                 else
                 {
                     if (service.GetType() == newService.GetType())
                     {
-                        Debug.LogWarning($"Service of type {service.GetType().Name} is already in the list!");
+                        Debug.LogWarning($"Service of type {newService.GetType().Name} is already in the list!");
                     }
                 }
             }

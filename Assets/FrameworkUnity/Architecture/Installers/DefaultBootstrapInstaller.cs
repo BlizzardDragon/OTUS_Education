@@ -12,9 +12,11 @@ namespace FrameworkUnity.Architecture.Installers
         protected virtual void Awake()
         {
             InstallServices();
-            ResolveDependencies();
             InstallGameManager();
+            ResolveDependencies();
         }
+
+        protected virtual void Start() { }
 
         protected virtual void OnEnable()
         {

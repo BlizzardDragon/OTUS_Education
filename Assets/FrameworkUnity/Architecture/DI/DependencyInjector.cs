@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 using FrameworkUnity.Architecture.Locators;
-
+using UnityEngine;
 
 namespace FrameworkUnity.Architecture.DI
 {

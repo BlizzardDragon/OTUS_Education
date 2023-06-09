@@ -1,8 +1,9 @@
 using UnityEngine;
+using FrameworkUnity.Interfaces.Services;
 
 namespace ShootEmUp
 {
-    public sealed class CharacterController : MonoBehaviour
+    public sealed class CharacterController : MonoBehaviour, IService
     {
         [SerializeField] private GameObject character; 
         [SerializeField] private GameManager gameManager;

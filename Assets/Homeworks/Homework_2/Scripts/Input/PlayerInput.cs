@@ -1,13 +1,14 @@
 using FrameworkUnity.Architecture.DI;
+using FrameworkUnity.Interfaces.Services;
 using UnityEngine;
 
 
 namespace ShootEmUp
 {
-    public sealed class PlayerInput : MonoBehaviour
+    public sealed class PlayerInput : MonoBehaviour, IService
     {
-        [SerializeField] private MoveComponent _moveComponent;
-        [SerializeField] private CharacterController _characterController;
+        private MoveComponent _moveComponent;
+        private CharacterController _characterController;
         private float _horizontalDirection;
 
 
