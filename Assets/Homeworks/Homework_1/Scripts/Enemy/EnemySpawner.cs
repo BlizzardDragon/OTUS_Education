@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Architecture.Locators;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour, IGameUpdateListener, IGameStartListener, IGameFinishListener, IService

@@ -9,6 +9,13 @@ namespace ShootEmUp
         private float _horizontalDirection;
 
 
+        // [InjectAttribute]
+        public void Construct(MoveComponent moveComponent, CharacterController characterController)
+        {
+            _moveComponent = moveComponent;
+            _characterController = characterController;
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
