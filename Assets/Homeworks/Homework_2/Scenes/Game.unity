@@ -458,8 +458,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 736415389}
+  - component: {fileID: 736415390}
+  - component: {fileID: 736415391}
   m_Layer: 0
-  m_Name: '[INSTALL_SYSTEM]'
+  m_Name: '[DI_SYSTEM]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -485,6 +487,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &736415390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736415388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2771c70ca5a2f409963f66eebfb69b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &736415391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736415388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fab1f7c70f026d44802b0201894f5c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &883274639
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,6 +1311,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3951702117947426122}
   - component: {fileID: 3951702117947426123}
+  - component: {fileID: 3951702117947426124}
   m_Layer: 0
   m_Name: '[GAME_SYSTEM]'
   m_TagString: Untagged
@@ -1321,6 +1348,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 697fe7ba192e484db495320b9c01bcd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3951702117947426124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3951702117947426121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bcc3ea65da5fef4db955596f206344e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &4162873433806880330

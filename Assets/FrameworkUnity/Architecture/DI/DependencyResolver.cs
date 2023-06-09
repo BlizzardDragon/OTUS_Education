@@ -5,12 +5,9 @@ namespace FrameworkUnity.Architecture.DI
 {
     public class DependencyResolver : MonoBehaviour
     {
-        private void Start()
-        {
-            ResolveDependencies(transform);
-        }
+        public void ResolveDependencies() => Resolve(transform);
 
-        private void ResolveDependencies(Transform node)
+        private void Resolve(Transform node)
         {
             var behaviours = node.GetComponents<MonoBehaviour>();
 
@@ -21,7 +18,7 @@ namespace FrameworkUnity.Architecture.DI
 
             foreach (Transform child in node)
             {
-                ResolveDependencies(child);
+                Resolve(child);
             }
         }
     }
