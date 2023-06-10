@@ -33,7 +33,7 @@ namespace FrameworkUnity.Architecture.DI
             for (int i = 0; i < parameterInfos.Length; i++)
             {
                 ParameterInfo parameterInfo = parameterInfos[i];
-                Type type = parameterInfo.GetType();
+                Type type = parameterInfo.ParameterType;
                 object arg = ServiceLocator.GetService(type);
                 args[i] = arg;
             }
