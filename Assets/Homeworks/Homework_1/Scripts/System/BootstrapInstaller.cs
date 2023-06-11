@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using FrameworkUnity.Architecture;
+using FrameworkUnity.Architecture.GameManagers;
 using FrameworkUnity.Architecture.Locators;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using UnityEngine;
@@ -20,7 +20,7 @@ namespace Homework_1
 
         private void OnEnable()
         {
-            var gameManager = ServiceLocator.GetService<DefaultGameManager>();
+            var gameManager = ServiceLocator.GetService<BaseGameManager>();
 
             ServiceLocator.GetService<CountdownText>().OnGameStarted += gameManager.StartGame;
             ServiceLocator.GetService<CountdownText>().OnGameResumed += gameManager.ResumeGame;
@@ -29,7 +29,7 @@ namespace Homework_1
 
         private void OnDisable()
         {
-            var gameManager = ServiceLocator.GetService<DefaultGameManager>();
+            var gameManager = ServiceLocator.GetService<BaseGameManager>();
 
             ServiceLocator.GetService<CountdownText>().OnGameStarted -= gameManager.StartGame;
             ServiceLocator.GetService<CountdownText>().OnGameResumed -= gameManager.ResumeGame;
@@ -48,7 +48,7 @@ namespace Homework_1
             IGameListener[] listeners = GetComponentsInChildren<IGameListener>();
             foreach (var listener in listeners)
             {
-                ServiceLocator.GetService<DefaultGameManager>().AddListener(listener);
+                ServiceLocator.GetService<BaseGameManager>().AddListener(listener);
             }
         }
     }

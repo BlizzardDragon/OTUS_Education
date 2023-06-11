@@ -1,9 +1,9 @@
 using UnityEngine;
-using FrameworkUnity.Architecture;
+using FrameworkUnity.Architecture.GameManagers;
 
 namespace ShootEmUp
 {
-    public sealed class GameManager : DefaultGameManager
+    public sealed class GameManager : BaseGameManager
     {
         public override void FinishGame()
         {

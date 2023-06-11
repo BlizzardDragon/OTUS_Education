@@ -1,4 +1,5 @@
 using FrameworkUnity.Architecture.DI;
+using FrameworkUnity.Architecture.GameManagers;
 using FrameworkUnity.Architecture.Locators;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using UnityEngine;
@@ -20,12 +21,12 @@ namespace FrameworkUnity.Architecture.Installers
 
         protected virtual void OnEnable()
         {
-            var gameManager = ServiceLocator.GetService<DefaultGameManager>();
+            var gameManager = ServiceLocator.GetService<BaseGameManager>();
         }
 
         protected virtual void OnDisable()
         {
-            var gameManager = ServiceLocator.GetService<DefaultGameManager>();
+            var gameManager = ServiceLocator.GetService<BaseGameManager>();
         }
 
         protected virtual void OnDestroy()
@@ -43,7 +44,7 @@ namespace FrameworkUnity.Architecture.Installers
             IGameListener[] listeners = GetComponentsInChildren<IGameListener>();
             foreach (var listener in listeners)
             {
-                ServiceLocator.GetService<DefaultGameManager>().AddListener(listener);
+                ServiceLocator.GetService<BaseGameManager>().AddListener(listener);
             }
         }
     }

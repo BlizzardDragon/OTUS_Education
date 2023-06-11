@@ -4,7 +4,7 @@ using FrameworkUnity.Interfaces.Services;
 using UnityEngine;
 
 
-namespace FrameworkUnity.Architecture
+namespace FrameworkUnity.Architecture.GameManagers
 {
     public enum GameState
     {
@@ -15,7 +15,7 @@ namespace FrameworkUnity.Architecture
         Finished = 4
     }
 
-    public class DefaultGameManager : MonoBehaviour, IService
+    public class BaseGameManager : MonoBehaviour, IService
     {
         public GameState State { get; private set; }
         protected readonly List<IGameListener> _listeners = new();
