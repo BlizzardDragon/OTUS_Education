@@ -8,44 +8,37 @@ using UnityEngine;
 namespace FrameworkUnity.Architecture.Installers
 {
     [RequireComponent(typeof(ServiceLocatorInstaller), typeof(DependencyResolver))]
-    public class DefaultBootstrapInstaller : MonoBehaviour
+    public class BaseBootstrapInstaller : MonoBehaviour
     {
+        protected BaseGameManager _gameManager;
+
+
         protected virtual void Awake()
         {
             InstallServices();
+            SetGameManager();
             InstallGameManager();
             ResolveDependencies();
         }
 
         protected virtual void Start() { }
-
-        protected virtual void OnEnable()
-        {
-            var gameManager = ServiceLocator.GetService<BaseGameManager>();
-        }
-
-        protected virtual void OnDisable()
-        {
-            var gameManager = ServiceLocator.GetService<BaseGameManager>();
-        }
-
-        protected virtual void OnDestroy()
-        {
-            ServiceLocator.ClearServices();
-        }
-
+        protected virtual void OnEnable() { }
+        protected virtual void OnDisable() { }
+        protected virtual void OnDestroy() => ServiceLocator.ClearServices();
 
 
         private void InstallServices() => GetComponent<ServiceLocatorInstaller>().InstallServices();
-        private void ResolveDependencies() => GetComponent<DependencyResolver>().ResolveDependencies();
+        private void SetGameManager() => _gameManager = ServiceLocator.GetService<BaseGameManager>();
 
         private void InstallGameManager()
         {
             IGameListener[] listeners = GetComponentsInChildren<IGameListener>();
             foreach (var listener in listeners)
             {
-                ServiceLocator.GetService<BaseGameManager>().AddListener(listener);
+                _gameManager.AddListener(listener);
             }
         }
+
+        private void ResolveDependencies() => GetComponent<DependencyResolver>().ResolveDependencies();
     }
 }

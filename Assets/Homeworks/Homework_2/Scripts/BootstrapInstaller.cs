@@ -1,7 +1,14 @@
 using FrameworkUnity.Architecture.Installers;
 
 
-public class BootstrapInstaller : DefaultBootstrapInstaller
+namespace ShootEmUp
 {
-
+    public class BootstrapInstaller : BaseBootstrapInstaller
+    {
+        protected override void Start()
+        {
+            base.Start();
+            _gameManager.StartGame();
+        }
+    }
 }
