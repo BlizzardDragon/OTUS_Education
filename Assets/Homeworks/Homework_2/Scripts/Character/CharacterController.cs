@@ -1,30 +1,33 @@
 using UnityEngine;
 using FrameworkUnity.Interfaces.Services;
+using FrameworkUnity.Interfaces.Listeners.GameListeners;
+using FrameworkUnity.Architecture.DI;
 
 namespace ShootEmUp
 {
-    public sealed class CharacterController : MonoBehaviour, IService
+    public sealed class CharacterController : MonoBehaviour, IService, IGameFixedUpdateListener
     {
-        [SerializeField] private GameObject character;
-        [SerializeField] private GameManager gameManager;
-        [SerializeField] private BulletSystem _bulletSystem;
-        [SerializeField] private BulletConfig _bulletConfig;
+        private Character _character;
+        private GameManager _gameManager;
+        private BulletSystem _bulletSystem;
         private bool _fireRequired;
 
 
-        private void OnEnable()
+        [Inject]
+        public void Construct(Character character, GameManager gameManager, BulletSystem bulletSystem)
         {
-            character.GetComponent<HitPointsComponent>().hpEmpty += OnCharacterDeath;
+            _character = character;
+            _gameManager = gameManager;
+            _bulletSystem = bulletSystem;
         }
 
-        private void OnDisable()
-        {
-            character.GetComponent<HitPointsComponent>().hpEmpty -= OnCharacterDeath;
-        }
+        private void OnEnable() => _character.HitPointsComponent.OnEmptyHP += OnCharacterDeath;
+        private void OnDisable() => _character.HitPointsComponent.OnEmptyHP -= OnCharacterDeath;
 
-        private void OnCharacterDeath(GameObject _) => gameManager.FinishGame();
+        public void SetFireRequired(bool value) => _fireRequired = value;
+        private void OnCharacterDeath(GameObject _) => _gameManager.FinishGame();
 
-        private void FixedUpdate()
+        public void OnFixedUpdate(float fixedDeltaTime)
         {
             if (_fireRequired)
             {
@@ -33,19 +36,19 @@ namespace ShootEmUp
             }
         }
 
-        public void SetFireRequired(bool value) => _fireRequired = value;
-
         private void OnFlyBullet()
         {
-            var weapon = character.GetComponent<WeaponComponent>();
+            var weapon = _character.WeaponComponent;
+            var bulletConfig = _character.BulletConfig;
+            
             _bulletSystem.FlyBulletByArgs(new BulletSystem.Args
             {
                 isPlayer = true,
-                physicsLayer = (int)_bulletConfig.physicsLayer,
-                color = _bulletConfig.color,
-                damage = _bulletConfig.damage,
+                physicsLayer = (int)bulletConfig.physicsLayer,
+                color = bulletConfig.color,
+                damage = bulletConfig.damage,
                 position = weapon.Position,
-                velocity = weapon.Rotation * Vector3.up * _bulletConfig.speed
+                velocity = weapon.Rotation * Vector3.up * bulletConfig.speed
             });
         }
     }
