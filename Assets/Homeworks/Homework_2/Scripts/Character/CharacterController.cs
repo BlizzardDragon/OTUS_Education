@@ -3,6 +3,7 @@ using FrameworkUnity.Interfaces.Services;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using FrameworkUnity.Architecture.DI;
 
+// Готово.
 namespace ShootEmUp
 {
     public sealed class CharacterController : MonoBehaviour, IService, IGameFixedUpdateListener
@@ -38,17 +39,17 @@ namespace ShootEmUp
 
         private void OnFlyBullet()
         {
-            var weapon = _character.WeaponComponent;
-            var bulletConfig = _character.BulletConfig;
+            WeaponComponent weapon = _character.WeaponComponent;
+            BulletConfig bulletConfig = _character.BulletConfig;
             
-            _bulletSystem.FlyBulletByArgs(new BulletSystem.Args
+            _bulletSystem.FlyBulletByArgs(new Bullet.Args
             {
-                isPlayer = true,
-                physicsLayer = (int)bulletConfig.physicsLayer,
-                color = bulletConfig.color,
-                damage = bulletConfig.damage,
-                position = weapon.Position,
-                velocity = weapon.Rotation * Vector3.up * bulletConfig.speed
+                IsPlayer = true,
+                PhysicsLayer = (int)bulletConfig.PhysicsLayer,
+                Color = bulletConfig.Color,
+                Damage = bulletConfig.Damage,
+                Position = weapon.Position,
+                Velocity = weapon.Rotation * Vector3.up * bulletConfig.Speed
             });
         }
     }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using FrameworkUnity.Interfaces.Services;
 
-
+// Готово.
 namespace ShootEmUp
 {
     [RequireComponent(typeof(HitPointsComponent), typeof(WeaponComponent), typeof(TeamComponent))]

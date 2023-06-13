@@ -1,44 +1,41 @@
 using System;
 using UnityEngine;
 
+// Готово.
 namespace ShootEmUp
 {
+    [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
     public sealed class Bullet : MonoBehaviour
     {
+        public bool IsPlayer { get; set; }
+        public int Damage { get; set; }
+
+        private Rigidbody2D _rigidbody2D;
+        private SpriteRenderer _spriteRenderer;
+
         public event Action<Bullet, Collision2D> OnCollisionEntered;
 
-        [NonSerialized] public bool isPlayer;
-        [NonSerialized] public int damage;
 
-        [SerializeField]
-        private new Rigidbody2D rigidbody2D;
-
-        [SerializeField]
-        private SpriteRenderer spriteRenderer;
-
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void Awake()
         {
-            this.OnCollisionEntered?.Invoke(this, collision);
+            _rigidbody2D = GetComponent<Rigidbody2D>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        public void SetVelocity(Vector2 velocity)
-        {
-            this.rigidbody2D.velocity = velocity;
-        }
+        private void OnCollisionEnter2D(Collision2D collision) => OnCollisionEntered?.Invoke(this, collision);
+        public void SetVelocity(Vector2 velocity) => _rigidbody2D.velocity = velocity;
+        public void SetPhysicsLayer(int physicsLayer) => gameObject.layer = physicsLayer;
+        public void SetPosition(Vector3 position) => transform.position = position;
+        public void SetColor(Color color) => _spriteRenderer.color = color;
 
-        public void SetPhysicsLayer(int physicsLayer)
+        public struct Args
         {
-            this.gameObject.layer = physicsLayer;
-        }
-
-        public void SetPosition(Vector3 position)
-        {
-            this.transform.position = position;
-        }
-
-        public void SetColor(Color color)
-        {
-            this.spriteRenderer.color = color;
+            public Vector2 Position;
+            public Vector2 Velocity;
+            public Color Color;
+            public int PhysicsLayer;
+            public int Damage;
+            public bool IsPlayer;
         }
     }
 }

@@ -3,7 +3,7 @@ using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using FrameworkUnity.Interfaces.Services;
 using FrameworkUnity.Architecture.DI;
 
-
+// Готово.
 namespace ShootEmUp
 {
     public sealed class InputController : MonoBehaviour,

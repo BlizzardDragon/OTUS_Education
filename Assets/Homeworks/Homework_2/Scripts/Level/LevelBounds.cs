@@ -1,8 +1,9 @@
 using UnityEngine;
+using FrameworkUnity.Interfaces.Services;
 
 namespace ShootEmUp
 {
-    public sealed class LevelBounds : MonoBehaviour
+    public sealed class LevelBounds : MonoBehaviour, IService
     {
         [SerializeField]
         private Transform leftBorder;
@@ -15,15 +16,15 @@ namespace ShootEmUp
 
         [SerializeField]
         private Transform topBorder;
-        
+
         public bool InBounds(Vector3 position)
         {
             var positionX = position.x;
             var positionY = position.y;
-            return positionX > this.leftBorder.position.x
-                   && positionX < this.rightBorder.position.x
-                   && positionY > this.downBorder.position.y
-                   && positionY < this.topBorder.position.y;
+            return positionX > leftBorder.position.x
+                && positionX < rightBorder.position.x
+                && positionY > downBorder.position.y
+                && positionY < topBorder.position.y;
         }
     }
 }
