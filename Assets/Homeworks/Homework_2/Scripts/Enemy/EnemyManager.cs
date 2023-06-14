@@ -1,34 +1,37 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Interfaces.Services;
 
-
 namespace ShootEmUp
 {
     public sealed class EnemyManager : MonoBehaviour, IService
     {
-        [SerializeField]
-        private EnemyPool _enemyPool;
-
-        [SerializeField]
-        private BulletSystem _bulletSystem;
-        
         private readonly HashSet<GameObject> m_activeEnemies = new();
+
+        public event Action OnEnemySpawned;
+        public event Action<GameObject> OnEnemyDestroyed;
+        public event Action<Bullet.Args> OnFired;
+
 
         private IEnumerator Start()
         {
             while (true)
             {
                 yield return new WaitForSeconds(1);
-                var enemy = _enemyPool.SpawnEnemy();
-                if (enemy != null)
+                OnEnemySpawned?.Invoke();
+            }
+        }
+
+        public void TrySpawnEnemy(GameObject enemy)
+        {
+            if (enemy != null)
+            {
+                if (m_activeEnemies.Add(enemy))
                 {
-                    if (m_activeEnemies.Add(enemy))
-                    {
-                        enemy.GetComponent<HitPointsComponent>().OnEmptyHP += OnDestroyed;
-                        enemy.GetComponent<EnemyAttackAgent>().OnFire += OnFire;
-                    }    
+                    enemy.GetComponent<HitPointsComponent>().OnEmptyHP += OnDestroyed;
+                    enemy.GetComponent<EnemyAttackAgent>().OnFire += OnFire;
                 }
             }
         }
@@ -40,16 +43,16 @@ namespace ShootEmUp
                 enemy.GetComponent<HitPointsComponent>().OnEmptyHP -= OnDestroyed;
                 enemy.GetComponent<EnemyAttackAgent>().OnFire -= OnFire;
 
-                _enemyPool.UnspawnEnemy(enemy);
+                OnEnemyDestroyed?.Invoke(enemy);
             }
         }
 
         private void OnFire(GameObject enemy, Vector2 position, Vector2 direction)
         {
-            _bulletSystem.FlyBulletByArgs(new Bullet.Args
+            OnFired?.Invoke(new Bullet.Args
             {
                 IsPlayer = false,
-                PhysicsLayer = (int) PhysicsLayer.ENEMY,
+                PhysicsLayer = (int)PhysicsLayer.ENEMY,
                 Color = Color.red,
                 Damage = 1,
                 Position = position,

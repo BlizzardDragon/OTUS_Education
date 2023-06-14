@@ -9,9 +9,8 @@ namespace ShootEmUp
     public sealed class EnemyPool : MonoBehaviour, IService
     {
         [Header("Spawn")]
-        [SerializeField] private EnemyPositions enemyPositions;
-        [SerializeField] private GameObject character;
         [SerializeField] private Transform worldTransform;
+        [SerializeField] private GameObject character;
 
         [Header("Pool")]
         [SerializeField] private Transform container;
@@ -20,13 +19,14 @@ namespace ShootEmUp
         private readonly Queue<GameObject> enemyPool = new();
         private const int ENEMY_COUNT = 7;
 
+        public event Action OnUnspawnEnemy;
 
-        private void Awake()
+
+        public void InstallPool(int positionCount)
         {
-            int positionCount = enemyPositions.AttackPositionsCount;
             if (positionCount < ENEMY_COUNT)
             {
-                throw new ArgumentOutOfRangeException(nameof(positionCount), 
+                throw new ArgumentOutOfRangeException(nameof(positionCount),
                     "The number of enemies exceeds the number of attack points");
             }
 
@@ -37,7 +37,7 @@ namespace ShootEmUp
             }
         }
 
-        public GameObject SpawnEnemy()
+        public GameObject SpawnEnemy(Vector3 spawnPositon, Vector3 attackPositon)
         {
             if (!enemyPool.TryDequeue(out var enemy))
             {
@@ -45,14 +45,10 @@ namespace ShootEmUp
             }
 
             enemy.transform.SetParent(worldTransform);
-
-            var spawnPosition = enemyPositions.RandomSpawnPosition();
-            enemy.transform.position = spawnPosition.position;
-
-            var attackPosition = enemyPositions.GetRandomAttackPosition();
-            enemy.GetComponent<EnemyMoveAgent>().SetDestination(attackPosition.position);
-
+            enemy.transform.position = spawnPositon;
+            enemy.GetComponent<EnemyMoveAgent>().SetDestination(attackPositon);
             enemy.GetComponent<EnemyAttackAgent>().SetTarget(character);
+
             return enemy;
         }
 
@@ -60,7 +56,7 @@ namespace ShootEmUp
         {
             enemy.transform.SetParent(container);
             enemyPool.Enqueue(enemy);
-            enemyPositions.RestoreAttackPosition();
+            OnUnspawnEnemy?.Invoke();
         }
     }
 }

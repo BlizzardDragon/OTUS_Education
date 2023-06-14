@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using UnityEngine;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using FrameworkUnity.Interfaces.Services;
-using UnityEngine;
+using FrameworkUnity.Interfaces.Installed;
 
 
 namespace FrameworkUnity.Architecture.GameManagers
@@ -15,7 +16,7 @@ namespace FrameworkUnity.Architecture.GameManagers
         Finished = 4
     }
 
-    public class BaseGameManager : MonoBehaviour, IService
+    public class BaseGameManager : MonoBehaviour, IService, IInstallableOnAwake
     {
         public GameState State { get; private set; }
         protected readonly List<IGameListener> _listeners = new();
@@ -25,7 +26,7 @@ namespace FrameworkUnity.Architecture.GameManagers
         protected float _fixedDeltaTime;
 
 
-        private void Awake() => _fixedDeltaTime = Time.fixedDeltaTime;
+        public void InstallOnAwake() => _fixedDeltaTime = Time.fixedDeltaTime;
 
         protected virtual void Update()
         {

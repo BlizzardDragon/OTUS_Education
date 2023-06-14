@@ -1,12 +1,20 @@
 namespace FrameworkUnity.Interfaces.Installed
 {
-    public interface IInstallable
+    public interface IInstallable { }
+    public interface IInstallableOnAwake : IInstallable
     {
-        void Install();
+        void InstallOnAwake();
     }
-
-    public interface IInstallableOnAwake : IInstallable { }
-    public interface IInstallableOnStart : IInstallable { }
-    public interface IInstallableOnEnable : IInstallable { }
-    public interface IInstallableOnDisable : IInstallable { }
+    public interface IInstallableOnStart : IInstallable
+    {
+        void InstallOnStart();
+    }
+    public interface IInstallableOnEnable : IInstallable
+    {
+        void InstallOnEnable();
+    }
+    public interface IInstallableOnDisable : IInstallable
+    {
+        void InstallOnDisable();
+    }
 }
