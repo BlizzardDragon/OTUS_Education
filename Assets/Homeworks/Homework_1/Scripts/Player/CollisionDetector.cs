@@ -5,16 +5,19 @@ using System;
 using FrameworkUnity.Interfaces.Services;
 
 
-public class CollisionDetector : MonoBehaviour, IService
+namespace Homework_1
 {
-    public event Action OnEnemyCollision;
-
-
-    private void OnCollisionEnter(Collision other)
+    public class CollisionDetector : MonoBehaviour, IService
     {
-        if (other.collider.GetComponent<EnemyCollider>())
+        public event Action OnEnemyCollision;
+
+
+        private void OnCollisionEnter(Collision other)
         {
-            OnEnemyCollision?.Invoke();
+            if (other.collider.GetComponent<EnemyCollider>())
+            {
+                OnEnemyCollision?.Invoke();
+            }
         }
     }
 }

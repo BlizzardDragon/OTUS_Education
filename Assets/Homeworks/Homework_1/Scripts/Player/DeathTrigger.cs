@@ -5,16 +5,19 @@ using System;
 using FrameworkUnity.Interfaces.Services;
 
 
-public class DeathTrigger : MonoBehaviour, IService
+namespace Homework_1
 {
-    public event Action OnEnemyKilled;
-
-
-    private void OnTriggerEnter(Collider other)
+    public class DeathTrigger : MonoBehaviour, IService
     {
-        if (other.GetComponent<EnemyCollider>())
+        public event Action OnEnemyKilled;
+
+
+        private void OnTriggerEnter(Collider other)
         {
-            OnEnemyKilled?.Invoke();
+            if (other.GetComponent<EnemyCollider>())
+            {
+                OnEnemyKilled?.Invoke();
+            }
         }
     }
 }

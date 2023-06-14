@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCollider : MonoBehaviour
+
+namespace Homework_1
 {
-    [SerializeField] private Enemy _enemy;
-
-
-    private void OnTriggerEnter(Collider other)
+    public class EnemyCollider : MonoBehaviour
     {
-        if (other.GetComponent<DeathTrigger>())
+        [SerializeField] private Enemy _enemy;
+
+
+        private void OnTriggerEnter(Collider other)
         {
-            Destroy(_enemy.gameObject);
+            if (other.GetComponent<DeathTrigger>())
+            {
+                Destroy(_enemy.gameObject);
+            }
         }
     }
 }

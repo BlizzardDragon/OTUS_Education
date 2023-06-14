@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using FrameworkUnity.Interfaces.Services;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class EnemyPositions : MonoBehaviour
+    public sealed class EnemyPositions : MonoBehaviour, IService
     {
         [SerializeField] private Transform[] _spawnPositions;
         [SerializeField] private Transform[] _attackPositions;

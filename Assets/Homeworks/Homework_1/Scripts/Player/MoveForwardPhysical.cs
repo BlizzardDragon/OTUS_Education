@@ -6,14 +6,17 @@ using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using FrameworkUnity.Interfaces.Services;
 
 
-public class MoveForwardPhysical : MonoBehaviour, IGameFixedUpdateListener, IService
+namespace Homework_1
 {
-    public event Action<Vector3> OnMove;
-
-
-    void IGameFixedUpdateListener.OnFixedUpdate(float fixedDeltaTime)
+    public class MoveForwardPhysical : MonoBehaviour, IGameFixedUpdateListener, IService
     {
-        var direction = Vector3.forward * fixedDeltaTime; 
-        OnMove?.Invoke(direction);
+        public event Action<Vector3> OnMove;
+
+
+        void IGameFixedUpdateListener.OnFixedUpdate(float fixedDeltaTime)
+        {
+            var direction = Vector3.forward * fixedDeltaTime;
+            OnMove?.Invoke(direction);
+        }
     }
 }

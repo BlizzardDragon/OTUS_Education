@@ -1,7 +1,11 @@
 using UnityEngine;
 
-public interface IRoadTarget
+
+namespace Homework_1
 {
-    Transform Transform { get; }
-    void InstallTarget();
+    public interface IRoadTarget
+    {
+        Transform Transform { get; }
+        void InstallTarget();
+    }
 }

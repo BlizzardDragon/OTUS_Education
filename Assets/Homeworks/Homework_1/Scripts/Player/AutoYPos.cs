@@ -1,10 +1,14 @@
 using UnityEngine;
 
-public class AutoYPos : MonoBehaviour
+
+namespace Homework_1
 {
-    private void Awake()
+    public class AutoYPos : MonoBehaviour
     {
-        Vector3 newPosition = new Vector3(transform.position.x, transform.localScale.x / 2, transform.position.z);
-        transform.position = newPosition;
+        private void Awake()
+        {
+            Vector3 newPosition = new Vector3(transform.position.x, transform.localScale.x / 2, transform.position.z);
+            transform.position = newPosition;
+        }
     }
 }

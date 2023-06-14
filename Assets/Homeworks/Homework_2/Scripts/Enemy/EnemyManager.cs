@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FrameworkUnity.Interfaces.Services;
+
 
 namespace ShootEmUp
 {
-    public sealed class EnemyManager : MonoBehaviour
+    public sealed class EnemyManager : MonoBehaviour, IService
     {
         [SerializeField]
         private EnemyPool _enemyPool;
