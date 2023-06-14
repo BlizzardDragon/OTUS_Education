@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37bd15923a144ffbab0333dc6e74e641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialCount: 50
+  _initialCount: 50
   _container: {fileID: 1831741369}
   _worldTransform: {fileID: 1683128698}
   _prefab: {fileID: 201757604187811891, guid: 5fe72886874b4e445b06cf777ca4920d, type: 3}
@@ -394,6 +394,7 @@ GameObject:
   - component: {fileID: 562298204}
   - component: {fileID: 562298207}
   - component: {fileID: 562298205}
+  - component: {fileID: 562298208}
   m_Layer: 0
   m_Name: EnemySystem
   m_TagString: Untagged
@@ -448,6 +449,18 @@ MonoBehaviour:
   worldTransform: {fileID: 1683128698}
   container: {fileID: 178513672}
   prefab: {fileID: 559606060570185700, guid: 87fe189881a524806800482ac8eaaa83, type: 3}
+--- !u!114 &562298208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562298203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 304b4e3ee96416b488e79806b0ec6b0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &736415388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1694,14 +1707,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94380673bed40d7aff42c7cee30b556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPositions:
+  _spawnPositions:
   - {fileID: 5098186055898699330}
   - {fileID: 3822857799868723767}
   - {fileID: 6359635304368030436}
   - {fileID: 2272249728968689581}
   - {fileID: 5689270860486713316}
   - {fileID: 106235378999874491}
-  attackPositions:
+  _attackPositions:
   - {fileID: 8569045085939387605}
   - {fileID: 9088267052445128325}
   - {fileID: 713232402740842374}
