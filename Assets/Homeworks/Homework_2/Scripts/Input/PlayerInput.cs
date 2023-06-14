@@ -9,14 +9,14 @@ namespace ShootEmUp
     public sealed class PlayerInput : MonoBehaviour, IService, IGameUpdateListener
     {
         public event Action<int> OnUpdateDirection;
-        public event Action<bool> OnUpdateSpace;
+        public event Action<bool> OnSpacePushed;
 
 
         void IGameUpdateListener.OnUpdate(float deltaTime)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                OnUpdateSpace?.Invoke(true);
+                OnSpacePushed?.Invoke(true);
             }
 
             if (Input.GetKey(KeyCode.LeftArrow))

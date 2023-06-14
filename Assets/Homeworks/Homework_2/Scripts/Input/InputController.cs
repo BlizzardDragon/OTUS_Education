@@ -14,29 +14,18 @@ namespace ShootEmUp
     {
         private PlayerInput _playerInput;
         private MoveComponent _moveComponent;
-        private CharacterController _characterController;
         private int _horizontalDirection;
 
 
         [Inject]
-        public void Construct(PlayerInput playerInput, MoveComponent moveComponent, CharacterController characterController)
+        public void Construct(PlayerInput playerInput, MoveComponent moveComponent)
         {
             _playerInput = playerInput;
             _moveComponent = moveComponent;
-            _characterController = characterController;
         }
 
-        public void OnStartGame()
-        {
-            _playerInput.OnUpdateSpace += SetFireRequired;
-            _playerInput.OnUpdateDirection += SetHorizontalDirection;
-        }
-
-        public void OnFinishGame()
-        {
-            _playerInput.OnUpdateSpace -= SetFireRequired;
-            _playerInput.OnUpdateDirection -= SetHorizontalDirection;
-        }
+        public void OnStartGame() => _playerInput.OnUpdateDirection += SetHorizontalDirection;
+        public void OnFinishGame() => _playerInput.OnUpdateDirection -= SetHorizontalDirection;
 
         public void OnFixedUpdate(float fixedDeltaTime)
         {
@@ -44,7 +33,6 @@ namespace ShootEmUp
             _moveComponent.MoveByRigidbodyVelocity(direction);
         }
 
-        private void SetFireRequired(bool value) => _characterController.SetFireRequired(value);
         private void SetHorizontalDirection(int direction) => _horizontalDirection = direction;
     }
 }

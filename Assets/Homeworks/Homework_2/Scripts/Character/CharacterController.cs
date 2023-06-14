@@ -6,8 +6,13 @@ using FrameworkUnity.Architecture.DI;
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class CharacterController : MonoBehaviour, IService, IGameFixedUpdateListener
+    public sealed class CharacterController : MonoBehaviour, 
+        IService, 
+        IGameFixedUpdateListener,
+        IGameStartListener,
+        IGameFinishListener
     {
+        private PlayerInput _playerInput;
         private Character _character;
         private GameManager _gameManager;
         private BulletSystem _bulletSystem;
@@ -15,15 +20,25 @@ namespace ShootEmUp
 
 
         [Inject]
-        public void Construct(Character character, GameManager gameManager, BulletSystem bulletSystem)
+        public void Construct(PlayerInput playerInput, Character character, GameManager gameManager, BulletSystem bulletSystem)
         {
+            _playerInput = playerInput;
             _character = character;
             _gameManager = gameManager;
             _bulletSystem = bulletSystem;
         }
 
-        private void OnEnable() => _character.HitPointsComponent.OnEmptyHP += OnCharacterDeath;
-        private void OnDisable() => _character.HitPointsComponent.OnEmptyHP -= OnCharacterDeath;
+        public void OnStartGame()
+        {
+            _playerInput.OnSpacePushed += SetFireRequired;
+            _character.HitPointsComponent.OnEmptyHP += OnCharacterDeath;
+        }
+
+        public void OnFinishGame()
+        {
+            _playerInput.OnSpacePushed -= SetFireRequired;
+            _character.HitPointsComponent.OnEmptyHP -= OnCharacterDeath;
+        }
 
         public void SetFireRequired(bool value) => _fireRequired = value;
         private void OnCharacterDeath(GameObject _) => _gameManager.FinishGame();
@@ -41,7 +56,7 @@ namespace ShootEmUp
         {
             WeaponComponent weapon = _character.WeaponComponent;
             BulletConfig bulletConfig = _character.BulletConfig;
-            
+
             _bulletSystem.FlyBulletByArgs(new Bullet.Args
             {
                 IsPlayer = true,
