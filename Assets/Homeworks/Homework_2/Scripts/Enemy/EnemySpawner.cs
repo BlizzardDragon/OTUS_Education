@@ -10,6 +10,7 @@ namespace ShootEmUp
 {
     public sealed class EnemySpawner : MonoBehaviour, IService, IGameStartListener
     {
+        public HashSet<GameObject> ActiveEnemies => m_activeEnemies;
         private readonly HashSet<GameObject> m_activeEnemies = new();
 
         public event Action OnSpawnTime;

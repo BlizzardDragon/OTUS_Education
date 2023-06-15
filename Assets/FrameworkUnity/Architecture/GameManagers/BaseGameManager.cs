@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
@@ -19,11 +20,18 @@ namespace FrameworkUnity.Architecture.GameManagers
     public class BaseGameManager : MonoBehaviour, IService, IInstallableOnAwake
     {
         public GameState State { get; private set; }
+        protected float _fixedDeltaTime;
+
         protected readonly List<IGameListener> _listeners = new();
         protected readonly List<IGameUpdateListener> _updateListeners = new();
         protected readonly List<IGameFixedUpdateListener> _fixedUpdateListeners = new();
         protected readonly List<IGameLateUpdateListener> _lateUpdateListeners = new();
-        protected float _fixedDeltaTime;
+
+        public event Action OnPrepareForGame;
+        public event Action OnStartGame;
+        public event Action OnPauseGame;
+        public event Action OnResumeGame;
+        public event Action OnFinishGame;
 
 
         public void InstallOnAwake() => _fixedDeltaTime = Time.fixedDeltaTime;
@@ -115,6 +123,7 @@ namespace FrameworkUnity.Architecture.GameManagers
             }
 
             State = GameState.Preparing;
+            OnPrepareForGame?.Invoke();
         }
 
         public virtual void StartGame()
@@ -128,6 +137,7 @@ namespace FrameworkUnity.Architecture.GameManagers
             }
 
             State = GameState.Playing;
+            OnStartGame?.Invoke();
         }
 
         public virtual void PauseGame()
@@ -141,6 +151,7 @@ namespace FrameworkUnity.Architecture.GameManagers
             }
 
             State = GameState.Pause;
+            OnPauseGame?.Invoke();
         }
 
         public virtual void ResumeGame()
@@ -154,6 +165,7 @@ namespace FrameworkUnity.Architecture.GameManagers
             }
 
             State = GameState.Playing;
+            OnResumeGame?.Invoke();
         }
 
         public virtual void FinishGame()
@@ -167,6 +179,7 @@ namespace FrameworkUnity.Architecture.GameManagers
             }
 
             State = GameState.Finished;
+            OnFinishGame?.Invoke();
         }
     }
 }

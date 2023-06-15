@@ -2,6 +2,7 @@ using UnityEngine;
 using FrameworkUnity.Architecture.DI;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using FrameworkUnity.Interfaces.Installed;
+using System.Collections.Generic;
 
 // Готово.
 namespace ShootEmUp
@@ -45,6 +46,12 @@ namespace ShootEmUp
             _enemySpawner.OnSpawnTime -= TryGetEnemy;
             _enemySpawner.OnEnemyDestroyed -= OnUnspawnEnemy;
             _attackConfig.OnFired -= _bulletSystem.FlyBulletByArgs;
+
+            HashSet<GameObject> enemies = _enemySpawner.ActiveEnemies;
+            foreach (var enemy in enemies)
+            {
+                UnsubscribeEnemy(enemy);
+            }
         }
 
         public void InstallOnStart()
@@ -75,12 +82,16 @@ namespace ShootEmUp
 
         public void OnUnspawnEnemy(GameObject enemy)
         {
+            UnsubscribeEnemy(enemy);
+            _enemyPool.UnspawnEnemy(enemy);
+            _enemyPositions.RestoreAttackPosition(enemy);
+        }
+
+        private void UnsubscribeEnemy(GameObject enemy)
+        {
             _fixedUpdater.OnFixedUpdateEvent -= enemy.GetComponent<EnemyMoveAgent>().TryMove;
             _fixedUpdater.OnFixedUpdateEvent -= enemy.GetComponent<EnemyAttackAgent>().TryFire;
             enemy.GetComponent<EnemyAttackAgent>().OnFire -= _attackConfig.OnFire;
-
-            _enemyPool.UnspawnEnemy(enemy);
-            _enemyPositions.RestoreAttackPosition(enemy);
         }
     }
 }

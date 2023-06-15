@@ -394,6 +394,7 @@ GameObject:
   - component: {fileID: 562298204}
   - component: {fileID: 562298207}
   - component: {fileID: 562298205}
+  - component: {fileID: 562298209}
   - component: {fileID: 562298208}
   m_Layer: 0
   m_Name: EnemySystem
@@ -457,6 +458,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 304b4e3ee96416b488e79806b0ec6b0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &562298209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562298203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bf64b455aa5ad349b40a9cc31d3f453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &736415388

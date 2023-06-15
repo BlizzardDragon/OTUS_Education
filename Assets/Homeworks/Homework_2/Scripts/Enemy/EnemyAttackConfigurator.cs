@@ -1,11 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using FrameworkUnity.Interfaces.Services;
 
+// Готово.
 namespace ShootEmUp
 {
-    public class EnemyAttackConfigurator : MonoBehaviour
+    public class EnemyAttackConfigurator : MonoBehaviour, IService
     {
         public event Action<Bullet.Args> OnFired;
 
