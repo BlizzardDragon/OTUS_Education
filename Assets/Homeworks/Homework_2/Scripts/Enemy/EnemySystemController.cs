@@ -14,6 +14,7 @@ namespace ShootEmUp
         private EnemySpawner _enemySpawner;
         private BulletSystem _bulletSystem;
         private EnemyAttackConfigurator _attackConfig;
+        private ScoreManager _scoreManager;
         private FixedUpdater _fixedUpdater;
 
 
@@ -23,6 +24,7 @@ namespace ShootEmUp
             EnemySpawner enemySpawner,
             BulletSystem bulletSystem,
             EnemyAttackConfigurator attackConfig,
+            ScoreManager scoreManager,
             FixedUpdater fixedUpdater)
         {
             _enemyPool = enemyPool;
@@ -30,6 +32,7 @@ namespace ShootEmUp
             _enemySpawner = enemySpawner;
             _bulletSystem = bulletSystem;
             _attackConfig = attackConfig;
+            _scoreManager = scoreManager;
             _fixedUpdater = fixedUpdater;
         }
 
@@ -37,14 +40,14 @@ namespace ShootEmUp
         {
             _enemySpawner.OnSpawnTime += TryGetEnemy;
             _enemySpawner.OnEnemySpawned += OnSpawnEnemy;
-            _enemySpawner.OnEnemyDestroyed += OnUnspawnEnemy;
+            _enemySpawner.OnEnemyDestroyed += OnEnemyDestroy;
             _attackConfig.OnFired += _bulletSystem.FlyBulletByArgs;
         }
 
         public void OnFinishGame()
         {
             _enemySpawner.OnSpawnTime -= TryGetEnemy;
-            _enemySpawner.OnEnemyDestroyed -= OnUnspawnEnemy;
+            _enemySpawner.OnEnemyDestroyed -= OnEnemyDestroy;
             _attackConfig.OnFired -= _bulletSystem.FlyBulletByArgs;
             _bulletSystem.DisableActiveBullets();
 
@@ -81,11 +84,12 @@ namespace ShootEmUp
             enemy.GetComponent<EnemyAttackAgent>().OnFire += _attackConfig.OnFire;
         }
 
-        public void OnUnspawnEnemy(GameObject enemy)
+        public void OnEnemyDestroy(GameObject enemy)
         {
             UnsubscribeEnemy(enemy);
             _enemyPool.UnspawnEnemy(enemy);
             _enemyPositions.RestoreAttackPosition(enemy);
+            _scoreManager.AddScore();
         }
 
         private void UnsubscribeEnemy(GameObject enemy)
