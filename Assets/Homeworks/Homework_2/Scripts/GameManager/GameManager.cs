@@ -9,7 +9,6 @@ namespace ShootEmUp
         {
             base.FinishGame();
             Debug.Log("Game over!");
-            Time.timeScale = 0;
         }
     }
 }

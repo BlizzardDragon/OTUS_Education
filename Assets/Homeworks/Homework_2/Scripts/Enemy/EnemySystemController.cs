@@ -12,6 +12,7 @@ namespace ShootEmUp
         private EnemyPositions _enemyPositions;
         private EnemySpawner _enemySpawner;
         private BulletSystem _bulletSystem;
+        private EnemyAttackConfigurator _attackConfig;
         private FixedUpdater _fixedUpdater;
 
 
@@ -20,12 +21,14 @@ namespace ShootEmUp
             EnemyPositions enemyPositions,
             EnemySpawner enemySpawner,
             BulletSystem bulletSystem,
+            EnemyAttackConfigurator attackConfig,
             FixedUpdater fixedUpdater)
         {
             _enemyPool = enemyPool;
             _enemyPositions = enemyPositions;
             _enemySpawner = enemySpawner;
             _bulletSystem = bulletSystem;
+            _attackConfig = attackConfig;
             _fixedUpdater = fixedUpdater;
         }
 
@@ -34,14 +37,14 @@ namespace ShootEmUp
             _enemySpawner.OnSpawnTime += TryGetEnemy;
             _enemySpawner.OnEnemySpawned += OnSpawnEnemy;
             _enemySpawner.OnEnemyDestroyed += OnUnspawnEnemy;
-            _enemySpawner.OnFired += _bulletSystem.FlyBulletByArgs;
+            _attackConfig.OnFired += _bulletSystem.FlyBulletByArgs;
         }
 
         public void OnFinishGame()
         {
             _enemySpawner.OnSpawnTime -= TryGetEnemy;
             _enemySpawner.OnEnemyDestroyed -= OnUnspawnEnemy;
-            _enemySpawner.OnFired -= _bulletSystem.FlyBulletByArgs;
+            _attackConfig.OnFired -= _bulletSystem.FlyBulletByArgs;
         }
 
         public void InstallOnStart()
@@ -67,12 +70,14 @@ namespace ShootEmUp
         {
             _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyMoveAgent>().TryMove;
             _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyAttackAgent>().TryFire;
+            enemy.GetComponent<EnemyAttackAgent>().OnFire += _attackConfig.OnFire;
         }
 
         public void OnUnspawnEnemy(GameObject enemy)
         {
             _fixedUpdater.OnFixedUpdateEvent -= enemy.GetComponent<EnemyMoveAgent>().TryMove;
             _fixedUpdater.OnFixedUpdateEvent -= enemy.GetComponent<EnemyAttackAgent>().TryFire;
+            enemy.GetComponent<EnemyAttackAgent>().OnFire -= _attackConfig.OnFire;
 
             _enemyPool.UnspawnEnemy(enemy);
             _enemyPositions.RestoreAttackPosition(enemy);
