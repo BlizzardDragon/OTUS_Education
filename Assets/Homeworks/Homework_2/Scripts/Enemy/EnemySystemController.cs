@@ -10,34 +10,38 @@ namespace ShootEmUp
     {
         private EnemyPool _enemyPool;
         private EnemyPositions _enemyPositions;
-        private EnemyManager _enemyManager;
+        private EnemySpawner _enemySpawner;
         private BulletSystem _bulletSystem;
+        private FixedUpdater _fixedUpdater;
 
 
         [Inject]
         public void Construct(EnemyPool enemyPool,
             EnemyPositions enemyPositions,
-            EnemyManager enemyManager,
-            BulletSystem bulletSystem)
+            EnemySpawner enemySpawner,
+            BulletSystem bulletSystem,
+            FixedUpdater fixedUpdater)
         {
             _enemyPool = enemyPool;
             _enemyPositions = enemyPositions;
-            _enemyManager = enemyManager;
+            _enemySpawner = enemySpawner;
             _bulletSystem = bulletSystem;
+            _fixedUpdater = fixedUpdater;
         }
 
         public void OnStartGame()
         {
-            _enemyManager.OnEnemySpawned += TryGetEnemy;
-            _enemyManager.OnEnemyDestroyed += UnspawnEnemy;
-            _enemyManager.OnFired += _bulletSystem.FlyBulletByArgs;
+            _enemySpawner.OnSpawnTime += TryGetEnemy;
+            _enemySpawner.OnEnemySpawned += OnSpawnEnemy;
+            _enemySpawner.OnEnemyDestroyed += OnUnspawnEnemy;
+            _enemySpawner.OnFired += _bulletSystem.FlyBulletByArgs;
         }
 
         public void OnFinishGame()
         {
-            _enemyManager.OnEnemySpawned -= TryGetEnemy;
-            _enemyManager.OnEnemyDestroyed -= UnspawnEnemy;
-            _enemyManager.OnFired -= _bulletSystem.FlyBulletByArgs;
+            _enemySpawner.OnSpawnTime -= TryGetEnemy;
+            _enemySpawner.OnEnemyDestroyed -= OnUnspawnEnemy;
+            _enemySpawner.OnFired -= _bulletSystem.FlyBulletByArgs;
         }
 
         public void InstallOnStart()
@@ -55,12 +59,21 @@ namespace ShootEmUp
                 var attackPosition = _enemyPositions.GetRandomAttackPosition(enemy);
                 enemy = _enemyPool.SpawnEnemy(enemy, spawnPosition.position, attackPosition.position);
 
-                _enemyManager.SpawnEnemy(enemy);
+                _enemySpawner.SpawnEnemy(enemy);
             }
         }
 
-        public void UnspawnEnemy(GameObject enemy)
+        private void OnSpawnEnemy(GameObject enemy)
         {
+            _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyMoveAgent>().TryMove;
+            _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyAttackAgent>().TryFire;
+        }
+
+        public void OnUnspawnEnemy(GameObject enemy)
+        {
+            _fixedUpdater.OnFixedUpdateEvent -= enemy.GetComponent<EnemyMoveAgent>().TryMove;
+            _fixedUpdater.OnFixedUpdateEvent -= enemy.GetComponent<EnemyAttackAgent>().TryFire;
+
             _enemyPool.UnspawnEnemy(enemy);
             _enemyPositions.RestoreAttackPosition(enemy);
         }

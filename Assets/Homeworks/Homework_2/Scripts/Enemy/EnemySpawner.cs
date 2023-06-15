@@ -8,25 +8,24 @@ using FrameworkUnity.Interfaces.Listeners.GameListeners;
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class EnemyManager : MonoBehaviour, IService, IGameStartListener, IGameFixedUpdateListener
+    public sealed class EnemySpawner : MonoBehaviour, IService, IGameStartListener
     {
         private readonly HashSet<GameObject> m_activeEnemies = new();
 
-        public event Action<float> OnFixedUpdateEvent;
-        public event Action OnEnemySpawned;
+        public event Action OnSpawnTime;
+        public event Action<GameObject> OnEnemySpawned;
         public event Action<GameObject> OnEnemyDestroyed;
         public event Action<Bullet.Args> OnFired;
 
 
-        public void OnStartGame() => StartCoroutine(StartSpawnProcess());
-        public void OnFixedUpdate(float fixedDeltaTime) => OnFixedUpdateEvent?.Invoke(fixedDeltaTime);
+        public void OnStartGame() => StartCoroutine(SpawnProcess());
 
-        private IEnumerator StartSpawnProcess()
+        private IEnumerator SpawnProcess()
         {
             while (true)
             {
                 yield return new WaitForSeconds(1);
-                OnEnemySpawned?.Invoke();
+                OnSpawnTime?.Invoke();
             }
         }
 
@@ -36,8 +35,9 @@ namespace ShootEmUp
             {
                 enemy.GetComponent<HitPointsComponent>().OnEmptyHP += OnDestroyed;
                 enemy.GetComponent<EnemyAttackAgent>().OnFire += OnFire;
-                OnFixedUpdateEvent += enemy.GetComponent<EnemyMoveAgent>().TryMove;
-                OnFixedUpdateEvent += enemy.GetComponent<EnemyAttackAgent>().TryFire;
+                
+                
+                OnEnemySpawned?.Invoke(enemy);
             }
         }
 
@@ -47,8 +47,6 @@ namespace ShootEmUp
             {
                 enemy.GetComponent<HitPointsComponent>().OnEmptyHP -= OnDestroyed;
                 enemy.GetComponent<EnemyAttackAgent>().OnFire -= OnFire;
-                OnFixedUpdateEvent -= enemy.GetComponent<EnemyMoveAgent>().TryMove;
-                OnFixedUpdateEvent -= enemy.GetComponent<EnemyAttackAgent>().TryFire;
 
                 OnEnemyDestroyed?.Invoke(enemy);
             }
