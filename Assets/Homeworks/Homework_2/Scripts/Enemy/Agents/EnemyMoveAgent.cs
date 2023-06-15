@@ -1,42 +1,43 @@
 using UnityEngine;
+using FrameworkUnity.Interfaces.Installed;
+using FrameworkUnity.Interfaces.Listeners.GameListeners;
 
+// Готово.
 namespace ShootEmUp
 {
-    public sealed class EnemyMoveAgent : MonoBehaviour
+    public sealed class EnemyMoveAgent : MonoBehaviour, IInstallableOnAwake, IGameFixedUpdateListener
     {
-        public bool IsReached
-        {
-            get { return this.isReached; }
-        }
+        public bool IsReached => _isReached;
 
-        [SerializeField] private MoveComponent moveComponent;
+        private MoveComponent _moveComponent;
+        private Vector2 _destination;
+        private bool _isReached;
 
-        private Vector2 destination;
 
-        private bool isReached;
+        public void InstallOnAwake() => _moveComponent = GetComponent<MoveComponent>();
 
         public void SetDestination(Vector2 endPoint)
         {
-            this.destination = endPoint;
-            this.isReached = false;
+            _destination = endPoint;
+            _isReached = false;
         }
 
-        private void FixedUpdate()
+        public void OnFixedUpdate(float fixedDeltaTime)
         {
-            if (this.isReached)
+            if (_isReached)
             {
-                return;
-            }
-            
-            var vector = this.destination - (Vector2) this.transform.position;
-            if (vector.magnitude <= 0.25f)
-            {
-                this.isReached = true;
                 return;
             }
 
-            var direction = vector.normalized * Time.fixedDeltaTime;
-            this.moveComponent.MoveByRigidbodyVelocity(direction);
+            var vector = _destination - (Vector2)transform.position;
+            if (vector.magnitude <= 0.25f)
+            {
+                _isReached = true;
+                return;
+            }
+
+            var direction = vector.normalized * fixedDeltaTime;
+            _moveComponent.MoveByRigidbodyVelocity(direction);
         }
     }
 }

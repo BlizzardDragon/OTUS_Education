@@ -5,16 +5,9 @@ namespace ShootEmUp
 {
     public sealed class WeaponComponent : MonoBehaviour
     {
-        [SerializeField] private Transform firePoint;
+        [SerializeField] private Transform _firePoint;
 
-        public Vector2 Position
-        {
-            get { return firePoint.position; }
-        }
-
-        public Quaternion Rotation
-        {
-            get { return firePoint.rotation; }
-        }
+        public Vector2 Position => _firePoint.position;
+        public Quaternion Rotation => _firePoint.rotation;
     }
 }

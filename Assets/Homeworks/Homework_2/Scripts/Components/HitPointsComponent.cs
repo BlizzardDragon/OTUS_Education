@@ -1,20 +1,21 @@
 using System;
 using UnityEngine;
 
+// Готово.
 namespace ShootEmUp
 {
     public sealed class HitPointsComponent : MonoBehaviour
     {
         public event Action<GameObject> OnEmptyHP;
-        [SerializeField] private int hitPoints;
+        [SerializeField] private int _hitPoints;
 
 
-        public bool IsHitPointsExists() => hitPoints > 0;
+        public bool IsHitPointsExists() => _hitPoints > 0;
 
         public void TakeDamage(int damage)
         {
-            hitPoints -= damage;
-            if (hitPoints <= 0)
+            _hitPoints -= damage;
+            if (_hitPoints <= 0)
             {
                 OnEmptyHP?.Invoke(gameObject);
             }
