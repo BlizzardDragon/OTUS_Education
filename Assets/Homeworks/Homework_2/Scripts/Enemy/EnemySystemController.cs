@@ -82,6 +82,7 @@ namespace ShootEmUp
             _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyMoveAgent>().TryMove;
             _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyAttackAgent>().TryFire;
             enemy.GetComponent<EnemyAttackAgent>().OnFire += _attackConfig.OnFire;
+            enemy.GetComponent<CircleCollider2DComponent>().DisableCollider();
         }
 
         public void OnEnemyDestroy(GameObject enemy)

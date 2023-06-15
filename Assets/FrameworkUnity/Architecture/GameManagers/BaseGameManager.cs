@@ -14,7 +14,9 @@ namespace FrameworkUnity.Architecture.GameManagers
         Preparing = 1,
         Playing = 2,
         Pause = 3,
-        Finished = 4
+        Finished = 4,
+        GameWin = 5,
+        GameOver = 6
     }
 
     public class BaseGameManager : MonoBehaviour, IService, IInstallableOnAwake
@@ -32,6 +34,8 @@ namespace FrameworkUnity.Architecture.GameManagers
         public event Action OnPauseGame;
         public event Action OnResumeGame;
         public event Action OnFinishGame;
+        public event Action OnGameWin;
+        public event Action OnGameOver;
 
 
         public void InstallOnAwake() => _fixedDeltaTime = Time.fixedDeltaTime;
@@ -180,6 +184,34 @@ namespace FrameworkUnity.Architecture.GameManagers
 
             State = GameState.Finished;
             OnFinishGame?.Invoke();
+        }
+
+        public virtual void GameWin()
+        {
+            foreach (var listener in _listeners)
+            {
+                if (listener is IGameWinListener gameWinListener)
+                {
+                    gameWinListener.OnGameWin();
+                }
+            }
+
+            State = GameState.GameWin;
+            OnGameWin?.Invoke();
+        }
+
+        public virtual void GameOver()
+        {
+            foreach (var listener in _listeners)
+            {
+                if (listener is IGameOverListener gameOverListener)
+                {
+                    gameOverListener.OnGameOver();
+                }
+            }
+
+            State = GameState.GameOver;
+            OnGameOver?.Invoke();
         }
     }
 }

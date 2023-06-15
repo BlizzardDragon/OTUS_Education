@@ -22,6 +22,16 @@ namespace FrameworkUnity.Interfaces.Listeners.GameListeners
         void OnPauseGame();
     }
 
+    public interface IGameWinListener : IGameListener
+    {
+        void OnGameWin();
+    }
+
+    public interface IGameOverListener : IGameListener
+    {
+        void OnGameOver();
+    }
+
     public interface IGameResumeListener : IGameListener
     {
         void OnResumeGame();

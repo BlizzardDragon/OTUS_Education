@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 // Готово.
@@ -10,6 +11,8 @@ namespace ShootEmUp
         private MoveComponent _moveComponent;
         private Vector2 _destination;
         private bool _isReached;
+
+        public event Action OnReached;
 
 
         private void Awake() => _moveComponent = GetComponent<MoveComponent>();
@@ -31,6 +34,7 @@ namespace ShootEmUp
             if (vector.magnitude <= 0.25f)
             {
                 _isReached = true;
+                OnReached?.Invoke();
                 return;
             }
 
