@@ -1,8 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Architecture.DI;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using FrameworkUnity.Interfaces.Installed;
-using System.Collections.Generic;
 
 // Готово.
 namespace ShootEmUp
@@ -46,6 +46,7 @@ namespace ShootEmUp
             _enemySpawner.OnSpawnTime -= TryGetEnemy;
             _enemySpawner.OnEnemyDestroyed -= OnUnspawnEnemy;
             _attackConfig.OnFired -= _bulletSystem.FlyBulletByArgs;
+            _bulletSystem.DisableActiveBullets();
 
             HashSet<GameObject> enemies = _enemySpawner.ActiveEnemies;
             foreach (var enemy in enemies)

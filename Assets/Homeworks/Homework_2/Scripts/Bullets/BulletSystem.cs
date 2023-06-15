@@ -96,5 +96,13 @@ namespace ShootEmUp
                 m_bulletPool.Enqueue(bullet);
             }
         }
+
+        public void DisableActiveBullets()
+        {
+            foreach (var bullet in m_activeBullets)
+            {
+                bullet.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            }
+        }
     }
 }
