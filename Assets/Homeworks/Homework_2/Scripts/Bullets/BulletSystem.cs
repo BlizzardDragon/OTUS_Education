@@ -3,11 +3,12 @@ using UnityEngine;
 using FrameworkUnity.Architecture.DI;
 using FrameworkUnity.Interfaces.Services;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
+using FrameworkUnity.Interfaces.Installed;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class BulletSystem : MonoBehaviour, IService, IGameFixedUpdateListener
+    public sealed class BulletSystem : MonoBehaviour, IService, IGameFixedUpdateListener, IInstallableOnStart
     {
         [SerializeField] private int _initialCount = 50;
         [Space(10)]
@@ -25,7 +26,8 @@ namespace ShootEmUp
         [Inject]
         public void Construct(LevelBounds levelBounds) => _levelBounds = levelBounds;
 
-        private void Awake() => FillPool();
+        public void InstallOnStart() => FillPool();
+
         public void OnFixedUpdate(float fixedDeltaTime) => CheckOutBounds();
 
         private void FillPool()
@@ -76,9 +78,9 @@ namespace ShootEmUp
             }
         }
 
-        private void OnBulletCollision(Bullet bullet, Collision2D collision)
+        private void OnBulletCollision(Bullet bullet, Collider2D collider2D)
         {
-            bool isHit = BulletUtils.DealDamage(bullet, collision.gameObject);
+            bool isHit = BulletUtils.DealDamage(bullet, collider2D.gameObject);
             if (isHit)
             {
                 RemoveBullet(bullet);

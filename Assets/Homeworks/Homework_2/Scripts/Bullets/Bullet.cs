@@ -12,8 +12,9 @@ namespace ShootEmUp
 
         private Rigidbody2D _rigidbody2D;
         private SpriteRenderer _spriteRenderer;
+        private CircleCollider2D _circleCollider2D;
 
-        public event Action<Bullet, Collision2D> OnCollisionEntered;
+        public event Action<Bullet, Collider2D> OnCollisionEntered;
 
 
         private void Awake()
@@ -21,8 +22,8 @@ namespace ShootEmUp
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
         }
-
-        private void OnCollisionEnter2D(Collision2D collision) => OnCollisionEntered?.Invoke(this, collision);
+        
+        private void OnTriggerEnter2D(Collider2D collider2D) => OnCollisionEntered?.Invoke(this, collider2D);
         public void SetVelocity(Vector2 velocity) => _rigidbody2D.velocity = velocity;
         public void SetPhysicsLayer(int physicsLayer) => gameObject.layer = physicsLayer;
         public void SetPosition(Vector3 position) => transform.position = position;

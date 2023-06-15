@@ -19,11 +19,11 @@ namespace ShootEmUp
                 OnSpacePushed?.Invoke(true);
             }
 
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow) || (Input.GetKey(KeyCode.A)))
             {
                 OnUpdateDirection?.Invoke(-1);
             }
-            else if (Input.GetKey(KeyCode.RightArrow))
+            else if (Input.GetKey(KeyCode.RightArrow) || (Input.GetKey(KeyCode.D)))
             {
                 OnUpdateDirection?.Invoke(1);
             }

@@ -9,6 +9,7 @@ namespace ShootEmUp
     public sealed class EnemyPool : MonoBehaviour, IService
     {
         [Header("Spawn")]
+        [SerializeField] private int _enemyCount = 7;
         [SerializeField] private Transform worldTransform;
         [SerializeField] private GameObject character;
 
@@ -17,33 +18,39 @@ namespace ShootEmUp
         [SerializeField] private GameObject prefab;
 
         private readonly Queue<GameObject> enemyPool = new();
-        private const int ENEMY_COUNT = 7;
 
         public event Action OnUnspawnEnemy;
 
 
         public void InstallPool(int positionCount)
         {
-            if (positionCount < ENEMY_COUNT)
+            if (positionCount < _enemyCount)
             {
-                throw new ArgumentOutOfRangeException(nameof(positionCount),
-                    "The number of enemies exceeds the number of attack points");
+                var message = "The number of enemies exceeds the number of attack points";
+                throw new ArgumentOutOfRangeException(nameof(positionCount), message);
             }
 
-            for (var i = 0; i < ENEMY_COUNT; i++)
+            for (var i = 0; i < _enemyCount; i++)
             {
                 var enemy = Instantiate(prefab, container);
                 enemyPool.Enqueue(enemy);
             }
         }
 
-        public GameObject SpawnEnemy(Vector3 spawnPositon, Vector3 attackPositon)
+        public GameObject TryDequeueEnemy()
         {
             if (!enemyPool.TryDequeue(out var enemy))
             {
                 return null;
             }
+            else
+            {
+                return enemy;
+            }
+        }
 
+        public GameObject SpawnEnemy(GameObject enemy, Vector3 spawnPositon, Vector3 attackPositon)
+        {
             enemy.transform.SetParent(worldTransform);
             enemy.transform.position = spawnPositon;
             enemy.GetComponent<EnemyMoveAgent>().SetDestination(attackPositon);

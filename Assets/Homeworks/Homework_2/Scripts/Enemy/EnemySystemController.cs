@@ -31,7 +31,7 @@ namespace ShootEmUp
         public void OnStartGame()
         {
             _enemyPool.OnUnspawnEnemy += _enemyPositions.RestoreAttackPosition;
-            _enemyManager.OnEnemySpawned += TrySpawnEnemy;
+            _enemyManager.OnEnemySpawned += TryGetEnemy;
             _enemyManager.OnEnemyDestroyed += UnspawnEnemy;
             _enemyManager.OnFired += _bulletSystem.FlyBulletByArgs;
         }
@@ -39,7 +39,7 @@ namespace ShootEmUp
         public void OnFinishGame()
         {
             _enemyPool.OnUnspawnEnemy -= _enemyPositions.RestoreAttackPosition;
-            _enemyManager.OnEnemySpawned -= TrySpawnEnemy;
+            _enemyManager.OnEnemySpawned -= TryGetEnemy;
             _enemyManager.OnEnemyDestroyed -= UnspawnEnemy;
             _enemyManager.OnFired -= _bulletSystem.FlyBulletByArgs;
         }
@@ -50,18 +50,17 @@ namespace ShootEmUp
             _enemyPool.InstallPool(positionCount);
         }
 
-        private void TrySpawnEnemy()
+        public void TryGetEnemy()
         {
-            var enemy = GetEnemy();
-            _enemyManager.TrySpawnEnemy(enemy);
-        }
+            var enemy = _enemyPool.TryDequeueEnemy();
+            if (enemy != null)
+            {
+                var spawnPosition = _enemyPositions.RandomSpawnPosition();
+                var attackPosition = _enemyPositions.GetRandomAttackPosition();
+                enemy = _enemyPool.SpawnEnemy(enemy, spawnPosition.position, attackPosition.position);
 
-        public GameObject GetEnemy()
-        {
-            var spawnPosition = _enemyPositions.RandomSpawnPosition();
-            var attackPosition = _enemyPositions.GetRandomAttackPosition();
-            var enemy = _enemyPool.SpawnEnemy(spawnPosition.position, attackPosition.position);
-            return enemy;
+                _enemyManager.SpawnEnemy(enemy);
+            }
         }
 
         public void UnspawnEnemy(GameObject enemy) => _enemyPool.UnspawnEnemy(enemy);

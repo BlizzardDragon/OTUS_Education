@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Interfaces.Services;
 
+
 namespace ShootEmUp
 {
     public sealed class EnemyManager : MonoBehaviour, IService
@@ -24,15 +25,12 @@ namespace ShootEmUp
             }
         }
 
-        public void TrySpawnEnemy(GameObject enemy)
+        public void SpawnEnemy(GameObject enemy)
         {
-            if (enemy != null)
+            if (m_activeEnemies.Add(enemy))
             {
-                if (m_activeEnemies.Add(enemy))
-                {
-                    enemy.GetComponent<HitPointsComponent>().OnEmptyHP += OnDestroyed;
-                    enemy.GetComponent<EnemyAttackAgent>().OnFire += OnFire;
-                }
+                enemy.GetComponent<HitPointsComponent>().OnEmptyHP += OnDestroyed;
+                enemy.GetComponent<EnemyAttackAgent>().OnFire += OnFire;
             }
         }
 
