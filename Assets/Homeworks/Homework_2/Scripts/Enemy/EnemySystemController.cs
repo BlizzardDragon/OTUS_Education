@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Architecture.DI;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using FrameworkUnity.Interfaces.Installed;
 
-
+// Готово.
 namespace ShootEmUp
 {
     public class EnemySystemController : MonoBehaviour, IGameStartListener, IGameFinishListener, IInstallableOnStart
@@ -30,7 +28,6 @@ namespace ShootEmUp
 
         public void OnStartGame()
         {
-            _enemyPool.OnUnspawnEnemy += _enemyPositions.RestoreAttackPosition;
             _enemyManager.OnEnemySpawned += TryGetEnemy;
             _enemyManager.OnEnemyDestroyed += UnspawnEnemy;
             _enemyManager.OnFired += _bulletSystem.FlyBulletByArgs;
@@ -38,7 +35,6 @@ namespace ShootEmUp
 
         public void OnFinishGame()
         {
-            _enemyPool.OnUnspawnEnemy -= _enemyPositions.RestoreAttackPosition;
             _enemyManager.OnEnemySpawned -= TryGetEnemy;
             _enemyManager.OnEnemyDestroyed -= UnspawnEnemy;
             _enemyManager.OnFired -= _bulletSystem.FlyBulletByArgs;
@@ -56,13 +52,17 @@ namespace ShootEmUp
             if (enemy != null)
             {
                 var spawnPosition = _enemyPositions.RandomSpawnPosition();
-                var attackPosition = _enemyPositions.GetRandomAttackPosition();
+                var attackPosition = _enemyPositions.GetRandomAttackPosition(enemy);
                 enemy = _enemyPool.SpawnEnemy(enemy, spawnPosition.position, attackPosition.position);
 
                 _enemyManager.SpawnEnemy(enemy);
             }
         }
 
-        public void UnspawnEnemy(GameObject enemy) => _enemyPool.UnspawnEnemy(enemy);
+        public void UnspawnEnemy(GameObject enemy)
+        {
+            _enemyPool.UnspawnEnemy(enemy);
+            _enemyPositions.RestoreAttackPosition(enemy);
+        }
     }
 }

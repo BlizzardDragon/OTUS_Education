@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Interfaces.Services;
 
-
+// Готово.
 namespace ShootEmUp
 {
     public sealed class EnemyPool : MonoBehaviour, IService
@@ -18,8 +18,6 @@ namespace ShootEmUp
         [SerializeField] private GameObject prefab;
 
         private readonly Queue<GameObject> enemyPool = new();
-
-        public event Action OnUnspawnEnemy;
 
 
         public void InstallPool(int positionCount)
@@ -63,7 +61,6 @@ namespace ShootEmUp
         {
             enemy.transform.SetParent(container);
             enemyPool.Enqueue(enemy);
-            OnUnspawnEnemy?.Invoke();
         }
     }
 }

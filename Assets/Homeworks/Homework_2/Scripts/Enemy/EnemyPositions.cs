@@ -1,11 +1,14 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 using FrameworkUnity.Interfaces.Services;
+using FrameworkUnity.Interfaces.Installed;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class EnemyPositions : MonoBehaviour, IService
+    public sealed class EnemyPositions : MonoBehaviour, IService, IInstallableOnAwake
     {
         [SerializeField] private Transform[] _spawnPositions;
         [SerializeField] private Transform[] _attackPositions;
@@ -13,10 +16,10 @@ namespace ShootEmUp
         public int AttackPositionsCount => _attackPositions.Length;
 
         private List<Transform> _availablePositions = new();
-        private List<Transform> _cachePositions = new();
+        private Dictionary<GameObject, Transform> _dictionaryCache = new();
 
 
-        private void Awake() => _availablePositions = new(_attackPositions);
+        public void InstallOnAwake() => _availablePositions = new(_attackPositions);
 
         public Transform RandomSpawnPosition() => RandomTransform(_spawnPositions);
 
@@ -26,21 +29,24 @@ namespace ShootEmUp
             return transforms[index];
         }
 
-        public Transform GetRandomAttackPosition()
+        public Transform GetRandomAttackPosition(GameObject enemy)
         {
             int index = Random.Range(0, _availablePositions.Count);
             Transform position = _availablePositions[index];
-            _cachePositions.Add(position);
+            _dictionaryCache.Add(enemy, position);
             _availablePositions.Remove(position);
             return position;
         }
 
-        public void RestoreAttackPosition()
+        public void RestoreAttackPosition(GameObject enemy)
         {
-            int index = Random.Range(0, _cachePositions.Count);
-            Transform position = _cachePositions[index];
+            if (!_dictionaryCache.TryGetValue(enemy, out Transform position))
+            {
+                var message = "The object is not in the dictionary";
+                throw new ArgumentNullException(nameof(enemy), message);
+            }
+            _dictionaryCache.Remove(enemy);
             _availablePositions.Add(position);
-            _cachePositions.Remove(position);
         }
     }
 }

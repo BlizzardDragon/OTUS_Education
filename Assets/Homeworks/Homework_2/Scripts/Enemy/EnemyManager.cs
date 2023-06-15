@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Interfaces.Services;
 
-
+// Готово.
 namespace ShootEmUp
 {
     public sealed class EnemyManager : MonoBehaviour, IService
@@ -45,7 +45,7 @@ namespace ShootEmUp
             }
         }
 
-        private void OnFire(GameObject enemy, Vector2 position, Vector2 direction)
+        private void OnFire(Vector2 position, Vector2 direction)
         {
             OnFired?.Invoke(new Bullet.Args
             {
