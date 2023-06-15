@@ -1094,10 +1094,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a40dacbeba84ba1b55163e9b048081b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftBorder: {fileID: 6563466540960878063}
-  rightBorder: {fileID: 1668159544493171190}
-  downBorder: {fileID: 3327143300152331510}
-  topBorder: {fileID: 1752465411210150465}
+  _leftBorder: {fileID: 6563466540960878063}
+  _rightBorder: {fileID: 1668159544493171190}
+  _downBorder: {fileID: 3327143300152331510}
+  _topBorder: {fileID: 1752465411210150465}
 --- !u!1 &3066462935130252019
 GameObject:
   m_ObjectHideFlags: 0

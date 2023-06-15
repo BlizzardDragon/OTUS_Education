@@ -1,11 +1,9 @@
 using UnityEngine;
-using FrameworkUnity.Interfaces.Installed;
-using FrameworkUnity.Interfaces.Listeners.GameListeners;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class EnemyMoveAgent : MonoBehaviour, IInstallableOnAwake, IGameFixedUpdateListener
+    public sealed class EnemyMoveAgent : MonoBehaviour
     {
         public bool IsReached => _isReached;
 
@@ -14,7 +12,7 @@ namespace ShootEmUp
         private bool _isReached;
 
 
-        public void InstallOnAwake() => _moveComponent = GetComponent<MoveComponent>();
+        private void Awake() => _moveComponent = GetComponent<MoveComponent>();
 
         public void SetDestination(Vector2 endPoint)
         {
@@ -22,7 +20,7 @@ namespace ShootEmUp
             _isReached = false;
         }
 
-        public void OnFixedUpdate(float fixedDeltaTime)
+        public void TryMove(float fixedDeltaTime)
         {
             if (_isReached)
             {
@@ -36,7 +34,7 @@ namespace ShootEmUp
                 return;
             }
 
-            var direction = vector.normalized * fixedDeltaTime;
+            Vector2 direction = vector.normalized * fixedDeltaTime;
             _moveComponent.MoveByRigidbodyVelocity(direction);
         }
     }

@@ -1,11 +1,9 @@
 using UnityEngine;
-using FrameworkUnity.Interfaces.Installed;
-using FrameworkUnity.Interfaces.Listeners.GameListeners;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class EnemyAttackAgent : MonoBehaviour, IInstallableOnAwake, IGameFixedUpdateListener
+    public sealed class EnemyAttackAgent : MonoBehaviour
     {
         [SerializeField] private float _countdown = 1;
 
@@ -19,13 +17,13 @@ namespace ShootEmUp
         public event FireHandler OnFire;
 
 
-        public void InstallOnAwake()
+        private void Awake()
         {
             _weaponComponent = GetComponent<WeaponComponent>();
             _moveAgent = GetComponent<EnemyMoveAgent>();
         }
 
-        public void OnFixedUpdate(float fixedDeltaTime)
+        public void TryFire(float fixedDeltaTime)
         {
             if (!_moveAgent.IsReached)
             {

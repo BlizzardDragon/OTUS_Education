@@ -3,20 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Interfaces.Services;
+using FrameworkUnity.Interfaces.Listeners.GameListeners;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class EnemyManager : MonoBehaviour, IService
+    public sealed class EnemyManager : MonoBehaviour, IService, IGameStartListener, IGameFixedUpdateListener
     {
         private readonly HashSet<GameObject> m_activeEnemies = new();
 
+        public event Action<float> OnFixedUpdateEvent;
         public event Action OnEnemySpawned;
         public event Action<GameObject> OnEnemyDestroyed;
         public event Action<Bullet.Args> OnFired;
 
 
-        private IEnumerator Start()
+        public void OnStartGame() => StartCoroutine(StartSpawnProcess());
+        public void OnFixedUpdate(float fixedDeltaTime) => OnFixedUpdateEvent?.Invoke(fixedDeltaTime);
+
+        private IEnumerator StartSpawnProcess()
         {
             while (true)
             {
@@ -31,6 +36,8 @@ namespace ShootEmUp
             {
                 enemy.GetComponent<HitPointsComponent>().OnEmptyHP += OnDestroyed;
                 enemy.GetComponent<EnemyAttackAgent>().OnFire += OnFire;
+                OnFixedUpdateEvent += enemy.GetComponent<EnemyMoveAgent>().TryMove;
+                OnFixedUpdateEvent += enemy.GetComponent<EnemyAttackAgent>().TryFire;
             }
         }
 
@@ -40,6 +47,8 @@ namespace ShootEmUp
             {
                 enemy.GetComponent<HitPointsComponent>().OnEmptyHP -= OnDestroyed;
                 enemy.GetComponent<EnemyAttackAgent>().OnFire -= OnFire;
+                OnFixedUpdateEvent -= enemy.GetComponent<EnemyMoveAgent>().TryMove;
+                OnFixedUpdateEvent -= enemy.GetComponent<EnemyAttackAgent>().TryFire;
 
                 OnEnemyDestroyed?.Invoke(enemy);
             }

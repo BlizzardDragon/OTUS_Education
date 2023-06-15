@@ -1,17 +1,16 @@
 using UnityEngine;
 using FrameworkUnity.Interfaces.Services;
-using FrameworkUnity.Interfaces.Installed;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class MoveComponent : MonoBehaviour, IService, IInstallableOnAwake
+    public sealed class MoveComponent : MonoBehaviour, IService
     {
         [SerializeField] private float _speed = 5.0f;
         private Rigidbody2D _rigidbody2D;
 
 
-        public void InstallOnAwake() => _rigidbody2D = GetComponent<Rigidbody2D>();
+        private void Awake() => _rigidbody2D = GetComponent<Rigidbody2D>();
 
         public void MoveByRigidbodyVelocity(Vector2 vector)
         {
