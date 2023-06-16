@@ -11,6 +11,7 @@ namespace ShootEmUp
         private EnemyAttackAgent _enemyAttackAgent;
         private CircleCollider2DComponent _collider;
 
+
         private void Awake()
         {
             _moveComponent = GetComponent<MoveComponent>();
@@ -18,7 +19,7 @@ namespace ShootEmUp
             _weaponComponent = GetComponent<WeaponComponent>();
             _enemyAttackAgent = GetComponent<EnemyAttackAgent>();
             _collider = GetComponent<CircleCollider2DComponent>();
-            
+
             _enemyAttackAgent.SetWeapon(_weaponComponent.FirePoint);
         }
 
