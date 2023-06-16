@@ -11,7 +11,6 @@ namespace ShootEmUp
 
         private void Awake() => _circleCollider2D = GetComponent<CircleCollider2D>();
 
-        public void EnableCollider() => _circleCollider2D.enabled = true;
-        public void DisableCollider() => _circleCollider2D.enabled = false;
+        public void SetActiveCollider(bool value) => _circleCollider2D.enabled = value;
     }
 }

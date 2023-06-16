@@ -34,7 +34,7 @@ namespace ShootEmUp
         public void SetWeapon(Transform weapon) => _weapon = weapon;
         public void SetTarget(GameObject target) => _target = target;
         public void Reset() => _currentTime = _countdown;
-        public void AllowAttack() => _attackAllowed = true;
+        public void SetAllowAttack(bool value) => _attackAllowed = value;
 
         private void Fire()
         {

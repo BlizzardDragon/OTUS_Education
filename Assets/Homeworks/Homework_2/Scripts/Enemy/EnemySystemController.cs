@@ -84,11 +84,11 @@ namespace ShootEmUp
         {
             _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyMoveAgent>().TryMove;
             _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyAttackAgent>().TryFire;
-            enemy.GetComponent<HitPointsComponent>().OnEmptyHP += DestroyEnemy;
+            enemy.GetComponent<HitPointsComponent>().OnEmptyHP += OnDestroyEnemy;
             enemy.GetComponent<EnemyAttackAgent>().OnFire += _attackConfig.OnFire;
         }
 
-        public void DestroyEnemy(GameObject enemy)
+        public void OnDestroyEnemy(GameObject enemy)
         {
             UnsubscribeEnemy(enemy);
             _enemyPool.UnspawnEnemy(enemy);
@@ -101,7 +101,7 @@ namespace ShootEmUp
         {
             _fixedUpdater.OnFixedUpdateEvent -= enemy.GetComponent<EnemyMoveAgent>().TryMove;
             _fixedUpdater.OnFixedUpdateEvent -= enemy.GetComponent<EnemyAttackAgent>().TryFire;
-            enemy.GetComponent<HitPointsComponent>().OnEmptyHP -= DestroyEnemy;
+            enemy.GetComponent<HitPointsComponent>().OnEmptyHP -= OnDestroyEnemy;
             enemy.GetComponent<EnemyAttackAgent>().OnFire -= _attackConfig.OnFire;
         }
     }

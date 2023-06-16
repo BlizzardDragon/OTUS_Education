@@ -11,7 +11,7 @@ namespace ShootEmUp
         private Vector2 _destination;
         private bool _isReached;
 
-        public event Action OnReached;
+        public event Action<bool> OnReached;
         public event Action<Vector2> OnMove;
 
 
@@ -29,7 +29,7 @@ namespace ShootEmUp
             if (vector.magnitude <= 0.25f)
             {
                 _isReached = true;
-                OnReached?.Invoke();
+                OnReached?.Invoke(_isReached);
                 return;
             }
 
