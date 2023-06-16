@@ -530,6 +530,7 @@ GameObject:
   - component: {fileID: 562298207}
   - component: {fileID: 562298205}
   - component: {fileID: 562298209}
+  - component: {fileID: 562298210}
   - component: {fileID: 562298208}
   m_Layer: 0
   m_Name: EnemySystem
@@ -579,10 +580,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyCount: 5
-  worldTransform: {fileID: 1683128698}
-  character: {fileID: 4414282821800802397}
-  container: {fileID: 178513672}
-  prefab: {fileID: 559606060570185700, guid: 87fe189881a524806800482ac8eaaa83, type: 3}
+  _worldTransform: {fileID: 1683128698}
+  _container: {fileID: 178513672}
+  _enemyPrefab: {fileID: 559606060570185700, guid: 87fe189881a524806800482ac8eaaa83,
+    type: 3}
 --- !u!114 &562298208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -607,6 +608,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf64b455aa5ad349b40a9cc31d3f453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &562298210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562298203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b13a5a50cf08a4409d6bd6840e892d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 4414282821800802397}
 --- !u!1 &573179326
 GameObject:
   m_ObjectHideFlags: 0

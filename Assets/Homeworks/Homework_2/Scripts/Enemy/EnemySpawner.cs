@@ -14,8 +14,6 @@ namespace ShootEmUp
         private readonly HashSet<GameObject> m_activeEnemies = new();
 
         public event Action OnSpawnTime;
-        public event Action<GameObject> OnEnemySpawned;
-        public event Action<GameObject> OnEnemyDestroyed;
 
 
         public void OnStartGame() => StartCoroutine(SpawnProcess());
@@ -29,20 +27,14 @@ namespace ShootEmUp
             }
         }
 
-        public void SpawnEnemy(GameObject enemy)
+        public void AddToList(GameObject enemy)
         {
-            if (m_activeEnemies.Add(enemy))
-            {
-                OnEnemySpawned?.Invoke(enemy);
-            }
+            m_activeEnemies.Add(enemy);
         }
 
-        public void OnDestroyed(GameObject enemy)
+        public void RemoveFromList(GameObject enemy)
         {
-            if (m_activeEnemies.Remove(enemy))
-            {
-                OnEnemyDestroyed?.Invoke(enemy);
-            }
+            m_activeEnemies.Remove(enemy);
         }
     }
 }

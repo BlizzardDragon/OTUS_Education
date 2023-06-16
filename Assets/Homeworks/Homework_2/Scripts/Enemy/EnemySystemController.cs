@@ -15,6 +15,7 @@ namespace ShootEmUp
         private BulletSystem _bulletSystem;
         private EnemyAttackConfigurator _attackConfig;
         private ScoreManager _scoreManager;
+        private EnemyInstaller _enemyInstaller;
         private FixedUpdater _fixedUpdater;
 
 
@@ -25,6 +26,7 @@ namespace ShootEmUp
             BulletSystem bulletSystem,
             EnemyAttackConfigurator attackConfig,
             ScoreManager scoreManager,
+            EnemyInstaller enemyInstaller,
             FixedUpdater fixedUpdater)
         {
             _enemyPool = enemyPool;
@@ -33,24 +35,24 @@ namespace ShootEmUp
             _bulletSystem = bulletSystem;
             _attackConfig = attackConfig;
             _scoreManager = scoreManager;
+            _enemyInstaller = enemyInstaller;
             _fixedUpdater = fixedUpdater;
         }
 
         public void OnStartGame()
         {
             _enemySpawner.OnSpawnTime += TryGetEnemy;
-            _enemySpawner.OnEnemySpawned += OnSpawnEnemy;
-            _enemySpawner.OnEnemyDestroyed += OnEnemyDestroy;
             _attackConfig.OnFired += _bulletSystem.FlyBulletByArgs;
         }
 
         public void OnFinishGame()
         {
             _enemySpawner.OnSpawnTime -= TryGetEnemy;
-            _enemySpawner.OnEnemyDestroyed -= OnEnemyDestroy;
             _attackConfig.OnFired -= _bulletSystem.FlyBulletByArgs;
             _bulletSystem.DisableActiveBullets();
 
+            // Прочитал в Майкрософт код конвеншене, что при не явном присваивании нельзя писать var.
+            // Но это противоречит OCP. Как быть? 
             HashSet<GameObject> enemies = _enemySpawner.ActiveEnemies;
             foreach (var enemy in enemies)
             {
@@ -66,14 +68,15 @@ namespace ShootEmUp
 
         public void TryGetEnemy()
         {
-            var enemy = _enemyPool.TryDequeueEnemy();
+            var enemy = _enemyPool.TrySpawnEnemy();
             if (enemy != null)
             {
                 var spawnPosition = _enemyPositions.RandomSpawnPosition();
                 var attackPosition = _enemyPositions.GetRandomAttackPosition(enemy);
-                enemy = _enemyPool.SpawnEnemy(enemy, spawnPosition.position, attackPosition.position);
+                enemy = _enemyInstaller.InstallEnemy(enemy, spawnPosition.position, attackPosition.position);
 
-                _enemySpawner.SpawnEnemy(enemy);
+                OnSpawnEnemy(enemy);
+                _enemySpawner.AddToList(enemy);
             }
         }
 
@@ -81,15 +84,15 @@ namespace ShootEmUp
         {
             _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyMoveAgent>().TryMove;
             _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyAttackAgent>().TryFire;
-            enemy.GetComponent<HitPointsComponent>().OnEmptyHP += _enemySpawner.OnDestroyed;
+            enemy.GetComponent<HitPointsComponent>().OnEmptyHP += DestroyEnemy;
             enemy.GetComponent<EnemyAttackAgent>().OnFire += _attackConfig.OnFire;
-            enemy.GetComponent<CircleCollider2DComponent>().DisableCollider();
         }
 
-        public void OnEnemyDestroy(GameObject enemy)
+        public void DestroyEnemy(GameObject enemy)
         {
             UnsubscribeEnemy(enemy);
             _enemyPool.UnspawnEnemy(enemy);
+            _enemySpawner.RemoveFromList(enemy);
             _enemyPositions.RestoreAttackPosition(enemy);
             _scoreManager.AddScore();
         }
@@ -98,7 +101,7 @@ namespace ShootEmUp
         {
             _fixedUpdater.OnFixedUpdateEvent -= enemy.GetComponent<EnemyMoveAgent>().TryMove;
             _fixedUpdater.OnFixedUpdateEvent -= enemy.GetComponent<EnemyAttackAgent>().TryFire;
-            enemy.GetComponent<HitPointsComponent>().OnEmptyHP -= _enemySpawner.OnDestroyed;
+            enemy.GetComponent<HitPointsComponent>().OnEmptyHP -= DestroyEnemy;
             enemy.GetComponent<EnemyAttackAgent>().OnFire -= _attackConfig.OnFire;
         }
     }
