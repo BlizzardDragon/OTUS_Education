@@ -8,14 +8,12 @@ namespace ShootEmUp
     {
         public bool IsReached => _isReached;
 
-        private MoveComponent _moveComponent;
         private Vector2 _destination;
         private bool _isReached;
 
         public event Action OnReached;
+        public event Action<Vector2> OnMove;
 
-
-        private void Awake() => _moveComponent = GetComponent<MoveComponent>();
 
         public void SetDestination(Vector2 endPoint)
         {
@@ -25,10 +23,7 @@ namespace ShootEmUp
 
         public void TryMove(float fixedDeltaTime)
         {
-            if (_isReached)
-            {
-                return;
-            }
+            if (_isReached) return;
 
             var vector = _destination - (Vector2)transform.position;
             if (vector.magnitude <= 0.25f)
@@ -39,7 +34,7 @@ namespace ShootEmUp
             }
 
             Vector2 direction = vector.normalized * fixedDeltaTime;
-            _moveComponent.MoveByRigidbodyVelocity(direction);
+            OnMove?.Invoke(direction);
         }
     }
 }

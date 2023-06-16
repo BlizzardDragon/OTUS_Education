@@ -578,7 +578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bdcdf257e0242258e7a67fe13d80e5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyCount: 6
+  _enemyCount: 5
   worldTransform: {fileID: 1683128698}
   character: {fileID: 4414282821800802397}
   container: {fileID: 178513672}

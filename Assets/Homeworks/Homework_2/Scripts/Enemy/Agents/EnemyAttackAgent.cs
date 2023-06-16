@@ -7,33 +7,21 @@ namespace ShootEmUp
     {
         [SerializeField] private float _countdown = 1;
 
-        private WeaponComponent _weaponComponent;
-        private EnemyMoveAgent _moveAgent;
-
         private GameObject _target;
+        private Transform _weapon;
         private float _currentTime;
+        private bool _attackAllowed;
 
         public delegate void FireHandler(Vector2 position, Vector2 direction);
         public event FireHandler OnFire;
 
 
-        private void Awake()
-        {
-            _weaponComponent = GetComponent<WeaponComponent>();
-            _moveAgent = GetComponent<EnemyMoveAgent>();
-        }
-
         public void TryFire(float fixedDeltaTime)
         {
-            if (!_moveAgent.IsReached)
-            {
-                return;
-            }
+            if (!_attackAllowed) return;
 
-            if (!_target.GetComponent<HitPointsComponent>().IsHitPointsExists())
-            {
-                return;
-            }
+            bool targetIsDead = !_target.GetComponent<HitPointsComponent>().IsHitPointsExists();
+            if (targetIsDead) return;
 
             _currentTime -= fixedDeltaTime;
             if (_currentTime <= 0)
@@ -43,14 +31,16 @@ namespace ShootEmUp
             }
         }
 
+        public void SetWeapon(Transform weapon) => _weapon = weapon;
         public void SetTarget(GameObject target) => _target = target;
         public void Reset() => _currentTime = _countdown;
+        public void AllowAttack() => _attackAllowed = true;
 
         private void Fire()
         {
-            var startPosition = _weaponComponent.Position;
+            Vector2 startPosition = _weapon.position;
             var vector = (Vector2)_target.transform.position - startPosition;
-            var direction = vector.normalized;
+            Vector2 direction = vector.normalized;
             OnFire?.Invoke(startPosition, direction);
         }
     }

@@ -9,5 +9,6 @@ namespace ShootEmUp
 
         public Vector2 Position => _firePoint.position;
         public Quaternion Rotation => _firePoint.rotation;
+        public Transform FirePoint => _firePoint;
     }
 }
