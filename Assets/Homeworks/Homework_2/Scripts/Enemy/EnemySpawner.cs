@@ -33,16 +33,14 @@ namespace ShootEmUp
         {
             if (m_activeEnemies.Add(enemy))
             {
-                enemy.GetComponent<HitPointsComponent>().OnEmptyHP += OnDestroyed;
                 OnEnemySpawned?.Invoke(enemy);
             }
         }
 
-        private void OnDestroyed(GameObject enemy)
+        public void OnDestroyed(GameObject enemy)
         {
             if (m_activeEnemies.Remove(enemy))
             {
-                enemy.GetComponent<HitPointsComponent>().OnEmptyHP -= OnDestroyed;
                 OnEnemyDestroyed?.Invoke(enemy);
             }
         }
