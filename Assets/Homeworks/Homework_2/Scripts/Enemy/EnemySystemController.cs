@@ -52,7 +52,7 @@ namespace ShootEmUp
             _bulletSystem.DisableActiveBullets();
 
             // Прочитал в Майкрософт код конвеншене, что при не явном присваивании нельзя писать var.
-            // Но это противоречит OCP. Как быть? 
+            // Но это ведь противоречит OCP? 
             HashSet<GameObject> enemies = _enemySpawner.ActiveEnemies;
             foreach (var enemy in enemies)
             {

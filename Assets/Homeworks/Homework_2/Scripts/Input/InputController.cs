@@ -29,7 +29,7 @@ namespace ShootEmUp
 
         public void OnFixedUpdate(float fixedDeltaTime)
         {
-            Vector2 direction = new Vector2(_horizontalDirection, 0) * fixedDeltaTime;
+            var direction = new Vector2(_horizontalDirection, 0) * fixedDeltaTime;
             _moveComponent.MoveByRigidbodyVelocity(direction);
         }
 

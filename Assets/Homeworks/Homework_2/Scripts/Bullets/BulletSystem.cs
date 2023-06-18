@@ -78,9 +78,9 @@ namespace ShootEmUp
             }
         }
 
-        private void OnBulletCollision(Bullet bullet, Collider2D collider2D)
+        private void OnBulletCollision(Bullet bullet, GameObject gameObj)
         {
-            bool isHit = BulletUtils.DealDamage(bullet, collider2D.gameObject);
+            bool isHit = BulletUtils.DealDamage(bullet, gameObj);
             if (isHit)
             {
                 RemoveBullet(bullet);
