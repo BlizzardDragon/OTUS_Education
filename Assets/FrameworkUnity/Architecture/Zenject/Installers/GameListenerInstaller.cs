@@ -6,7 +6,7 @@ using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using FrameworkUnity.Architecture.Zenject.GameManagers;
 
 
-namespace FrameworkUnity.Architecture.Zenject
+namespace FrameworkUnity.Architecture.Zenject.Installers
 {
     public class GameListenerInstaller : MonoInstaller<GameListenerInstaller>
     {
@@ -19,7 +19,7 @@ namespace FrameworkUnity.Architecture.Zenject
             IGameListener[] gameListeners = GetComponentsInChildren<IGameListener>();
             foreach (var gameListener in gameListeners)
             {
-                Container.Bind<IGameListener>().FromInstance(gameListener).AsSingle();
+                Container.Bind<IGameListener>().FromInstance(gameListener).AsCached();
             }
         }
     }

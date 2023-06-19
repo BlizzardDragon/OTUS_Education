@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 25386342}
+  - component: {fileID: 25386343}
   m_Layer: 0
   m_Name: '[DI_SYSTEM]'
   m_TagString: Untagged
@@ -156,6 +157,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &25386343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25386341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dabb730e41b76d84f957a5feb7af19cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1502192415
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 25386343}
   - {fileID: 1572357941}
   _installerPrefabs: []
   _autoRun: 1
@@ -317,7 +331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f560af804671a1045887de49d7ca4d3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManager: {fileID: 2059809999}
 --- !u!1 &2059809997
 GameObject:
   m_ObjectHideFlags: 0

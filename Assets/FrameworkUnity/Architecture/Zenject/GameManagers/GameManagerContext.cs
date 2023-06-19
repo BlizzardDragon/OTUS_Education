@@ -4,7 +4,7 @@ using UnityEngine;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 
 
-namespace FrameworkUnity.Architecture.Zenject
+namespace FrameworkUnity.Architecture.Zenject.GameManagers
 {
     public sealed class GameManagerContext
     {

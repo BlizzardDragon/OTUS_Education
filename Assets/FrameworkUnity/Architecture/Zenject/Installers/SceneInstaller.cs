@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using FrameworkUnity.Interfaces.Installed;
+using FrameworkUnity.Architecture.Zenject.GameManagers;
 
 
-namespace FrameworkUnity.Architecture.Zenject
+namespace FrameworkUnity.Architecture.Zenject.Installers
 {
     public class SceneInstaller : MonoInstaller<SceneInstaller>
     {
