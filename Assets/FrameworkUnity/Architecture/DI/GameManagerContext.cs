@@ -4,35 +4,46 @@ using UnityEngine;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 
 
-namespace FrameworkUnity.Architecture.DI
+namespace FrameworkUnity.Architecture.Zenject
 {
-    public sealed class GameManagerContext : MonoBehaviour
+    public sealed class GameManagerContext
     {
-        public readonly List<IGameListener> Listeners = new();
-        public readonly List<IGameUpdateListener> UpdateListeners = new();
-        public readonly List<IGameFixedUpdateListener> FixedUpdateListeners = new();
-        public readonly List<IGameLateUpdateListener> LateUpdateListeners = new();
-        
+        private readonly List<IGameListener> _listeners;
+        private readonly List<IGameUpdateListener> _updateListeners;
+        private readonly List<IGameFixedUpdateListener> _fixedUpdateListeners;
+        private readonly List<IGameLateUpdateListener> _lateUpdateListeners;
+
+        public GameManagerContext(IEnumerable<IGameListener> listeners,
+                                  IEnumerable<IGameUpdateListener> updateListeners,
+                                  IEnumerable<IGameFixedUpdateListener> fixedUpdateListeners,
+                                  IEnumerable<IGameLateUpdateListener> lateUpdateListeners)
+        {
+            _listeners = new List<IGameListener>(listeners);
+            _updateListeners = new List<IGameUpdateListener>(updateListeners);
+            _fixedUpdateListeners = new List<IGameFixedUpdateListener>(fixedUpdateListeners);
+            _lateUpdateListeners = new List<IGameLateUpdateListener>(lateUpdateListeners);
+        }
+
 
         public void AddListener(IGameListener listener)
         {
             if (listener == null) return;
 
-            Listeners.Add(listener);
+            _listeners.Add(listener);
 
             if (listener is IGameUpdateListener updateListener)
             {
-                UpdateListeners.Add(updateListener);
+                _updateListeners.Add(updateListener);
             }
 
             if (listener is IGameFixedUpdateListener fixedUpdateListener)
             {
-                FixedUpdateListeners.Add(fixedUpdateListener);
+                _fixedUpdateListeners.Add(fixedUpdateListener);
             }
 
             if (listener is IGameLateUpdateListener lateUpdateListener)
             {
-                LateUpdateListeners.Add(lateUpdateListener);
+                _lateUpdateListeners.Add(lateUpdateListener);
             }
         }
 
@@ -40,27 +51,53 @@ namespace FrameworkUnity.Architecture.DI
         {
             if (listener == null) return;
 
-            Listeners.Remove(listener);
+            _listeners.Remove(listener);
 
             if (listener is IGameUpdateListener updateListener)
             {
-                UpdateListeners.Remove(updateListener);
+                _updateListeners.Remove(updateListener);
             }
 
             if (listener is IGameFixedUpdateListener fixedUpdateListener)
             {
-                FixedUpdateListeners.Remove(fixedUpdateListener);
+                _fixedUpdateListeners.Remove(fixedUpdateListener);
             }
 
             if (listener is IGameLateUpdateListener lateUpdateListener)
             {
-                LateUpdateListeners.Remove(lateUpdateListener);
+                _lateUpdateListeners.Remove(lateUpdateListener);
+            }
+        }
+
+        public void OnUpdate()
+        {
+            float deltaTime = Time.deltaTime;
+            for (int i = 0; i < _updateListeners.Count; i++)
+            {
+                _updateListeners[i].OnUpdate(deltaTime);
+            }
+        }
+
+        public void OnFixedUpdate(float fixedDeltaTime)
+        {
+            for (int i = 0; i < _fixedUpdateListeners.Count; i++)
+            {
+                _fixedUpdateListeners[i].OnFixedUpdate(fixedDeltaTime);
+            }
+        }
+
+        public void OnLateUpdate()
+        {
+            float deltaTime = Time.deltaTime;
+            for (int i = 0; i < _lateUpdateListeners.Count; i++)
+            {
+                _lateUpdateListeners[i].OnLateUpdate(deltaTime);
             }
         }
 
         public void PrepareForGame()
         {
-            foreach (var listener in Listeners)
+            foreach (var listener in _listeners)
             {
                 if (listener is IGamePrepareListener prepareListener)
                 {
@@ -71,7 +108,7 @@ namespace FrameworkUnity.Architecture.DI
 
         public void StartGame()
         {
-            foreach (var listener in Listeners)
+            foreach (var listener in _listeners)
             {
                 if (listener is IGameStartListener startListener)
                 {
@@ -82,7 +119,7 @@ namespace FrameworkUnity.Architecture.DI
 
         public void PauseGame()
         {
-            foreach (var listener in Listeners)
+            foreach (var listener in _listeners)
             {
                 if (listener is IGamePauseListener pauseListener)
                 {
@@ -93,7 +130,7 @@ namespace FrameworkUnity.Architecture.DI
 
         public void ResumeGame()
         {
-            foreach (var listener in Listeners)
+            foreach (var listener in _listeners)
             {
                 if (listener is IGameResumeListener resumeListener)
                 {
@@ -104,7 +141,7 @@ namespace FrameworkUnity.Architecture.DI
 
         public void FinishGame()
         {
-            foreach (var listener in Listeners)
+            foreach (var listener in _listeners)
             {
                 if (listener is IGameFinishListener finishListener)
                 {
@@ -115,7 +152,7 @@ namespace FrameworkUnity.Architecture.DI
 
         public void GameWin()
         {
-            foreach (var listener in Listeners)
+            foreach (var listener in _listeners)
             {
                 if (listener is IGameWinListener gameWinListener)
                 {
@@ -126,7 +163,7 @@ namespace FrameworkUnity.Architecture.DI
 
         public void GameOver()
         {
-            foreach (var listener in Listeners)
+            foreach (var listener in _listeners)
             {
                 if (listener is IGameOverListener gameOverListener)
                 {

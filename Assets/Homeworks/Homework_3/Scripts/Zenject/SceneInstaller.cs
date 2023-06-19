@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using FrameworkUnity.Interfaces.Installed;
-using FrameworkUnity.Architecture.GameManagers;
 
 
 namespace FrameworkUnity.Architecture.Zenject
@@ -12,6 +11,7 @@ namespace FrameworkUnity.Architecture.Zenject
     {
         public override void InstallBindings()
         {
+            Container.Bind<GameManagerContext>().AsSingle();
             Container.Bind<IGameManager>().FromComponentInHierarchy().AsSingle();
 
             // Container.Bind<IGameManager>().To<GameManagerPM>().FromInstance(_gameManager).AsSingle();

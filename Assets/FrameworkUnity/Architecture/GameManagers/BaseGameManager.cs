@@ -4,10 +4,11 @@ using UnityEngine;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using FrameworkUnity.Interfaces.Services;
 using FrameworkUnity.Interfaces.Installed;
-using FrameworkUnity.Architecture.DI;
+using FrameworkUnity.Architecture.Zenject;
+using Zenject;
 
 
-namespace FrameworkUnity.Architecture.GameManagers
+namespace FrameworkUnity.Architecture.Zenject.GameManagers
 {
     public enum GameState
     {
@@ -24,7 +25,7 @@ namespace FrameworkUnity.Architecture.GameManagers
     {
         public GameState State { get; private set; }
 
-        private readonly GameManagerContext _context;
+        protected GameManagerContext _context;
         protected float _fixedDeltaTime;
 
         public event Action OnPrepareForGame;
@@ -36,6 +37,9 @@ namespace FrameworkUnity.Architecture.GameManagers
         public event Action OnGameOver;
 
 
+        [Inject]
+        public void Consctuct(GameManagerContext context) => _context = context;
+        
         public void InstallOnAwake() => _fixedDeltaTime = Time.fixedDeltaTime;
 
         internal void AddListener(IGameListener listener) => _context.AddListener(listener);
@@ -45,33 +49,23 @@ namespace FrameworkUnity.Architecture.GameManagers
         {
             if (State != GameState.Playing) return;
 
-            float deltaTime = Time.deltaTime;
-            for (int i = 0; i < _context.UpdateListeners.Count; i++)
-            {
-                _context.UpdateListeners[i].OnUpdate(deltaTime);
-            }
+            _context.OnUpdate();
         }
 
         protected virtual void FixedUpdate()
         {
             if (State != GameState.Playing) return;
 
-            for (int i = 0; i < _context.FixedUpdateListeners.Count; i++)
-            {
-                _context.FixedUpdateListeners[i].OnFixedUpdate(_fixedDeltaTime);
-            }
+            _context.OnFixedUpdate(_fixedDeltaTime);
         }
 
         protected virtual void LateUpdate()
         {
             if (State != GameState.Playing) return;
 
-            float deltaTime = Time.deltaTime;
-            for (int i = 0; i < _context.LateUpdateListeners.Count; i++)
-            {
-                _context.LateUpdateListeners[i].OnLateUpdate(deltaTime);
-            }
+            _context.OnLateUpdate();
         }
+
         public virtual void PrepareForGame()
         {
             _context.PrepareForGame();

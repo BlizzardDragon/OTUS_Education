@@ -1,13 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 using FrameworkUnity.Architecture.DI;
-using FrameworkUnity.Architecture.GameManagers;
+using FrameworkUnity.Architecture.Zenject.GameManagers;
 using FrameworkUnity.Architecture.Locators;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using FrameworkUnity.Interfaces.Installed;
 
 
-namespace FrameworkUnity.Architecture.Installers
+namespace FrameworkUnity.Architecture.Zenject.Installers
 {
     [RequireComponent(typeof(ServiceLocatorInstaller), typeof(DependencyResolver))]
     public class BaseBootstrapInstaller : MonoBehaviour

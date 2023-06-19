@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FrameworkUnity.Architecture.GameManagers;
+using FrameworkUnity.Architecture.Zenject.GameManagers;
 
 
 namespace PresentationModel
