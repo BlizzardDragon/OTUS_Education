@@ -19,7 +19,7 @@ namespace FrameworkUnity.Architecture.GameManagers
         GameOver = 6
     }
 
-    public class BaseGameManager : MonoBehaviour, IService, IInstallableOnAwake
+    public class BaseGameManager : MonoBehaviour, IService, IInstallableOnAwake, IGameManager
     {
         public GameState State { get; private set; }
         protected float _fixedDeltaTime;

@@ -2,7 +2,7 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Lessons.Architecture.PM
+namespace PresentationModel
 {
     public sealed class CharacterStat
     {

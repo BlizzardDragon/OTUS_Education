@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Architecture.GameManagers;
 
-public class GameManager : BaseGameManager
+
+namespace PresentationModel
 {
-    
+    public class GameManagerPM : BaseGameManager
+    {
+
+    }
 }

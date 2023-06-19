@@ -1,7 +1,7 @@
 using System;
 using Sirenix.OdinInspector;
 
-namespace Lessons.Architecture.PM
+namespace PresentationModel
 {
     public sealed class PlayerLevel
     {
