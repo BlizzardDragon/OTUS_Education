@@ -9,10 +9,6 @@ namespace FrameworkUnity.Architecture.Zenject.Installers
 {
     public class BaseBootstrapInstaller : MonoBehaviour
     {
-        private List<IInstallableOnAwake> _awakeInstallables = new();
-        private List<IInstallableOnStart> _startInstallables = new();
-        private List<IInstallableOnEnable> _enableInstallables = new();
-        private List<IUninstallableOnDisable> _disableInstallables = new();
         protected BaseGameManager _gameManager;
         protected DiContainer _container;
 

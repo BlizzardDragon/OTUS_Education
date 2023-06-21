@@ -13,8 +13,7 @@ namespace FrameworkUnity.Architecture.Zenject.GameManagers
         private readonly List<IGameUpdateListener> _updateListeners = new();
         private readonly List<IGameFixedUpdateListener> _fixedUpdateListeners = new();
         private readonly List<IGameLateUpdateListener> _lateUpdateListeners = new();
-        
-        DiContainer _container;
+        private readonly DiContainer _container;
 
 
         public GameManagerContext(DiContainer container)

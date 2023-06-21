@@ -35,7 +35,7 @@ namespace FrameworkUnity.Architecture.Zenject.GameManagers
 
         [Inject]
         protected GameManagerContext _context;
-        //55:00
+
 
         public void InstallOnAwake() => _fixedDeltaTime = Time.fixedDeltaTime;
 
