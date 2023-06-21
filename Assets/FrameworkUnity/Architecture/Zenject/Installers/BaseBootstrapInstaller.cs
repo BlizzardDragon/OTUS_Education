@@ -18,15 +18,14 @@ namespace FrameworkUnity.Architecture.Zenject.Installers
 
 
         [Inject]
-        private void Construct(IGameManager gameManager, DiContainer diContainer)
+        private void Construct(BaseGameManager gameManager, DiContainer diContainer)
         {
-            _gameManager = gameManager as BaseGameManager;
+            _gameManager = gameManager;
             _diContainer = diContainer;
         }
 
         protected virtual void Awake()
         {
-            // InstallGameManager();
             FindInstallables();
 
             foreach (var installable in _awakeInstallables)
@@ -60,15 +59,6 @@ namespace FrameworkUnity.Architecture.Zenject.Installers
         }
 
         // protected virtual void OnDestroy() => ServiceLocator.ClearServices();
-
-        // private void InstallGameManager()
-        // {
-        //     IGameListener[] listeners = GetComponentsInChildren<IGameListener>();
-        //     foreach (var listener in listeners)
-        //     {
-        //         _gameManager.AddListener(listener);
-        //     }
-        // }
 
         private void FindInstallables()
         {
