@@ -2,26 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
+using Zenject;
 
 
 namespace FrameworkUnity.Architecture.Zenject.GameManagers
 {
     public sealed class GameManagerContext
     {
-        private readonly List<IGameListener> _listeners;
-        private readonly List<IGameUpdateListener> _updateListeners;
-        private readonly List<IGameFixedUpdateListener> _fixedUpdateListeners;
-        private readonly List<IGameLateUpdateListener> _lateUpdateListeners;
+        private readonly List<IGameListener> _listeners = new();
+        private readonly List<IGameUpdateListener> _updateListeners = new();
+        private readonly List<IGameFixedUpdateListener> _fixedUpdateListeners = new();
+        private readonly List<IGameLateUpdateListener> _lateUpdateListeners = new();
+        
+        DiContainer _container;
 
-        public GameManagerContext(IEnumerable<IGameListener> listeners,
-                                  IEnumerable<IGameUpdateListener> updateListeners,
-                                  IEnumerable<IGameFixedUpdateListener> fixedUpdateListeners,
-                                  IEnumerable<IGameLateUpdateListener> lateUpdateListeners)
+
+        public GameManagerContext(DiContainer container)
         {
-            _listeners = new List<IGameListener>(listeners);
-            _updateListeners = new List<IGameUpdateListener>(updateListeners);
-            _fixedUpdateListeners = new List<IGameFixedUpdateListener>(fixedUpdateListeners);
-            _lateUpdateListeners = new List<IGameLateUpdateListener>(lateUpdateListeners);
+            _container = container;
+
+            foreach (var listener in _container.Resolve<IEnumerable<IGameListener>>())
+            {
+                AddListener(listener);
+            }
         }
 
 

@@ -23,8 +23,6 @@ namespace FrameworkUnity.Architecture.Zenject.GameManagers
     public class BaseGameManager : MonoBehaviour, IService, IInstallableOnAwake, IGameManager
     {
         public GameState State { get; private set; }
-
-        protected GameManagerContext _context;
         protected float _fixedDeltaTime;
 
         public event Action OnPrepareForGame;
@@ -35,14 +33,11 @@ namespace FrameworkUnity.Architecture.Zenject.GameManagers
         public event Action OnGameWin;
         public event Action OnGameOver;
 
-
         [Inject]
-        public void Consctuct(GameManagerContext context) => _context = context;
-        
-        public void InstallOnAwake() => _fixedDeltaTime = Time.fixedDeltaTime;
+        protected GameManagerContext _context;
+        //55:00
 
-        internal void AddListener(IGameListener listener) => _context.AddListener(listener);
-        internal void RemoveListener(IGameListener listener) => _context.RemoveListener(listener);
+        public void InstallOnAwake() => _fixedDeltaTime = Time.fixedDeltaTime;
 
         protected virtual void Update()
         {

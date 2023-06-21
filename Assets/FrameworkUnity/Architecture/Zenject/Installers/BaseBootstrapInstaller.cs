@@ -1,15 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
-using FrameworkUnity.Architecture.DI;
 using FrameworkUnity.Architecture.Zenject.GameManagers;
-using FrameworkUnity.Architecture.Locators;
-using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using FrameworkUnity.Interfaces.Installed;
+using Zenject;
 
 
 namespace FrameworkUnity.Architecture.Zenject.Installers
 {
-    [RequireComponent(typeof(ServiceLocatorInstaller), typeof(DependencyResolver))]
     public class BaseBootstrapInstaller : MonoBehaviour
     {
         private List<IInstallableOnAwake> _awakeInstallables = new();
@@ -17,14 +14,19 @@ namespace FrameworkUnity.Architecture.Zenject.Installers
         private List<IInstallableOnEnable> _enableInstallables = new();
         private List<IInstallableOnDisable> _disableInstallables = new();
         protected BaseGameManager _gameManager;
+        protected DiContainer _diContainer;
 
+
+        [Inject]
+        private void Construct(IGameManager gameManager, DiContainer diContainer)
+        {
+            _gameManager = gameManager as BaseGameManager;
+            _diContainer = diContainer;
+        }
 
         protected virtual void Awake()
         {
-            InstallServices();
-            SetGameManager();
-            InstallGameManager();
-            ResolveDependencies();
+            // InstallGameManager();
             FindInstallables();
 
             foreach (var installable in _awakeInstallables)
@@ -57,22 +59,16 @@ namespace FrameworkUnity.Architecture.Zenject.Installers
             }
         }
 
-        protected virtual void OnDestroy() => ServiceLocator.ClearServices();
+        // protected virtual void OnDestroy() => ServiceLocator.ClearServices();
 
-
-        private void InstallServices() => GetComponent<ServiceLocatorInstaller>().InstallServices();
-        private void SetGameManager() => _gameManager = ServiceLocator.GetService<BaseGameManager>();
-
-        private void InstallGameManager()
-        {
-            IGameListener[] listeners = GetComponentsInChildren<IGameListener>();
-            foreach (var listener in listeners)
-            {
-                _gameManager.AddListener(listener);
-            }
-        }
-
-        private void ResolveDependencies() => GetComponent<DependencyResolver>().ResolveDependencies();
+        // private void InstallGameManager()
+        // {
+        //     IGameListener[] listeners = GetComponentsInChildren<IGameListener>();
+        //     foreach (var listener in listeners)
+        //     {
+        //         _gameManager.AddListener(listener);
+        //     }
+        // }
 
         private void FindInstallables()
         {
