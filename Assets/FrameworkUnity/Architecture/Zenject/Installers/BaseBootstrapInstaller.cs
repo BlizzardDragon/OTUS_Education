@@ -12,23 +12,21 @@ namespace FrameworkUnity.Architecture.Zenject.Installers
         private List<IInstallableOnAwake> _awakeInstallables = new();
         private List<IInstallableOnStart> _startInstallables = new();
         private List<IInstallableOnEnable> _enableInstallables = new();
-        private List<IInstallableOnDisable> _disableInstallables = new();
+        private List<IUninstallableOnDisable> _disableInstallables = new();
         protected BaseGameManager _gameManager;
-        protected DiContainer _diContainer;
+        protected DiContainer _container;
 
 
         [Inject]
         private void Construct(BaseGameManager gameManager, DiContainer diContainer)
         {
             _gameManager = gameManager;
-            _diContainer = diContainer;
+            _container = diContainer;
         }
 
         protected virtual void Awake()
         {
-            FindInstallables();
-
-            foreach (var installable in _awakeInstallables)
+            foreach (var installable in _container.Resolve<IEnumerable<IInstallableOnAwake>>())
             {
                 installable.InstallOnAwake();
             }
@@ -36,7 +34,7 @@ namespace FrameworkUnity.Architecture.Zenject.Installers
 
         protected virtual void Start()
         {
-            foreach (var installable in _startInstallables)
+            foreach (var installable in _container.Resolve<IEnumerable<IInstallableOnStart>>())
             {
                 installable.InstallOnStart();
             }
@@ -44,7 +42,7 @@ namespace FrameworkUnity.Architecture.Zenject.Installers
 
         protected virtual void OnEnable()
         {
-            foreach (var installable in _enableInstallables)
+            foreach (var installable in _container.Resolve<IEnumerable<IInstallableOnEnable>>())
             {
                 installable.InstallOnEnable();
             }
@@ -52,36 +50,20 @@ namespace FrameworkUnity.Architecture.Zenject.Installers
 
         protected virtual void OnDisable()
         {
-            foreach (var installable in _disableInstallables)
+            foreach (var installable in _container.Resolve<IEnumerable<IUninstallableOnDisable>>())
             {
-                installable.InstallOnDisable();
+                installable.UninstallOnDisable();
+            }
+        }
+
+        protected virtual void OnDestroy()
+        {
+            foreach (var installable in _container.Resolve<IEnumerable<IUninstallableOnDestroy>>())
+            {
+                installable.UninstallOnDestroy();
             }
         }
 
         // protected virtual void OnDestroy() => ServiceLocator.ClearServices();
-
-        private void FindInstallables()
-        {
-            IInstallable[] installables = GetComponentsInChildren<IInstallable>();
-            foreach (var installable in installables)
-            {
-                if (installable is IInstallableOnAwake installableOnAwake)
-                {
-                    _awakeInstallables.Add(installableOnAwake);
-                }
-                if (installable is IInstallableOnStart installableOnStart)
-                {
-                    _startInstallables.Add(installableOnStart);
-                }
-                if (installable is IInstallableOnEnable installableOnEnable)
-                {
-                    _enableInstallables.Add(installableOnEnable);
-                }
-                if (installable is IInstallableOnDisable installableOnDisable)
-                {
-                    _disableInstallables.Add(installableOnDisable);
-                }
-            }
-        }
     }
 }

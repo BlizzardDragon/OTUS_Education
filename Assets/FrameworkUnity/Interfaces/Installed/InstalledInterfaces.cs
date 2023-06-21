@@ -1,21 +1,24 @@
 namespace FrameworkUnity.Interfaces.Installed
 {
-    public interface IGameManager { }
-    public interface IInstallable { }
-    public interface IInstallableOnAwake : IInstallable
+    public interface IBootstrapInstallable { }
+    public interface IInstallableOnAwake : IBootstrapInstallable
     {
         void InstallOnAwake();
     }
-    public interface IInstallableOnStart : IInstallable
+    public interface IInstallableOnStart : IBootstrapInstallable
     {
         void InstallOnStart();
     }
-    public interface IInstallableOnEnable : IInstallable
+    public interface IInstallableOnEnable : IBootstrapInstallable
     {
         void InstallOnEnable();
     }
-    public interface IInstallableOnDisable : IInstallable
+    public interface IUninstallableOnDisable : IBootstrapInstallable
     {
-        void InstallOnDisable();
+        void UninstallOnDisable();
+    }
+    public interface IUninstallableOnDestroy : IBootstrapInstallable
+    {
+        void UninstallOnDestroy();
     }
 }
