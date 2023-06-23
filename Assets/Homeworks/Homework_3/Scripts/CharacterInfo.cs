@@ -7,33 +7,33 @@ namespace PresentationModel
 {
     public sealed class CharacterInfo
     {
+        [ShowInInspector] private readonly HashSet<CharacterStat> _stats = new();
+
         public event Action<CharacterStat> OnStatAdded;
         public event Action<CharacterStat> OnStatRemoved;
-    
-        [ShowInInspector]
-        private readonly HashSet<CharacterStat> stats = new();
+
 
         [Button]
         public void AddStat(CharacterStat stat)
         {
-            if (this.stats.Add(stat))
+            if (_stats.Add(stat))
             {
-                this.OnStatAdded?.Invoke(stat);
+                OnStatAdded?.Invoke(stat);
             }
         }
 
         [Button]
         public void RemoveStat(CharacterStat stat)
         {
-            if (this.stats.Remove(stat))
+            if (_stats.Remove(stat))
             {
-                this.OnStatRemoved?.Invoke(stat);
+                OnStatRemoved?.Invoke(stat);
             }
         }
 
         public CharacterStat GetStat(string name)
         {
-            foreach (var stat in this.stats)
+            foreach (var stat in _stats)
             {
                 if (stat.Name == name)
                 {
@@ -46,7 +46,7 @@ namespace PresentationModel
 
         public CharacterStat[] GetStats()
         {
-            return this.stats.ToArray();
+            return _stats.ToArray();
         }
     }
 }

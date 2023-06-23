@@ -5,43 +5,41 @@ namespace PresentationModel
 {
     public sealed class PlayerLevel
     {
-        public event Action OnLevelUp;
-        public event Action<int> OnExperienceChanged;
-
-        [ShowInInspector, ReadOnly]
-        public int CurrentLevel { get; private set; } = 1;
-
-        [ShowInInspector, ReadOnly]
-        public int CurrentExperience { get; private set; }
+        [ShowInInspector, ReadOnly] public int CurrentLevel { get; private set; } = 1;
+        [ShowInInspector, ReadOnly] public int CurrentExperience { get; private set; }
 
         [ShowInInspector, ReadOnly]
         public int RequiredExperience
         {
-            get { return 100 * (this.CurrentLevel + 1); }
+            get { return 100 * (CurrentLevel + 1); }
         }
 
+        public event Action OnLevelUp;
+        public event Action<int> OnExperienceChanged;
+
+        
         [Button]
         public void AddExperience(int range)
         {
-            var xp = Math.Min(this.CurrentExperience + range, this.RequiredExperience);
-            this.CurrentExperience = xp;
-            this.OnExperienceChanged?.Invoke(xp);
+            var xp = Math.Min(CurrentExperience + range, RequiredExperience);
+            CurrentExperience = xp;
+            OnExperienceChanged?.Invoke(xp);
         }
 
         [Button]
         public void LevelUp()
         {
-            if (this.CanLevelUp())
+            if (CanLevelUp())
             {
-                this.CurrentExperience = 0;
-                this.CurrentLevel++;
-                this.OnLevelUp?.Invoke();
+                CurrentExperience = 0;
+                CurrentLevel++;
+                OnLevelUp?.Invoke();
             }
         }
 
         public bool CanLevelUp()
         {
-            return this.CurrentExperience == this.RequiredExperience;
+            return CurrentExperience == RequiredExperience;
         }
     }
 }

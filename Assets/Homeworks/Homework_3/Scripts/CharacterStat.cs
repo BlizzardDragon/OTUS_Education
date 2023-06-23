@@ -6,19 +6,17 @@ namespace PresentationModel
 {
     public sealed class CharacterStat
     {
+        [ShowInInspector, ReadOnly]public string Name { get; private set; }
+        [ShowInInspector, ReadOnly]public int Value { get; private set; }
+
         public event Action<int> OnValueChanged; 
 
-        [ShowInInspector, ReadOnly]
-        public string Name { get; private set; }
-
-        [ShowInInspector, ReadOnly]
-        public int Value { get; private set; }
 
         [Button]
         public void ChangeValue(int value)
         {
-            this.Value = value;
-            this.OnValueChanged?.Invoke(value);
+            Value = value;
+            OnValueChanged?.Invoke(value);
         }
     }
 }
