@@ -12,7 +12,7 @@ namespace ShootEmUp
         private EnemyPool _enemyPool;
         private EnemyPositions _enemyPositions;
         private EnemySpawner _enemySpawner;
-        private BulletSystem _bulletSystem;
+        private BulletController _bulletSystem;
         private EnemyAttackConfigurator _attackConfig;
         private ScoreManager _scoreManager;
         private EnemyInstaller _enemyInstaller;
@@ -23,7 +23,7 @@ namespace ShootEmUp
         public void Construct(EnemyPool enemyPool,
             EnemyPositions enemyPositions,
             EnemySpawner enemySpawner,
-            BulletSystem bulletSystem,
+            BulletController bulletSystem,
             EnemyAttackConfigurator attackConfig,
             ScoreManager scoreManager,
             EnemyInstaller enemyInstaller,
