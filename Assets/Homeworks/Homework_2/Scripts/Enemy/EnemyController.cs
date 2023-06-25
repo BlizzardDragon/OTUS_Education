@@ -27,14 +27,14 @@ namespace ShootEmUp
         {
             _enemyMoveAgent.OnReached += _collider.SetActiveCollider;
             _enemyMoveAgent.OnReached += _enemyAttackAgent.SetAllowAttack;
-            _enemyMoveAgent.OnMove += _moveComponent.MoveByRigidbodyVelocity;
+            _enemyMoveAgent.OnMove += _moveComponent.Move;
         }
 
         private void OnDisable()
         {
             _enemyMoveAgent.OnReached -= _collider.SetActiveCollider;
             _enemyMoveAgent.OnReached -= _enemyAttackAgent.SetAllowAttack;
-            _enemyMoveAgent.OnMove -= _moveComponent.MoveByRigidbodyVelocity;
+            _enemyMoveAgent.OnMove -= _moveComponent.Move;
         }
     }
 }
