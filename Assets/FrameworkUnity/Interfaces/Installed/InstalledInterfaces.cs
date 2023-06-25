@@ -1,6 +1,7 @@
 namespace FrameworkUnity.Interfaces.Installed
 {
     public interface IInstallable { }
+    
     public interface IInstallableOnAwake : IInstallable
     {
         void InstallOnAwake();

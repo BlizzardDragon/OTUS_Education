@@ -13,12 +13,12 @@ namespace ShootEmUp
         private PlayerInput _playerInput;
         private Character _character;
         private GameManager _gameManager;
-        private BulletController _bulletSystem;
+        private BulletManager _bulletSystem;
         private bool _fireRequired;
 
 
         [Inject]
-        public void Construct(PlayerInput playerInput, Character character, GameManager gameManager, BulletController bulletSystem)
+        public void Construct(PlayerInput playerInput, Character character, GameManager gameManager, BulletManager bulletSystem)
         {
             _playerInput = playerInput;
             _character = character;

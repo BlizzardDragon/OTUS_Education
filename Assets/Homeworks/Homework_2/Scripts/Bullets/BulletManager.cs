@@ -6,7 +6,7 @@ using FrameworkUnity.Interfaces.Listeners.GameListeners;
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class BulletController : MonoBehaviour, IGameFinishListener
+    public sealed class BulletManager : MonoBehaviour, IGameFinishListener
     {
         private BulletPool _bulletPool;
         private BulletCollisionHandler _bulletCollisionHandler;
