@@ -849,7 +849,6 @@ MonoBehaviour:
   - {fileID: 562298207}
   - {fileID: 562298210}
   - {fileID: 562298209}
-  - {fileID: 3926786964592264470}
   - {fileID: 1879759790}
   - {fileID: 3926786964592264469}
   - {fileID: 363245577}
@@ -986,6 +985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92133beaa925a624389a1533149ef591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveComponent: {fileID: 3926786964592264470}
 --- !u!1 &1175425790
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ namespace ShootEmUp
     public class Character : MonoBehaviour
     {
         [field: SerializeField] public BulletConfig BulletConfig { get; private set; }
+        
         public HitPointsComponent HitPointsComponent { get; private set; }
         public WeaponComponent WeaponComponent { get; private set; }
         public TeamComponent TeamComponent { get; private set; }
