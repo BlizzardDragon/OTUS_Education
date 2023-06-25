@@ -17,10 +17,9 @@ namespace ShootEmUp
         [SerializeField] private Bullet _prefab;
         private LevelBounds _levelBounds;
 
-        // Что означает префикс m_?
-        private readonly Queue<Bullet> m_bulletPool = new();
-        private readonly HashSet<Bullet> m_activeBullets = new();
-        private readonly List<Bullet> m_cache = new();
+        private readonly Queue<Bullet> _bulletPool = new();
+        private readonly HashSet<Bullet> _activeBullets = new();
+        private readonly List<Bullet> _cache = new();
 
 
         [Inject]
@@ -35,18 +34,18 @@ namespace ShootEmUp
             for (var i = 0; i < _initialCount; i++)
             {
                 Bullet newBullet = Instantiate(_prefab, _container);
-                m_bulletPool.Enqueue(newBullet);
+                _bulletPool.Enqueue(newBullet);
             }
         }
 
         private void CheckOutBounds()
         {
-            m_cache.Clear();
-            m_cache.AddRange(m_activeBullets);
+            _cache.Clear();
+            _cache.AddRange(_activeBullets);
 
-            for (int i = 0, count = m_cache.Count; i < count; i++)
+            for (int i = 0, count = _cache.Count; i < count; i++)
             {
-                Bullet bullet = m_cache[i];
+                Bullet bullet = _cache[i];
                 if (!_levelBounds.InBounds(bullet.transform.position))
                 {
                     RemoveBullet(bullet);
@@ -56,7 +55,7 @@ namespace ShootEmUp
 
         public void FlyBulletByArgs(Bullet.Args args)
         {
-            if (m_bulletPool.TryDequeue(out Bullet bullet))
+            if (_bulletPool.TryDequeue(out Bullet bullet))
             {
                 bullet.transform.SetParent(_worldTransform);
             }
@@ -72,7 +71,7 @@ namespace ShootEmUp
             bullet.IsPlayer = args.IsPlayer;
             bullet.SetVelocity(args.Velocity);
 
-            if (m_activeBullets.Add(bullet))
+            if (_activeBullets.Add(bullet))
             {
                 bullet.OnCollisionEntered += OnBulletCollision;
             }
@@ -89,17 +88,17 @@ namespace ShootEmUp
 
         private void RemoveBullet(Bullet bullet)
         {
-            if (m_activeBullets.Remove(bullet))
+            if (_activeBullets.Remove(bullet))
             {
                 bullet.OnCollisionEntered -= OnBulletCollision;
                 bullet.transform.SetParent(_container);
-                m_bulletPool.Enqueue(bullet);
+                _bulletPool.Enqueue(bullet);
             }
         }
 
         public void DisableActiveBullets()
         {
-            foreach (var bullet in m_activeBullets)
+            foreach (var bullet in _activeBullets)
             {
                 bullet.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             }
