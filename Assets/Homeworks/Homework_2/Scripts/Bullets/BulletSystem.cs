@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Architecture.DI;
-using FrameworkUnity.Interfaces.Services;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using FrameworkUnity.Interfaces.Installed;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class BulletSystem : MonoBehaviour, IService, IGameFixedUpdateListener, IInstallableOnStart
+    public sealed class BulletSystem : MonoBehaviour, IGameFixedUpdateListener, IInstallableOnStart
     {
         [SerializeField] private int _initialCount = 50;
         [Space(10)]

@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using FrameworkUnity.Interfaces.Services;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class EnemyPool : MonoBehaviour, IService
+    public sealed class EnemyPool : MonoBehaviour
     {
         [Header("Spawn")]
         [SerializeField] private int _enemyCount = 7;

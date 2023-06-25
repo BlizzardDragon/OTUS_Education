@@ -1,10 +1,9 @@
 using UnityEngine;
-using FrameworkUnity.Interfaces.Services;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using System;
 
 
-public class FixedUpdater : MonoBehaviour, IService, IGameFixedUpdateListener
+public class FixedUpdater : MonoBehaviour, IGameFixedUpdateListener
 {
     public event Action<float> OnFixedUpdateEvent;
 

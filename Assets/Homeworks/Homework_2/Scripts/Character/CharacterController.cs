@@ -1,5 +1,4 @@
 using UnityEngine;
-using FrameworkUnity.Interfaces.Services;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using FrameworkUnity.Architecture.DI;
 
@@ -7,7 +6,6 @@ using FrameworkUnity.Architecture.DI;
 namespace ShootEmUp
 {
     public sealed class CharacterController : MonoBehaviour, 
-        IService, 
         IGameFixedUpdateListener,
         IGameStartListener,
         IGameFinishListener

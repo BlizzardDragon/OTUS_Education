@@ -1,12 +1,11 @@
 using System;
 using UnityEngine;
-using FrameworkUnity.Interfaces.Services;
 using FrameworkUnity.Interfaces.Installed;
 
 // Готово.
 namespace ShootEmUp
 {
-    public class ScoreManager : MonoBehaviour, IService, IInstallableOnStart
+    public class ScoreManager : MonoBehaviour, IInstallableOnStart
     {
         private int _score;
         public event Action<int> OnScoreChanged;

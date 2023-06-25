@@ -2,13 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FrameworkUnity.Interfaces.Services;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class EnemySpawner : MonoBehaviour, IService, IGameStartListener
+    public sealed class EnemySpawner : MonoBehaviour, IGameStartListener
     {
         public HashSet<GameObject> ActiveEnemies => m_activeEnemies;
         private readonly HashSet<GameObject> m_activeEnemies = new();

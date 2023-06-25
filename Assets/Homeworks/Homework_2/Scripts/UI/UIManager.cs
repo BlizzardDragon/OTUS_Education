@@ -1,12 +1,11 @@
 using UnityEngine;
 using TMPro;
-using FrameworkUnity.Interfaces.Services;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 
 // Готово.
 namespace ShootEmUp
 {
-    public class UIManager : MonoBehaviour, IService, IGameFinishListener
+    public class UIManager : MonoBehaviour, IGameFinishListener
     {
         [SerializeField] private TMP_Text _gameOver;
         [SerializeField] private TMP_Text _score;

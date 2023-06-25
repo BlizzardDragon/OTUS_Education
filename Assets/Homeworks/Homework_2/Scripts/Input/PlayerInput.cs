@@ -1,12 +1,11 @@
 using System;
 using UnityEngine;
-using FrameworkUnity.Interfaces.Services;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class PlayerInput : MonoBehaviour, IService, IGameUpdateListener
+    public sealed class PlayerInput : MonoBehaviour, IGameUpdateListener
     {
         public event Action<int> OnUpdateDirection;
         public event Action<bool> OnSpacePushed;

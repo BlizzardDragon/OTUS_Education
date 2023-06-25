@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
-using FrameworkUnity.Interfaces.Services;
 using FrameworkUnity.Interfaces.Installed;
 
 
@@ -19,7 +18,7 @@ namespace FrameworkUnity.Architecture.GameManagers
         GameOver = 6
     }
 
-    public class BaseGameManager : MonoBehaviour, IService, IInstallableOnAwake
+    public class BaseGameManager : MonoBehaviour, IInstallableOnAwake
     {
         public GameState State { get; private set; }
         protected float _fixedDeltaTime;

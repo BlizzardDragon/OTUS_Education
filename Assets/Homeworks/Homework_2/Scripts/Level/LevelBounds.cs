@@ -1,10 +1,9 @@
 using UnityEngine;
-using FrameworkUnity.Interfaces.Services;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class LevelBounds : MonoBehaviour, IService
+    public sealed class LevelBounds : MonoBehaviour
     {
         [SerializeField] private Transform _leftBorder;
         [SerializeField] private Transform _rightBorder;

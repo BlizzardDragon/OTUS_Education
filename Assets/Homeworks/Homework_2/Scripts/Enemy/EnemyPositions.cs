@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using FrameworkUnity.Interfaces.Services;
 using FrameworkUnity.Interfaces.Installed;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class EnemyPositions : MonoBehaviour, IService, IInstallableOnAwake
+    public sealed class EnemyPositions : MonoBehaviour, IInstallableOnAwake
     {
         [SerializeField] private Transform[] _spawnPositions;
         [SerializeField] private Transform[] _attackPositions;

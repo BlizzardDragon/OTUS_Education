@@ -1,10 +1,9 @@
 using UnityEngine;
-using FrameworkUnity.Interfaces.Services;
 
 // Готово.
 namespace ShootEmUp
 {
-    public class EnemyInstaller : MonoBehaviour, IService
+    public class EnemyInstaller : MonoBehaviour
     {
         [SerializeField] private GameObject _character;
 

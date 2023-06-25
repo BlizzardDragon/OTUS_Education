@@ -1,10 +1,9 @@
 using UnityEngine;
-using FrameworkUnity.Interfaces.Services;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class MoveComponent : MonoBehaviour, IService
+    public sealed class MoveComponent : MonoBehaviour
     {
         [SerializeField] private float _speed = 5.0f;
         private Rigidbody2D _rigidbody2D;

@@ -1,12 +1,11 @@
 using UnityEngine;
-using FrameworkUnity.Interfaces.Services;
 
 // Готово.
 namespace ShootEmUp
 {
     [RequireComponent(typeof(HitPointsComponent), typeof(WeaponComponent), typeof(TeamComponent))]
     [RequireComponent(typeof(MoveComponent))]
-    public class Character : MonoBehaviour, IService
+    public class Character : MonoBehaviour
     {
         [field: SerializeField] public BulletConfig BulletConfig { get; private set; }
         public HitPointsComponent HitPointsComponent { get; private set; }
