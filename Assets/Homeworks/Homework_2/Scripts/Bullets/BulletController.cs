@@ -1,17 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Architecture.DI;
+using FrameworkUnity.Interfaces.Listeners.GameListeners;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class BulletController : MonoBehaviour
+    public sealed class BulletController : MonoBehaviour, IGameFinishListener
     {
         private BulletPool _bulletPool;
+        private BulletCollisionHandler _bulletCollisionHandler;
 
 
         [Inject]
-        public void Construct(BulletPool bulletPool) => _bulletPool = bulletPool;
+        public void Construct(BulletPool bulletPool, BulletCollisionHandler bulletCollisionHandler)
+        {
+            _bulletPool = bulletPool;
+            _bulletCollisionHandler = bulletCollisionHandler;
+        }
+
+        public void OnFinishGame() => DisableActiveBullets();
 
         public void FlyBulletByArgs(Bullet.Args args)
         {
@@ -23,18 +31,8 @@ namespace ShootEmUp
             bullet.Damage = args.Damage;
             bullet.IsPlayer = args.IsPlayer;
             bullet.SetVelocity(args.Velocity);
-            
-            bullet.OnCollisionEntered += OnBulletCollision;
-        }
 
-        private void OnBulletCollision(Bullet bullet, GameObject gameObj)
-        {
-            bool isHit = BulletUtils.DealDamage(bullet, gameObj);
-            if (isHit)
-            {
-                bullet.OnCollisionEntered -= OnBulletCollision;
-                _bulletPool.RemoveBullet(bullet);
-            }
+            bullet.OnCollisionEntered += _bulletCollisionHandler.HandleCollision;
         }
 
         public void DisableActiveBullets()

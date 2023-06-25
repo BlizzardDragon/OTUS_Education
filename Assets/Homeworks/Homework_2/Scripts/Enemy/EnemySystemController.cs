@@ -49,7 +49,6 @@ namespace ShootEmUp
         {
             _enemySpawner.OnSpawnTime -= TryGetEnemy;
             _attackConfig.OnFired -= _bulletSystem.FlyBulletByArgs;
-            _bulletSystem.DisableActiveBullets();
 
             // Прочитал в Майкрософт код конвеншене, что при не явном присваивании нельзя писать var.
             // Но это ведь противоречит OCP? 

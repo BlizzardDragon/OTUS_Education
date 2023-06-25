@@ -4,7 +4,7 @@ using UnityEngine;
 using FrameworkUnity.Architecture.DI;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 
-
+// Готово.
 namespace ShootEmUp
 {
     public class BulletBoundaryChecker : MonoBehaviour, IGameFixedUpdateListener

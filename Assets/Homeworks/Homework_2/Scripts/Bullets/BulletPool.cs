@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Interfaces.Installed;
 
-
+// Готово.
 namespace ShootEmUp
 {
     public class BulletPool : MonoBehaviour, IInstallableOnStart
