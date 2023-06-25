@@ -844,11 +844,11 @@ MonoBehaviour:
   - {fileID: 573179328}
   - {fileID: 2572952653776768186}
   - {fileID: 1134805361}
-  - {fileID: 1134805362}
   - {fileID: 562298205}
   - {fileID: 562298207}
   - {fileID: 562298210}
   - {fileID: 562298209}
+  - {fileID: 1879759791}
   - {fileID: 1879759790}
   - {fileID: 3926786964592264469}
   - {fileID: 363245577}
@@ -938,7 +938,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1134805360}
   - component: {fileID: 1134805361}
-  - component: {fileID: 1134805362}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -973,19 +972,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b55e0c0d37f64d1f835fe367d4939922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1134805362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134805359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92133beaa925a624389a1533149ef591, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveComponent: {fileID: 3926786964592264470}
 --- !u!1 &1175425790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1481,6 +1467,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1879759789}
   - component: {fileID: 1879759790}
+  - component: {fileID: 1879759791}
   m_Layer: 0
   m_Name: CharacterController
   m_TagString: Untagged
@@ -1515,6 +1502,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c57ed31af8d94ec3b11df7e2b588d40f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1879759791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879759788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92133beaa925a624389a1533149ef591, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveComponent: {fileID: 3926786964592264470}
 --- !u!1 &61006797492197339
 GameObject:
   m_ObjectHideFlags: 0
