@@ -5,55 +5,20 @@ using FrameworkUnity.Architecture.DI;
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class CharacterFireController : MonoBehaviour, 
-        IGameFixedUpdateListener,
-        IGameStartListener,
-        IGameFinishListener
+    public sealed class CharacterFireController : MonoBehaviour, IGameStartListener, IGameFinishListener
     {
         private PlayerInput _playerInput;
-        private Character _character;
-        private GameManager _gameManager;
-        private BulletManager _bulletSystem;
-        private bool _fireRequired;
+        private CharacterFireHandler _characterFireHandler;
 
 
         [Inject]
-        public void Construct(PlayerInput playerInput, Character character, GameManager gameManager, BulletManager bulletSystem)
+        public void Construct(PlayerInput playerInput, CharacterFireHandler characterFireHandler)
         {
             _playerInput = playerInput;
-            _character = character;
-            _gameManager = gameManager;
-            _bulletSystem = bulletSystem;
+            _characterFireHandler = characterFireHandler;
         }
 
-        public void OnStartGame() => _playerInput.OnSpacePushed += SetFireRequired;
-        public void OnFinishGame() => _playerInput.OnSpacePushed -= SetFireRequired;
-
-        public void SetFireRequired(bool value) => _fireRequired = value;
-        
-        public void OnFixedUpdate(float fixedDeltaTime)
-        {
-            if (_fireRequired)
-            {
-                OnFlyBullet();
-                _fireRequired = false;
-            }
-        }
-
-        private void OnFlyBullet()
-        {
-            WeaponComponent weapon = _character.WeaponComponent;
-            BulletConfig bulletConfig = _character.BulletConfig;
-
-            _bulletSystem.FlyBulletByArgs(new Bullet.Args
-            {
-                IsPlayer = true,
-                PhysicsLayer = (int)bulletConfig.PhysicsLayer,
-                Color = bulletConfig.Color,
-                Damage = bulletConfig.Damage,
-                Position = weapon.Position,
-                Velocity = weapon.Rotation * Vector3.up * bulletConfig.Speed
-            });
-        }
+        public void OnStartGame() => _playerInput.OnSpacePushed += _characterFireHandler.SetFireRequired;
+        public void OnFinishGame() => _playerInput.OnSpacePushed -= _characterFireHandler.SetFireRequired;
     }
 }

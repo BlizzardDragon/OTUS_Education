@@ -2,7 +2,7 @@ using FrameworkUnity.Architecture.DI;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using UnityEngine;
 
-
+// Готово.
 namespace ShootEmUp
 {
     public class CharacterEmptyHPObserver : MonoBehaviour, IGameStartListener, IGameFinishListener
