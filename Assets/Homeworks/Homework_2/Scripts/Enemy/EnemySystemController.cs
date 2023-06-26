@@ -9,6 +9,10 @@ namespace ShootEmUp
 {
     public class EnemySystemController : MonoBehaviour, IGameStartListener, IGameFinishListener, IInstallableOnStart
     {
+
+        public HashSet<GameObject> ActiveEnemies => _activeEnemies;
+        private readonly HashSet<GameObject> _activeEnemies = new();
+
         private EnemyPool _enemyPool;
         private EnemyPositions _enemyPositions;
         private EnemyGenerator _enemySpawner;
@@ -50,8 +54,7 @@ namespace ShootEmUp
 
             // Прочитал в Майкрософт код конвеншене, что при не явном присваивании нельзя писать var.
             // Но это ведь противоречит OCP? 
-            HashSet<GameObject> enemies = _enemyInstaller.ActiveEnemies;
-            foreach (var enemy in enemies)
+            foreach (var enemy in _activeEnemies)
             {
                 UnsubscribeEnemy(enemy);
             }
@@ -65,6 +68,7 @@ namespace ShootEmUp
 
         public void OnSpawnEnemy(GameObject enemy)
         {
+            _activeEnemies.Add(enemy);
             _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyMoveAgent>().TryMove;
             _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyAttackAgent>().TryFire;
             enemy.GetComponent<HitPointsComponent>().OnEmptyHP += OnDestroyEnemy;
@@ -75,7 +79,7 @@ namespace ShootEmUp
         {
             UnsubscribeEnemy(enemy);
             _enemyPool.UnspawnEnemy(enemy);
-            _enemyInstaller.RemoveFromList(enemy);
+            _activeEnemies.Remove(enemy);
             _enemyPositions.RestoreAttackPosition(enemy);
             _scoreManager.AddScore();
         }

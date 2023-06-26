@@ -9,13 +9,9 @@ namespace ShootEmUp
     {
         [SerializeField] private GameObject _character;
 
-        public HashSet<GameObject> ActiveEnemies => _activeEnemies;
-
         private EnemyPool _enemyPool;
         private EnemyPositions _enemyPositions;
         private EnemySystemController _enemySystemController;
-        
-        private readonly HashSet<GameObject> _activeEnemies = new();
 
 
         [Inject]
@@ -43,18 +39,7 @@ namespace ShootEmUp
                 agent.SetAllowAttack(false);
 
                 _enemySystemController.OnSpawnEnemy(enemy);
-                AddToList(enemy);
             }
-        }
-
-        public void AddToList(GameObject enemy)
-        {
-            _activeEnemies.Add(enemy);
-        }
-
-        public void RemoveFromList(GameObject enemy)
-        {
-            _activeEnemies.Remove(enemy);
         }
     }
 }
