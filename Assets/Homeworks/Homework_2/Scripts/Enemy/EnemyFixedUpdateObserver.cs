@@ -6,7 +6,7 @@ using FrameworkUnity.Interfaces.Installed;
 // Готово.
 namespace ShootEmUp
 {
-    public class EnemyFixedUpdateObserver : MonoBehaviour, IInstallableOnStart
+    public class EnemyFixedUpdateObserver : MonoBehaviour
     {
         public HashSet<GameObject> ActiveEnemies => _activeEnemies;
         private readonly HashSet<GameObject> _activeEnemies = new();
@@ -35,12 +35,6 @@ namespace ShootEmUp
             _enemyBulletConfigProvider = attackConfig;
             _scoreManager = scoreManager;
             _enemyDestroyObserver = enemyDestroyObserver;
-        }
-
-        public void InstallOnStart()
-        {
-            int positionCount = _enemyPositions.AttackPositionsCount;
-            _enemyPool.InstallPool(positionCount);
         }
 
         public void OnSpawnEnemy(GameObject enemy)

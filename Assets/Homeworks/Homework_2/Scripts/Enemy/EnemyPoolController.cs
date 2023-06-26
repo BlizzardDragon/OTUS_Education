@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FrameworkUnity.Architecture.DI;
+using FrameworkUnity.Interfaces.Installed;
 
-public class EnemyPoolController : MonoBehaviour
+
+namespace ShootEmUp
 {
-    // Start is called before the first frame update
-    void Start()
+    public class EnemyPoolController : MonoBehaviour, IInstallableOnStart
     {
-        
-    }
+        private EnemyPool _enemyPool;
+        private EnemyPositions _enemyPositions;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        [Inject]
+        public void Construct(EnemyPool enemyPool, EnemyPositions enemyPositions)
+        {
+            _enemyPool = enemyPool;
+            _enemyPositions = enemyPositions;
+        }
+
+        public void InstallOnStart()
+        {
+            int positionCount = _enemyPositions.AttackPositionsCount;
+            _enemyPool.InstallPool(positionCount);
+        }
     }
 }
