@@ -1,39 +1,60 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using FrameworkUnity.Architecture.DI;
 using UnityEngine;
-using FrameworkUnity.Interfaces.Listeners.GameListeners;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class EnemySpawner : MonoBehaviour, IGameStartListener
+    public class EnemySpawner : MonoBehaviour
     {
-        public HashSet<GameObject> ActiveEnemies => m_activeEnemies;
-        private readonly HashSet<GameObject> m_activeEnemies = new();
+        [SerializeField] private GameObject _character;
 
-        public event Action OnSpawnTime;
+        public HashSet<GameObject> ActiveEnemies => _activeEnemies;
+
+        private EnemyPool _enemyPool;
+        private EnemyPositions _enemyPositions;
+        private EnemySystemController _enemySystemController;
+        
+        private readonly HashSet<GameObject> _activeEnemies = new();
 
 
-        public void OnStartGame() => StartCoroutine(SpawnProcess());
-
-        private IEnumerator SpawnProcess()
+        [Inject]
+        public void Construct(EnemyPool enemyPool, EnemyPositions enemyPositions, EnemySystemController enemySystemController)
         {
-            while (true)
+            _enemyPool = enemyPool;
+            _enemyPositions = enemyPositions;
+            _enemySystemController = enemySystemController;
+        }
+
+        public void SpawnEnemy()
+        {
+            var enemy = _enemyPool.TrySpawnEnemy();
+            if (enemy != null)
             {
-                yield return new WaitForSeconds(1);
-                OnSpawnTime?.Invoke();
+                var spawnPosition = _enemyPositions.RandomSpawnPosition();
+                var attackPosition = _enemyPositions.GetRandomAttackPosition(enemy);
+
+                enemy.transform.position = spawnPosition.position;
+                enemy.GetComponent<EnemyMoveAgent>().SetDestination(attackPosition.position);
+                enemy.GetComponent<CircleCollider2DComponent>().SetActiveCollider(false);
+
+                var agent = enemy.GetComponent<EnemyAttackAgent>();
+                agent.SetTarget(_character);
+                agent.SetAllowAttack(false);
+
+                _enemySystemController.OnSpawnEnemy(enemy);
+                AddToList(enemy);
             }
         }
 
         public void AddToList(GameObject enemy)
         {
-            m_activeEnemies.Add(enemy);
+            _activeEnemies.Add(enemy);
         }
 
         public void RemoveFromList(GameObject enemy)
         {
-            m_activeEnemies.Remove(enemy);
+            _activeEnemies.Remove(enemy);
         }
     }
 }

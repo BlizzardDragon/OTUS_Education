@@ -11,22 +11,22 @@ namespace ShootEmUp
     {
         private EnemyPool _enemyPool;
         private EnemyPositions _enemyPositions;
-        private EnemySpawner _enemySpawner;
+        private EnemyGenerator _enemySpawner;
         private BulletManager _bulletSystem;
         private EnemyBulletConfigProvider _enemyBulletConfigProvider;
         private ScoreManager _scoreManager;
-        private EnemyInstaller _enemyInstaller;
+        private EnemySpawner _enemyInstaller;
         private FixedUpdater _fixedUpdater;
 
 
         [Inject]
         public void Construct(EnemyPool enemyPool,
             EnemyPositions enemyPositions,
-            EnemySpawner enemySpawner,
+            EnemyGenerator enemySpawner,
             BulletManager bulletSystem,
             EnemyBulletConfigProvider attackConfig,
             ScoreManager scoreManager,
-            EnemyInstaller enemyInstaller,
+            EnemySpawner enemyInstaller,
             FixedUpdater fixedUpdater)
         {
             _enemyPool = enemyPool;
@@ -41,16 +41,16 @@ namespace ShootEmUp
 
         public void OnStartGame()
         {
-            _enemySpawner.OnSpawnTime += TryGetEnemy;
+            _enemySpawner.OnSpawnTime += _enemyInstaller.SpawnEnemy;
         }
 
         public void OnFinishGame()
         {
-            _enemySpawner.OnSpawnTime -= TryGetEnemy;
+            _enemySpawner.OnSpawnTime -= _enemyInstaller.SpawnEnemy;
 
             // Прочитал в Майкрософт код конвеншене, что при не явном присваивании нельзя писать var.
             // Но это ведь противоречит OCP? 
-            HashSet<GameObject> enemies = _enemySpawner.ActiveEnemies;
+            HashSet<GameObject> enemies = _enemyInstaller.ActiveEnemies;
             foreach (var enemy in enemies)
             {
                 UnsubscribeEnemy(enemy);
@@ -63,21 +63,7 @@ namespace ShootEmUp
             _enemyPool.InstallPool(positionCount);
         }
 
-        public void TryGetEnemy()
-        {
-            var enemy = _enemyPool.TrySpawnEnemy();
-            if (enemy != null)
-            {
-                var spawnPosition = _enemyPositions.RandomSpawnPosition();
-                var attackPosition = _enemyPositions.GetRandomAttackPosition(enemy);
-                enemy = _enemyInstaller.InstallEnemy(enemy, spawnPosition.position, attackPosition.position);
-
-                OnSpawnEnemy(enemy);
-                _enemySpawner.AddToList(enemy);
-            }
-        }
-
-        private void OnSpawnEnemy(GameObject enemy)
+        public void OnSpawnEnemy(GameObject enemy)
         {
             _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyMoveAgent>().TryMove;
             _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyAttackAgent>().TryFire;
@@ -89,7 +75,7 @@ namespace ShootEmUp
         {
             UnsubscribeEnemy(enemy);
             _enemyPool.UnspawnEnemy(enemy);
-            _enemySpawner.RemoveFromList(enemy);
+            _enemyInstaller.RemoveFromList(enemy);
             _enemyPositions.RestoreAttackPosition(enemy);
             _scoreManager.AddScore();
         }
