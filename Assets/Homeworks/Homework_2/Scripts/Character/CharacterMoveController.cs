@@ -5,7 +5,7 @@ using FrameworkUnity.Architecture.DI;
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class MoveController : MonoBehaviour,
+    public sealed class CharacterMoveController : MonoBehaviour,
         IGameFixedUpdateListener,
         IGameStartListener,
         IGameFinishListener

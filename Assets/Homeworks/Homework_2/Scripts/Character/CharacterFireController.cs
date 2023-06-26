@@ -5,7 +5,7 @@ using FrameworkUnity.Architecture.DI;
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class CharacterController : MonoBehaviour, 
+    public sealed class CharacterFireController : MonoBehaviour, 
         IGameFixedUpdateListener,
         IGameStartListener,
         IGameFinishListener
@@ -26,21 +26,11 @@ namespace ShootEmUp
             _bulletSystem = bulletSystem;
         }
 
-        public void OnStartGame()
-        {
-            _playerInput.OnSpacePushed += SetFireRequired;
-            _character.HitPointsComponent.OnEmptyHP += OnCharacterDeath;
-        }
-
-        public void OnFinishGame()
-        {
-            _playerInput.OnSpacePushed -= SetFireRequired;
-            _character.HitPointsComponent.OnEmptyHP -= OnCharacterDeath;
-        }
+        public void OnStartGame() => _playerInput.OnSpacePushed += SetFireRequired;
+        public void OnFinishGame() => _playerInput.OnSpacePushed -= SetFireRequired;
 
         public void SetFireRequired(bool value) => _fireRequired = value;
-        private void OnCharacterDeath(GameObject _) => _gameManager.FinishGame();
-
+        
         public void OnFixedUpdate(float fixedDeltaTime)
         {
             if (_fireRequired)
