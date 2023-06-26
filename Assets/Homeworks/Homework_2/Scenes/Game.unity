@@ -568,9 +568,11 @@ GameObject:
   - component: {fileID: 562298204}
   - component: {fileID: 562298207}
   - component: {fileID: 562298205}
-  - component: {fileID: 562298209}
+  - component: {fileID: 562298212}
   - component: {fileID: 562298210}
+  - component: {fileID: 562298209}
   - component: {fileID: 562298208}
+  - component: {fileID: 562298211}
   m_Layer: 0
   m_Name: EnemySystem
   m_TagString: Untagged
@@ -660,6 +662,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _character: {fileID: 4414282821800802397}
+--- !u!114 &562298211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562298203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc40d65309893c64ca7fc2157e500f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &562298212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562298203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6184362e480bac408b269493f6dbc58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &573179326
 GameObject:
   m_ObjectHideFlags: 0

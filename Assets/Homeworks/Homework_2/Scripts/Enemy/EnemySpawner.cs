@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FrameworkUnity.Architecture.DI;
 using UnityEngine;
@@ -10,14 +11,18 @@ namespace ShootEmUp
         [SerializeField] private GameObject _character;
 
         private EnemyPool _enemyPool;
+        private FixedUpdater _fixedUpdater;
         private EnemyPositions _enemyPositions;
-        private EnemySystemController _enemySystemController;
+        private EnemyFixedUpdateObserver _enemySystemController;
+
+        public event Action<GameObject> OnEnemySpawned;
 
 
         [Inject]
-        public void Construct(EnemyPool enemyPool, EnemyPositions enemyPositions, EnemySystemController enemySystemController)
+        public void Construct(EnemyPool enemyPool, FixedUpdater fixedUpdater, EnemyPositions enemyPositions, EnemyFixedUpdateObserver enemySystemController)
         {
             _enemyPool = enemyPool;
+            _fixedUpdater = fixedUpdater;
             _enemyPositions = enemyPositions;
             _enemySystemController = enemySystemController;
         }
@@ -35,12 +40,14 @@ namespace ShootEmUp
                 enemy.transform.position = spawnPosition.position;
                 enemy.GetComponent<EnemyMoveAgent>().SetDestination(attackPosition.position);
                 enemy.GetComponent<CircleCollider2DComponent>().SetActiveCollider(false);
+                enemy.GetComponent<EnemyInstaller>().Install(_fixedUpdater);
+
 
                 var agent = enemy.GetComponent<EnemyAttackAgent>();
                 agent.SetTarget(_character);
                 agent.SetAllowAttack(false);
 
-                _enemySystemController.OnSpawnEnemy(enemy);
+                OnEnemySpawned?.Invoke(enemy);
             }
         }
     }

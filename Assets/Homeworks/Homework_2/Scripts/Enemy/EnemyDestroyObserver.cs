@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FrameworkUnity.Architecture.DI;
@@ -12,7 +13,9 @@ namespace ShootEmUp
         private EnemyPositions _enemyPositions;
         private ScoreManager _scoreManager;
         private FixedUpdater _fixedUpdater;
-        private EnemySystemController _enemySystemController;
+        private EnemyFixedUpdateObserver _enemySystemController;
+
+        public event Action OnEnemyDestroyed;
 
 
         [Inject]
@@ -20,7 +23,7 @@ namespace ShootEmUp
             EnemyPositions enemyPositions,
             ScoreManager scoreManager,
             FixedUpdater fixedUpdater,
-            EnemySystemController enemySystemController)
+            EnemyFixedUpdateObserver enemySystemController)
         {
             _enemyPool = enemyPool;
             _enemyPositions = enemyPositions;
@@ -48,8 +51,7 @@ namespace ShootEmUp
 
         private void UnsubscribeEnemy(GameObject enemy)
         {
-            _fixedUpdater.OnFixedUpdateEvent -= enemy.GetComponent<EnemyMoveAgent>().TryMove;
-            _fixedUpdater.OnFixedUpdateEvent -= enemy.GetComponent<EnemyAttackAgent>().TryFire;
+            enemy.GetComponent<EnemyInstaller>().Uninstall();
             enemy.GetComponent<HitPointsComponent>().OnEmptyHP -= OnDestroyEnemy;
             enemy.GetComponent<EnemyAttackAgent>().OnFire -= _enemySystemController.OnEnemyFire;
         }
