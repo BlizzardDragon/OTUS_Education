@@ -7,19 +7,16 @@ using FrameworkUnity.Interfaces.Installed;
 // Готово.
 namespace ShootEmUp
 {
-    public class EnemySystemController : MonoBehaviour, IGameStartListener, IGameFinishListener, IInstallableOnStart
+    public class EnemySystemController : MonoBehaviour, IGameFinishListener, IInstallableOnStart
     {
-
         public HashSet<GameObject> ActiveEnemies => _activeEnemies;
         private readonly HashSet<GameObject> _activeEnemies = new();
 
         private EnemyPool _enemyPool;
         private EnemyPositions _enemyPositions;
-        private EnemyGenerator _enemySpawner;
         private BulletManager _bulletSystem;
         private EnemyBulletConfigProvider _enemyBulletConfigProvider;
         private ScoreManager _scoreManager;
-        private EnemySpawner _enemyInstaller;
         private FixedUpdater _fixedUpdater;
 
 
@@ -35,25 +32,14 @@ namespace ShootEmUp
         {
             _enemyPool = enemyPool;
             _enemyPositions = enemyPositions;
-            _enemySpawner = enemySpawner;
             _bulletSystem = bulletSystem;
             _enemyBulletConfigProvider = attackConfig;
             _scoreManager = scoreManager;
-            _enemyInstaller = enemyInstaller;
             _fixedUpdater = fixedUpdater;
-        }
-
-        public void OnStartGame()
-        {
-            _enemySpawner.OnSpawnTime += _enemyInstaller.SpawnEnemy;
         }
 
         public void OnFinishGame()
         {
-            _enemySpawner.OnSpawnTime -= _enemyInstaller.SpawnEnemy;
-
-            // Прочитал в Майкрософт код конвеншене, что при не явном присваивании нельзя писать var.
-            // Но это ведь противоречит OCP? 
             foreach (var enemy in _activeEnemies)
             {
                 UnsubscribeEnemy(enemy);

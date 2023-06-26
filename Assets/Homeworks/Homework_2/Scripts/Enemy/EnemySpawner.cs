@@ -24,7 +24,9 @@ namespace ShootEmUp
 
         public void SpawnEnemy()
         {
-            var enemy = _enemyPool.TrySpawnEnemy();
+            // Прочитал в Майкрософт код конвеншене, что при не явном присваивании нельзя писать var.
+            // Но это ведь противоречит OCP? 
+            GameObject enemy = _enemyPool.TrySpawnEnemy();
             if (enemy != null)
             {
                 var spawnPosition = _enemyPositions.RandomSpawnPosition();
