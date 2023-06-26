@@ -13,13 +13,13 @@ namespace ShootEmUp
         private EnemyPool _enemyPool;
         private FixedUpdater _fixedUpdater;
         private EnemyPositions _enemyPositions;
-        private EnemyFixedUpdateObserver _enemySystemController;
+        private EnemiesContainer _enemySystemController;
 
         public event Action<GameObject> OnEnemySpawned;
 
 
         [Inject]
-        public void Construct(EnemyPool enemyPool, FixedUpdater fixedUpdater, EnemyPositions enemyPositions, EnemyFixedUpdateObserver enemySystemController)
+        public void Construct(EnemyPool enemyPool, FixedUpdater fixedUpdater, EnemyPositions enemyPositions, EnemiesContainer enemySystemController)
         {
             _enemyPool = enemyPool;
             _fixedUpdater = fixedUpdater;
