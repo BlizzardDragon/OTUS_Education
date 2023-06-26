@@ -42,7 +42,6 @@ namespace ShootEmUp
                 enemy.GetComponent<CircleCollider2DComponent>().SetActiveCollider(false);
                 enemy.GetComponent<EnemyInstaller>().Install(_fixedUpdater);
 
-
                 var agent = enemy.GetComponent<EnemyAttackAgent>();
                 agent.SetTarget(_character);
                 agent.SetAllowAttack(false);
