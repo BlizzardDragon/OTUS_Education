@@ -13,7 +13,7 @@ namespace ShootEmUp
         private EnemyPositions _enemyPositions;
         private EnemySpawner _enemySpawner;
         private BulletManager _bulletSystem;
-        private EnemyAttackConfigurator _attackConfig;
+        private EnemyBulletConfigProvider _enemyBulletConfigProvider;
         private ScoreManager _scoreManager;
         private EnemyInstaller _enemyInstaller;
         private FixedUpdater _fixedUpdater;
@@ -24,7 +24,7 @@ namespace ShootEmUp
             EnemyPositions enemyPositions,
             EnemySpawner enemySpawner,
             BulletManager bulletSystem,
-            EnemyAttackConfigurator attackConfig,
+            EnemyBulletConfigProvider attackConfig,
             ScoreManager scoreManager,
             EnemyInstaller enemyInstaller,
             FixedUpdater fixedUpdater)
@@ -33,7 +33,7 @@ namespace ShootEmUp
             _enemyPositions = enemyPositions;
             _enemySpawner = enemySpawner;
             _bulletSystem = bulletSystem;
-            _attackConfig = attackConfig;
+            _enemyBulletConfigProvider = attackConfig;
             _scoreManager = scoreManager;
             _enemyInstaller = enemyInstaller;
             _fixedUpdater = fixedUpdater;
@@ -42,13 +42,11 @@ namespace ShootEmUp
         public void OnStartGame()
         {
             _enemySpawner.OnSpawnTime += TryGetEnemy;
-            _attackConfig.OnFired += _bulletSystem.FlyBulletByArgs;
         }
 
         public void OnFinishGame()
         {
             _enemySpawner.OnSpawnTime -= TryGetEnemy;
-            _attackConfig.OnFired -= _bulletSystem.FlyBulletByArgs;
 
             // Прочитал в Майкрософт код конвеншене, что при не явном присваивании нельзя писать var.
             // Но это ведь противоречит OCP? 
@@ -84,7 +82,7 @@ namespace ShootEmUp
             _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyMoveAgent>().TryMove;
             _fixedUpdater.OnFixedUpdateEvent += enemy.GetComponent<EnemyAttackAgent>().TryFire;
             enemy.GetComponent<HitPointsComponent>().OnEmptyHP += OnDestroyEnemy;
-            enemy.GetComponent<EnemyAttackAgent>().OnFire += _attackConfig.OnFire;
+            enemy.GetComponent<EnemyAttackAgent>().OnFire += OnEnemyFire;
         }
 
         public void OnDestroyEnemy(GameObject enemy)
@@ -101,7 +99,13 @@ namespace ShootEmUp
             _fixedUpdater.OnFixedUpdateEvent -= enemy.GetComponent<EnemyMoveAgent>().TryMove;
             _fixedUpdater.OnFixedUpdateEvent -= enemy.GetComponent<EnemyAttackAgent>().TryFire;
             enemy.GetComponent<HitPointsComponent>().OnEmptyHP -= OnDestroyEnemy;
-            enemy.GetComponent<EnemyAttackAgent>().OnFire -= _attackConfig.OnFire;
+            enemy.GetComponent<EnemyAttackAgent>().OnFire -= OnEnemyFire;
+        }
+
+        private void OnEnemyFire(Vector2 position, Vector2 direction)
+        {
+            Bullet.Args config = _enemyBulletConfigProvider.GetConfig(position, direction);
+            _bulletSystem.FlyBulletByArgs(config);
         }
     }
 }

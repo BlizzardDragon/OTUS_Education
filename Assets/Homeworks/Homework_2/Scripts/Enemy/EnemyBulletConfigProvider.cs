@@ -4,14 +4,11 @@ using UnityEngine;
 // Готово.
 namespace ShootEmUp
 {
-    public class EnemyAttackConfigurator : MonoBehaviour
+    public class EnemyBulletConfigProvider : MonoBehaviour
     {
-        public event Action<Bullet.Args> OnFired;
-
-
-        public void OnFire(Vector2 position, Vector2 direction)
+        public Bullet.Args GetConfig(Vector2 position, Vector2 direction)
         {
-            OnFired?.Invoke(new Bullet.Args
+            var config = new Bullet.Args
             {
                 IsPlayer = false,
                 PhysicsLayer = (int)PhysicsLayer.ENEMY,
@@ -19,7 +16,9 @@ namespace ShootEmUp
                 Damage = 1,
                 Position = position,
                 Velocity = direction * 2.0f
-            });
+            };
+            
+            return config;
         }
     }
 }
