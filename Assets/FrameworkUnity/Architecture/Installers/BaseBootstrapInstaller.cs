@@ -16,7 +16,7 @@ namespace FrameworkUnity.Architecture.Installers
         private List<IInstallableOnStart> _startInstallables = new();
         private List<IInstallableOnEnable> _enableInstallables = new();
         private List<IInstallableOnDisable> _disableInstallables = new();
-        protected BaseGameManager _gameManager;
+        protected GameManager _gameManager;
 
 
         protected virtual void Awake()
@@ -61,7 +61,7 @@ namespace FrameworkUnity.Architecture.Installers
 
 
         private void InstallServices() => GetComponent<ServiceLocatorInstaller>().InstallServices();
-        private void SetGameManager() => _gameManager = ServiceLocator.GetService<BaseGameManager>();
+        private void SetGameManager() => _gameManager = ServiceLocator.GetService<GameManager>();
 
         private void InstallGameManager()
         {

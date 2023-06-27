@@ -1,6 +1,7 @@
+using UnityEngine;
 using FrameworkUnity.Architecture.DI;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
-using UnityEngine;
+using FrameworkUnity.Architecture.GameManagers;
 
 // Готово.
 namespace ShootEmUp
