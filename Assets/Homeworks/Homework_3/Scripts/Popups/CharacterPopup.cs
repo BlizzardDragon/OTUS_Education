@@ -54,6 +54,7 @@ namespace PresentationModel
         {
             base.OnHide();
             HidePopup();
+            _presentationModel.OnExperienceChanged -= UpdateExperience;
         }
 
         public void ShowPopup() => _popup.SetActive(true);
