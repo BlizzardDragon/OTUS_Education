@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace PresentationModel
 {
-    public class CharacterPopup : MonoBehaviour
+    public class CharacterPopup : Popup
     {
         [SerializeField] private GameObject _popup;
 
@@ -27,6 +27,18 @@ namespace PresentationModel
         [SerializeField] private Transform _statsParent;
 
         [SerializeField] private ButtonLevelUp _buttonLevelUp;
+
+
+        private ICharacterPresentationModel _presentationModel;
+
+        protected override void OnShow(object args)
+        {
+            base.OnShow(args);
+            _presentationModel.GetTitle();
+        }
+
+
+
 
 
         public void ShowPopup()
