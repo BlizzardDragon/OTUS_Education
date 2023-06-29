@@ -5,65 +5,75 @@ using TMPro;
 using UnityEngine.UI;
 
 
-public class CharacterPopup : MonoBehaviour
+namespace PresentationModel
 {
-    [SerializeField] private GameObject _popup;
-
-    [SerializeField] private Image _icon;
-
-    [SerializeField] private TMP_Text _name;
-
-    [SerializeField] private TMP_Text _level;
-
-    [SerializeField] private TMP_Text _description;
-
-    [SerializeField] private TMP_Text _currentExperience;
-    [SerializeField] private TMP_Text _requiredExperience;
-    [SerializeField] private Image _progressBarScale;
-    [SerializeField] private Image _progressBarCompleted;
-
-    [SerializeField] private Transform _statsParent;
-
-
-    public void ShowPopup()
+    public class CharacterPopup : MonoBehaviour
     {
-        _popup.SetActive(true);
-    }
+        [SerializeField] private GameObject _popup;
 
-    public void HidePopup()
-    {
-        _popup.SetActive(false);
-    }
+        [SerializeField] private Image _icon;
 
-    public void SetIcon(Sprite sprite)
-    {
-        _icon.sprite = sprite;
-    }
+        [SerializeField] private TMP_Text _name;
 
-    public void SetName(string name)
-    {
-        _name.text = name;
-    }
+        [SerializeField] private TMP_Text _level;
 
-    public void SetLevel(string level)
-    {
-        _level.text = level;
-    }
+        [SerializeField] private TMP_Text _description;
 
-    public void SetDescription(string description)
-    {
-        _description.text = description;
-    }
+        [SerializeField] private TMP_Text _currentExperience;
+        [SerializeField] private TMP_Text _requiredExperience;
+        [SerializeField] private Image _progressBarScale;
+        [SerializeField] private Image _progressBarCompleted;
 
-    public void UpdateExperience(string currentExp, string requiredExp, float fillAmount)
-    {
-        _currentExperience.text = currentExp;
-        _requiredExperience.text = requiredExp;
-        _progressBarScale.fillAmount = fillAmount;
-    }
+        [SerializeField] private Transform _statsParent;
 
-    public void AllowLevelUp()
-    {
+        [SerializeField] private ButtonLevelUp _buttonLevelUp;
 
+
+        public void ShowPopup()
+        {
+            _popup.SetActive(true);
+        }
+
+        public void HidePopup()
+        {
+            _popup.SetActive(false);
+        }
+
+        public void SetIcon(Sprite sprite)
+        {
+            _icon.sprite = sprite;
+        }
+
+        public void SetName(string name)
+        {
+            _name.text = name;
+        }
+
+        public void SetLevel(string level)
+        {
+            _level.text = level;
+        }
+
+        public void SetDescription(string description)
+        {
+            _description.text = description;
+        }
+
+        public void UpdateExperience(string currentExp, string requiredExp, float fillAmount)
+        {
+            _currentExperience.text = currentExp;
+            _requiredExperience.text = requiredExp;
+            _progressBarScale.fillAmount = fillAmount;
+        }
+
+        public void AllowLevelUp()
+        {
+            _buttonLevelUp.ActivateButton();
+        }
+
+        public void ForbidLevelUp()
+        {
+            _buttonLevelUp.DeactivateButton();
+        }
     }
 }
