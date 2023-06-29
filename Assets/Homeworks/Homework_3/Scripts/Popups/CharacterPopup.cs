@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-
+using System;
 
 namespace PresentationModel
 {
@@ -33,59 +33,78 @@ namespace PresentationModel
 
         protected override void OnShow(object args)
         {
+            if (args is not ICharacterPresentationModel presentationModel)
+            {
+                throw new Exception("Expected Presentation Model");
+            }
+
+            _presentationModel = presentationModel;
+
             base.OnShow(args);
-            _presentationModel.GetTitle();
+
+            ShowPopup();
+            _icon.sprite = _presentationModel.GetIcon();
+            _name.text = _presentationModel.GetName();
+            _level.text = _presentationModel.GetLevel();
+            _description.text = _presentationModel.GetDescription();
+            _presentationModel.OnExperienceChanged += UpdateExperience;
         }
 
-
-
-
-
-        public void ShowPopup()
+        protected override void OnHide()
         {
-            _popup.SetActive(true);
+            base.OnHide();
+            HidePopup();
         }
 
-        public void HidePopup()
-        {
-            _popup.SetActive(false);
-        }
-
-        public void SetIcon(Sprite sprite)
-        {
-            _icon.sprite = sprite;
-        }
-
-        public void SetName(string name)
-        {
-            _name.text = name;
-        }
-
-        public void SetLevel(string level)
-        {
-            _level.text = level;
-        }
-
-        public void SetDescription(string description)
-        {
-            _description.text = description;
-        }
+        public void ShowPopup() => _popup.SetActive(true);
+        public void HidePopup() => _popup.SetActive(false);
 
         public void UpdateExperience(string currentExp, string requiredExp, float fillAmount)
         {
             _currentExperience.text = currentExp;
             _requiredExperience.text = requiredExp;
             _progressBarScale.fillAmount = fillAmount;
+
+            if (fillAmount < 1)
+            {
+                ForbidLevelUp();
+            }
+            else
+            {
+                AllowLevelUp();
+            }
         }
 
         public void AllowLevelUp()
         {
+            _progressBarCompleted.enabled = true;
             _buttonLevelUp.ActivateButton();
         }
 
         public void ForbidLevelUp()
         {
+            _progressBarCompleted.enabled = false;
             _buttonLevelUp.DeactivateButton();
         }
+
+        // public void SetIcon(Sprite sprite)
+        // {
+        //     _icon.sprite = sprite;
+        // }
+
+        // public void SetName(string name)
+        // {
+        //     _name.text = name;
+        // }
+
+        // public void SetLevel(string level)
+        // {
+        //     _level.text = level;
+        // }
+
+        // public void SetDescription(string description)
+        // {
+        //     _description.text = description;
+        // }
     }
 }
