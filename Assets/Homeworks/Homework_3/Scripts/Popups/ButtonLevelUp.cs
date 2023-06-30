@@ -30,5 +30,7 @@ namespace PresentationModel
             _button.image.sprite = _inactiveButton;
             _button.interactable = false;
         }
+
+        public Button GetButton() => _button;
     }
 }

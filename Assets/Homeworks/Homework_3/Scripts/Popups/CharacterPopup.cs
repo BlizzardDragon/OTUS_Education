@@ -27,6 +27,8 @@ namespace PresentationModel
 
         [SerializeField] private ButtonLevelUp _buttonLevelUp;
 
+        [SerializeField] private Button _closeButton;
+
 
         private ICharacterPresentationModel _presentationModel;
 
@@ -50,6 +52,8 @@ namespace PresentationModel
             _level.text = _presentationModel.GetLevel();
             _description.text = _presentationModel.GetDescription();
             _presentationModel.OnExperienceChanged += UpdateExperience;
+            _closeButton.onClick.AddListener(OnButtonCloseClicked);
+            _buttonLevelUp.GetButton().onClick.AddListener(OnButtonLevelUpClicked);
         }
 
         protected override void OnHide()
@@ -57,6 +61,18 @@ namespace PresentationModel
             base.OnHide();
             HidePopup();
             _presentationModel.OnExperienceChanged -= UpdateExperience;
+            _closeButton.onClick.RemoveListener(OnButtonCloseClicked);
+            _buttonLevelUp.GetButton().onClick.RemoveListener(OnButtonLevelUpClicked);
+        }
+
+        private void OnButtonCloseClicked()
+        {
+            _presentationModel.OnClosedClicked();
+        }
+
+        private void OnButtonLevelUpClicked()
+        {
+            _presentationModel.OnLevelUpClicked();
         }
 
         public void ShowPopup() => _popup.SetActive(true);

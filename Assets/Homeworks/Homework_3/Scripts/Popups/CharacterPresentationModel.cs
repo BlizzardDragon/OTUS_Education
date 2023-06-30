@@ -29,5 +29,15 @@ namespace PresentationModel
         {
             throw new System.NotImplementedException();
         }
+
+        public void OnClosedClicked()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnLevelUpClicked()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
