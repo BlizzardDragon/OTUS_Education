@@ -162,7 +162,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 488032147476562970}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
   m_Name: 
@@ -765,6 +765,7 @@ MonoBehaviour:
   _progressBarCompleted: {fileID: 488032149335530404}
   _statsParent: {fileID: 488032147476562965}
   _closeButton: {fileID: 488032148117238320}
+  _contentSizeFitter: {fileID: 488032147476562964}
   _buttonLevelUp: {fileID: 213580045796874244}
   _statPrefab: {fileID: 6465564615798493364, guid: 5074614ea02ec614b936b3e22f9a6617,
     type: 3}

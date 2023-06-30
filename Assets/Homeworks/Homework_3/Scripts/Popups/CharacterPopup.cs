@@ -26,7 +26,7 @@ namespace PresentationModel
         [SerializeField] private Transform _statsParent;
 
         [SerializeField] private Button _closeButton;
-
+        
         [SerializeField] private ButtonLevelUp _buttonLevelUp;
 
         [SerializeField] private PopUpStat _statPrefab;
