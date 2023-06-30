@@ -9,6 +9,7 @@ namespace PresentationModel
     public class PopupManager : MonoBehaviour
     {
         [SerializeField] private CharacterPopup _characterPopup;
+        [Space(15)]
         [ShowInInspector] private CharacterPopupPresentationModel _presentationModel;
 
 

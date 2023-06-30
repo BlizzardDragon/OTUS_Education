@@ -44,20 +44,17 @@ namespace PresentationModel
             float currentExperience = currentExp;
             float requiredExperience = PlayerLevel.RequiredExperience;
 
-            float fillAmount = currentExperience / requiredExperience;
             string text = $"{_localizationHP}: {currentExperience} / {requiredExperience}";
+            float fillAmount = currentExperience / requiredExperience;
 
             OnExperienceChanged?.Invoke(text, fillAmount);
 
-            CheckExperienceLimit();
+            CheckExperienceLimit(fillAmount);
         }
 
-        private void CheckExperienceLimit()
+        private void CheckExperienceLimit(float fillAmount)
         {
-            float currentExperience = PlayerLevel.CurrentExperience;
-            float requiredExperience = PlayerLevel.RequiredExperience;
-
-            if (currentExperience < requiredExperience)
+            if (fillAmount < 1)
             {
                 OnForbidLevelUp?.Invoke();
             }

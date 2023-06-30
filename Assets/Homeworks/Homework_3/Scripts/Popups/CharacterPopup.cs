@@ -45,12 +45,16 @@ namespace PresentationModel
             base.OnShow(args);
             _popup.SetActive(true);
 
-            GetLevel();
-            _icon.sprite = _presentationModel.GetIcon();
-            _name.text = _presentationModel.GetName();
-            _description.text = _presentationModel.GetDescription();
+            SetLevel();
+            SetIcon(_presentationModel.GetIcon());
+            SetName(_presentationModel.GetName());
+            SetDescription(_presentationModel.GetDescription());
 
-            _presentationModel.PlayerLevel.OnLevelUp += GetLevel;
+            _presentationModel.PlayerLevel.OnLevelUp += SetLevel;
+            _presentationModel.UserInfo.OnIconChanged += SetIcon;
+            _presentationModel.UserInfo.OnNameChanged += SetName;
+            _presentationModel.UserInfo.OnDescriptionChanged += SetDescription;
+
             _presentationModel.OnExperienceChanged += UpdateExperience;
             _presentationModel.OnAllowLevelUp += AllowLevelUp;
             _presentationModel.OnForbidLevelUp += ForbidLevelUp;
@@ -64,7 +68,7 @@ namespace PresentationModel
         {
             base.OnHide();
             _popup.SetActive(false);
-            _presentationModel.PlayerLevel.OnLevelUp -= GetLevel;
+            _presentationModel.PlayerLevel.OnLevelUp -= SetLevel;
             _presentationModel.OnExperienceChanged -= UpdateExperience;
             _closeButton.onClick.RemoveListener(OnButtonCloseClicked);
             _buttonLevelUp.GetButton().onClick.RemoveListener(OnButtonLevelUpClicked);
@@ -99,9 +103,24 @@ namespace PresentationModel
             _buttonLevelUp.DeactivateButton();
         }
 
-        private void GetLevel()
+        private void SetLevel()
         {
             _level.text = _presentationModel.GetLevel();
+        }
+
+        private void SetDescription(string text)
+        {
+            _description.text = text;
+        }
+
+        private void SetName(string text)
+        {
+            _name.text = text;
+        }
+
+        private void SetIcon(Sprite sprite)
+        {
+            _icon.sprite = sprite;
         }
     }
 }
