@@ -22,7 +22,7 @@ namespace FrameworkUnity.Architecture.Zenject.Installers
 
         private void InstallGameSystems()
         {
-            Container.Bind<CharacterPresentationModel>().AsSingle();
+            Container.Bind<CharacterPopupPresentationModel>().AsSingle();
             Container.Bind<PresentationModel.CharacterInfo>().AsSingle();
             Container.Bind<PlayerLevel>().AsSingle();
             Container.Bind<UserInfo>().AsSingle();

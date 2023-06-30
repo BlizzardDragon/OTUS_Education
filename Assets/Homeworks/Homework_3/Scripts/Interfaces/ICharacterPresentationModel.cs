@@ -9,6 +9,8 @@ namespace PresentationModel
     public interface ICharacterPresentationModel
     {
         public event Action<string, string, float> OnExperienceChanged;
+        public event Action OnAllowLevelUp;
+        public event Action OnForbidLevelUp;
 
 
         string GetDescription();

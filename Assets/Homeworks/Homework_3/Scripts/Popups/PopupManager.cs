@@ -9,11 +9,11 @@ namespace PresentationModel
     public class PopupManager : MonoBehaviour
     {
         [SerializeField] private CharacterPopup _characterPopup;
-        [ShowInInspector] private CharacterPresentationModel _presentationModel;
+        [ShowInInspector] private CharacterPopupPresentationModel _presentationModel;
 
 
         [Inject]
-        public void Construct(CharacterPresentationModel characterPresentationModel)
+        public void Construct(CharacterPopupPresentationModel characterPresentationModel)
         {
             _presentationModel = characterPresentationModel;
         }

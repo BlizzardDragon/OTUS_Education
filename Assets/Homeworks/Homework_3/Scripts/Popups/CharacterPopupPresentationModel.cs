@@ -6,13 +6,15 @@ using Zenject;
 
 namespace PresentationModel
 {
-    public class CharacterPresentationModel : ICharacterPresentationModel
+    public class CharacterPopupPresentationModel : ICharacterPresentationModel
     {
         [SerializeField] private CharacterInfo _characterInfo;
         [SerializeField] private PlayerLevel _playerLevel;
         [SerializeField] private UserInfo _userInfo;
 
         public event Action<string, string, float> OnExperienceChanged;
+        public event Action OnAllowLevelUp;
+        public event Action OnForbidLevelUp;
 
 
         [Inject]
@@ -38,6 +40,19 @@ namespace PresentationModel
             float fillAmount = currentExperience / requiredExperience;
 
             OnExperienceChanged?.Invoke(currentExpText, requiredExpText, fillAmount);
+            CheckLevelUp(fillAmount);
+        }
+
+        private void CheckLevelUp(float fillAmount)
+        {
+            if (fillAmount < 1)
+            {
+                OnForbidLevelUp?.Invoke();
+            }
+            else
+            {
+                OnAllowLevelUp?.Invoke();
+            }
         }
 
         public string GetDescription()
@@ -60,14 +75,11 @@ namespace PresentationModel
             return _userInfo.Name;
         }
 
-        public void OnClosedClicked()
-        {
-            throw new NotImplementedException();
-        }
-
         public void OnLevelUpClicked()
         {
-            throw new NotImplementedException();
+            _playerLevel.LevelUp();
         }
+
+        public void OnClosedClicked() { }
     }
 }

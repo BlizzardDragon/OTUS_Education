@@ -46,12 +46,17 @@ namespace PresentationModel
 
             base.OnShow(args);
             _popup.SetActive(true);
+
             _icon.sprite = _presentationModel.GetIcon();
             _name.text = _presentationModel.GetName();
             _level.text = _presentationModel.GetLevel();
             _description.text = _presentationModel.GetDescription();
+
             _presentationModel.OnExperienceChanged += UpdateExperience;
+            _presentationModel.OnAllowLevelUp += AllowLevelUp;
+            _presentationModel.OnForbidLevelUp += ForbidLevelUp;
             _presentationModel.OnShow();
+
             _closeButton.onClick.AddListener(OnButtonCloseClicked);
             _buttonLevelUp.GetButton().onClick.AddListener(OnButtonLevelUpClicked);
         }
@@ -67,6 +72,7 @@ namespace PresentationModel
 
         private void OnButtonCloseClicked()
         {
+            Hide();
             _presentationModel.OnClosedClicked();
         }
 
@@ -79,15 +85,6 @@ namespace PresentationModel
         {
             _experience.text = $"{_localizationHP}: {currentExp} / {requiredExp}";
             _progressBarScale.fillAmount = fillAmount;
-
-            if (fillAmount < 1)
-            {
-                ForbidLevelUp();
-            }
-            else
-            {
-                AllowLevelUp();
-            }
         }
 
         public void AllowLevelUp()
@@ -106,25 +103,5 @@ namespace PresentationModel
         {
             _localizationHP = text;
         }
-
-        // public void SetIcon(Sprite sprite)
-        // {
-        //     _icon.sprite = sprite;
-        // }
-
-        // public void SetName(string name)
-        // {
-        //     _name.text = name;
-        // }
-
-        // public void SetLevel(string level)
-        // {
-        //     _level.text = level;
-        // }
-
-        // public void SetDescription(string description)
-        // {
-        //     _description.text = description;
-        // }
     }
 }
