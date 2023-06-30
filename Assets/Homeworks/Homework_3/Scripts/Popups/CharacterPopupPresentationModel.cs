@@ -8,11 +8,14 @@ namespace PresentationModel
 {
     public class CharacterPopupPresentationModel : ICharacterPresentationModel
     {
-        [SerializeField] private CharacterInfo _characterInfo;
-        [SerializeField] private PlayerLevel _playerLevel;
-        [SerializeField] private UserInfo _userInfo;
+        [field: SerializeField] public CharacterInfo CharacterInfo { get; set; }
+        [field: SerializeField] public UserInfo UserInfo { get; set; }
+        [field: SerializeField] public PlayerLevel PlayerLevel { get; set; }
 
-        public event Action<string, string, float> OnExperienceChanged;
+        private string _localizationHP = "HP";
+        private string _localizationLevel = "Level";
+
+        public event Action<string, float> OnExperienceChanged;
         public event Action OnAllowLevelUp;
         public event Action OnForbidLevelUp;
 
@@ -20,32 +23,41 @@ namespace PresentationModel
         [Inject]
         public void Construct(CharacterInfo characterInfo, PlayerLevel playerLevel, UserInfo userInfo)
         {
-            _characterInfo = characterInfo;
-            _playerLevel = playerLevel;
-            _userInfo = userInfo;
+            CharacterInfo = characterInfo;
+            PlayerLevel = playerLevel;
+            UserInfo = userInfo;
         }
 
         public void OnShow()
         {
-            UpdatePopupExperience();
+            UpdatePopupExperience(PlayerLevel.CurrentExperience);
+            PlayerLevel.OnExperienceChanged += UpdatePopupExperience;
         }
 
-        private void UpdatePopupExperience()
+        public void OnClosedClicked()
         {
-            float currentExperience = _playerLevel.CurrentExperience;
-            float requiredExperience = _playerLevel.RequiredExperience;
+            PlayerLevel.OnExperienceChanged -= UpdatePopupExperience;
+        }
 
-            string currentExpText = currentExperience.ToString();
-            string requiredExpText = requiredExperience.ToString();
+        private void UpdatePopupExperience(int currentExp)
+        {
+            float currentExperience = currentExp;
+            float requiredExperience = PlayerLevel.RequiredExperience;
+
             float fillAmount = currentExperience / requiredExperience;
+            string text = $"{_localizationHP}: {currentExperience} / {requiredExperience}";
 
-            OnExperienceChanged?.Invoke(currentExpText, requiredExpText, fillAmount);
-            CheckLevelUp(fillAmount);
+            OnExperienceChanged?.Invoke(text, fillAmount);
+
+            CheckExperienceLimit();
         }
 
-        private void CheckLevelUp(float fillAmount)
+        private void CheckExperienceLimit()
         {
-            if (fillAmount < 1)
+            float currentExperience = PlayerLevel.CurrentExperience;
+            float requiredExperience = PlayerLevel.RequiredExperience;
+
+            if (currentExperience < requiredExperience)
             {
                 OnForbidLevelUp?.Invoke();
             }
@@ -57,29 +69,41 @@ namespace PresentationModel
 
         public string GetDescription()
         {
-            return _userInfo.Description;
+            return UserInfo.Description;
         }
 
         public Sprite GetIcon()
         {
-            return _userInfo.Icon;
+            return UserInfo.Icon;
         }
 
         public string GetLevel()
         {
-            return _playerLevel.CurrentLevel.ToString();
+            UpdatePopupExperience(PlayerLevel.CurrentExperience);
+
+            int level = PlayerLevel.CurrentLevel;
+            string text = $"{_localizationLevel}: {level}";
+            return text;
         }
 
         public string GetName()
         {
-            return _userInfo.Name;
+            return UserInfo.Name;
         }
 
         public void OnLevelUpClicked()
         {
-            _playerLevel.LevelUp();
+            PlayerLevel.LevelUp();
         }
 
-        public void OnClosedClicked() { }
+        public void SetLocalizationHP(string text)
+        {
+            _localizationHP = text;
+        }
+
+        public void SetLocalizationLevel(string text)
+        {
+            _localizationLevel = text;
+        }
     }
 }

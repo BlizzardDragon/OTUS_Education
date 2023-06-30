@@ -8,7 +8,11 @@ namespace PresentationModel
 {
     public interface ICharacterPresentationModel
     {
-        public event Action<string, string, float> OnExperienceChanged;
+        public CharacterInfo CharacterInfo { get; set; }
+        public UserInfo UserInfo { get; set; }
+        public PlayerLevel PlayerLevel { get; set; }
+
+        public event Action<string, float> OnExperienceChanged;
         public event Action OnAllowLevelUp;
         public event Action OnForbidLevelUp;
 

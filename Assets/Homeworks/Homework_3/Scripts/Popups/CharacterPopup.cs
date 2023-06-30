@@ -32,8 +32,6 @@ namespace PresentationModel
 
         private ICharacterPresentationModel _presentationModel;
 
-        private string _localizationHP = "HP";
-
 
         protected override void OnShow(object args)
         {
@@ -47,11 +45,12 @@ namespace PresentationModel
             base.OnShow(args);
             _popup.SetActive(true);
 
+            GetLevel();
             _icon.sprite = _presentationModel.GetIcon();
             _name.text = _presentationModel.GetName();
-            _level.text = _presentationModel.GetLevel();
             _description.text = _presentationModel.GetDescription();
 
+            _presentationModel.PlayerLevel.OnLevelUp += GetLevel;
             _presentationModel.OnExperienceChanged += UpdateExperience;
             _presentationModel.OnAllowLevelUp += AllowLevelUp;
             _presentationModel.OnForbidLevelUp += ForbidLevelUp;
@@ -65,6 +64,7 @@ namespace PresentationModel
         {
             base.OnHide();
             _popup.SetActive(false);
+            _presentationModel.PlayerLevel.OnLevelUp -= GetLevel;
             _presentationModel.OnExperienceChanged -= UpdateExperience;
             _closeButton.onClick.RemoveListener(OnButtonCloseClicked);
             _buttonLevelUp.GetButton().onClick.RemoveListener(OnButtonLevelUpClicked);
@@ -81,9 +81,9 @@ namespace PresentationModel
             _presentationModel.OnLevelUpClicked();
         }
 
-        public void UpdateExperience(string currentExp, string requiredExp, float fillAmount)
+        public void UpdateExperience(string text, float fillAmount)
         {
-            _experience.text = $"{_localizationHP}: {currentExp} / {requiredExp}";
+            _experience.text = text;
             _progressBarScale.fillAmount = fillAmount;
         }
 
@@ -99,9 +99,9 @@ namespace PresentationModel
             _buttonLevelUp.DeactivateButton();
         }
 
-        public void SetLocalizationHP(string text)
+        private void GetLevel()
         {
-            _localizationHP = text;
+            _level.text = _presentationModel.GetLevel();
         }
     }
 }
