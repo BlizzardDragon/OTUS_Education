@@ -26,7 +26,7 @@ namespace PresentationModel
         [SerializeField] private Transform _statsParent;
 
         [SerializeField] private ButtonLevelUp _buttonLevelUp;
-        
+
         [SerializeField] private Button _closeButton;
 
 
@@ -51,6 +51,7 @@ namespace PresentationModel
             _level.text = _presentationModel.GetLevel();
             _description.text = _presentationModel.GetDescription();
             _presentationModel.OnExperienceChanged += UpdateExperience;
+            _presentationModel.OnShow();
             _closeButton.onClick.AddListener(OnButtonCloseClicked);
             _buttonLevelUp.GetButton().onClick.AddListener(OnButtonLevelUpClicked);
         }

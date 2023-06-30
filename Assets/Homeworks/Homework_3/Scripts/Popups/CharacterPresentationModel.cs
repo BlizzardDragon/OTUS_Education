@@ -12,7 +12,7 @@ namespace PresentationModel
         [SerializeField] private PlayerLevel _playerLevel;
         [SerializeField] private UserInfo _userInfo;
 
-        Action<string, string, float> ICharacterPresentationModel.OnExperienceChanged { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public event Action<string, string, float> OnExperienceChanged;
 
 
         [Inject]
@@ -23,24 +23,41 @@ namespace PresentationModel
             _userInfo = userInfo;
         }
 
+        public void OnShow()
+        {
+            UpdatePopupExperience();
+        }
+
+        private void UpdatePopupExperience()
+        {
+            float currentExperience = _playerLevel.CurrentExperience;
+            float requiredExperience = _playerLevel.RequiredExperience;
+
+            string currentExpText = currentExperience.ToString();
+            string requiredExpText = requiredExperience.ToString();
+            float fillAmount = currentExperience / requiredExperience;
+
+            OnExperienceChanged?.Invoke(currentExpText, requiredExpText, fillAmount);
+        }
+
         public string GetDescription()
         {
-            throw new System.NotImplementedException();
+            return _userInfo.Description;
         }
 
         public Sprite GetIcon()
         {
-            throw new System.NotImplementedException();
+            return _userInfo.Icon;
         }
 
         public string GetLevel()
         {
-            throw new System.NotImplementedException();
+            return _playerLevel.CurrentLevel.ToString();
         }
 
         public string GetName()
         {
-            throw new System.NotImplementedException();
+            return _userInfo.Name;
         }
 
         public void OnClosedClicked()

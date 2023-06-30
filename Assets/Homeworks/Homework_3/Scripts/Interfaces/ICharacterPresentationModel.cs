@@ -8,7 +8,7 @@ namespace PresentationModel
 {
     public interface ICharacterPresentationModel
     {
-        public Action<string, string, float> OnExperienceChanged { get; internal set; }
+        public event Action<string, string, float> OnExperienceChanged;
 
 
         string GetDescription();
@@ -17,5 +17,6 @@ namespace PresentationModel
         string GetName();
         void OnClosedClicked();
         void OnLevelUpClicked();
+        void OnShow();
     }
 }
