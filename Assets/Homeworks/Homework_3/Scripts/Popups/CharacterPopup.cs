@@ -19,8 +19,7 @@ namespace PresentationModel
 
         [SerializeField] private TMP_Text _description;
 
-        [SerializeField] private TMP_Text _currentExperience;
-        [SerializeField] private TMP_Text _requiredExperience;
+        [SerializeField] private TMP_Text _experience;
         [SerializeField] private Image _progressBarScale;
         [SerializeField] private Image _progressBarCompleted;
 
@@ -62,8 +61,7 @@ namespace PresentationModel
 
         public void UpdateExperience(string currentExp, string requiredExp, float fillAmount)
         {
-            _currentExperience.text = currentExp;
-            _requiredExperience.text = requiredExp;
+            _experience.text = $"HP: {currentExp} / {requiredExp}";
             _progressBarScale.fillAmount = fillAmount;
 
             if (fillAmount < 1)
