@@ -248,6 +248,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterPopup: {fileID: 1659913312}
+  _characterStats:
+  - <Name>k__BackingField: Move Speed
+  - <Name>k__BackingField: Intelligence
+  - <Name>k__BackingField: Stamina
+  - <Name>k__BackingField: Damage
+  - <Name>k__BackingField: Dexterity
+  - <Name>k__BackingField: Regeneration
 --- !u!1 &1213643557
 GameObject:
   m_ObjectHideFlags: 0

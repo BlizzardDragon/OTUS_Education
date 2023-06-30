@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace PresentationModel
 {
+    [Serializable]
     public sealed class CharacterStat
     {
-        [ShowInInspector, ReadOnly] public string Name { get; private set; }
+        [field: SerializeField] public string Name { get; private set; }
         [ShowInInspector, ReadOnly] public int Value { get; private set; }
 
         public event Action<int> OnValueChanged;

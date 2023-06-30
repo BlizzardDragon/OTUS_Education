@@ -31,7 +31,7 @@ namespace PresentationModel
 
         [SerializeField] private PopUpStat _statPrefab;
 
-        private Dictionary<CharacterStat, PopUpStat> _statsDictionary;
+        private Dictionary<CharacterStat, PopUpStat> _statsDictionary = new();
         private ICharacterPresentationModel _presentationModel;
 
 
@@ -136,6 +136,7 @@ namespace PresentationModel
         {
             PopUpStat newPopUpStat = Instantiate(_statPrefab, _statsParent);
             _statsDictionary.Add(characterStat, newPopUpStat);
+            newPopUpStat.SetText(characterStat.Name + ": " + characterStat.Value);
         }
 
         private void RemoveStat(CharacterStat characterStat)
