@@ -9,6 +9,7 @@ namespace PresentationModel
     public class PopupManager : MonoBehaviour
     {
         [SerializeField] private CharacterPopup _characterPopup;
+        [SerializeField] private CharacterStat[] _characterStats;
         [Space(15)]
         [ShowInInspector] private CharacterPopupPresentationModel _presentationModel;
 
@@ -20,6 +21,10 @@ namespace PresentationModel
         }
 
         [Button]
-        public void ShowPopup() => _characterPopup.Show(_presentationModel);
+        public void ShowPopup()
+        {
+            _characterPopup.Show(_presentationModel);
+            _presentationModel.SetCharacterStats(_characterStats);
+        }
     }
 }

@@ -9,6 +9,8 @@ namespace PresentationModel
 {
     public class CharacterPopup : Popup
     {
+        
+        [SerializeField] private PopUpStat _statPrefab;
         [SerializeField] private GameObject _popup;
 
         [SerializeField] private Image _icon;

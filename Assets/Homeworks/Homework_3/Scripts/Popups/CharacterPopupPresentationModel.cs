@@ -12,6 +12,8 @@ namespace PresentationModel
         [field: SerializeField] public UserInfo UserInfo { get; set; }
         [field: SerializeField] public PlayerLevel PlayerLevel { get; set; }
 
+        private PopUpStat _statPrefab;
+
         private string _localizationHP = "HP";
         private string _localizationLevel = "Level";
 
@@ -26,6 +28,14 @@ namespace PresentationModel
             CharacterInfo = characterInfo;
             PlayerLevel = playerLevel;
             UserInfo = userInfo;
+        }
+
+        public void SetCharacterStats(CharacterStat[] stats)
+        {
+            foreach (var stat in stats)
+            {
+                CharacterInfo.AddStat(stat);
+            }
         }
 
         public void OnShow()

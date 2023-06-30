@@ -761,6 +761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6469aaa96960cce418bca3a313e05463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _statPrefab: {fileID: 6465564615798493364, guid: 5074614ea02ec614b936b3e22f9a6617,
+    type: 3}
   _popup: {fileID: 488032147980007619}
   _icon: {fileID: 488032147599455831}
   _name: {fileID: 488032147858881419}
