@@ -12,5 +12,6 @@ namespace PresentationModel
 
 
         public void SetText(string text) => _text.text = text;
+        public void DestroyPopUpStat() => Destroy(gameObject);
     }
 }

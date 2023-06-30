@@ -9,8 +9,6 @@ namespace PresentationModel
 {
     public class CharacterPopup : Popup
     {
-        
-        [SerializeField] private PopUpStat _statPrefab;
         [SerializeField] private GameObject _popup;
 
         [SerializeField] private Image _icon;
@@ -27,11 +25,13 @@ namespace PresentationModel
 
         [SerializeField] private Transform _statsParent;
 
-        [SerializeField] private ButtonLevelUp _buttonLevelUp;
-
         [SerializeField] private Button _closeButton;
 
+        [SerializeField] private ButtonLevelUp _buttonLevelUp;
 
+        [SerializeField] private PopUpStat _statPrefab;
+
+        private Dictionary<CharacterStat, PopUpStat> _statsDictionary;
         private ICharacterPresentationModel _presentationModel;
 
 
@@ -56,11 +56,14 @@ namespace PresentationModel
             _presentationModel.UserInfo.OnIconChanged += SetIcon;
             _presentationModel.UserInfo.OnNameChanged += SetName;
             _presentationModel.UserInfo.OnDescriptionChanged += SetDescription;
+            _presentationModel.CharacterInfo.OnStatAdded += AddStat;
+            _presentationModel.CharacterInfo.OnStatRemoved += RemoveStat;
 
             _presentationModel.OnExperienceChanged += UpdateExperience;
             _presentationModel.OnAllowLevelUp += AllowLevelUp;
             _presentationModel.OnForbidLevelUp += ForbidLevelUp;
-            _presentationModel.OnShow();
+
+            _presentationModel.OnShow(_statPrefab);
 
             _closeButton.onClick.AddListener(OnButtonCloseClicked);
             _buttonLevelUp.GetButton().onClick.AddListener(OnButtonLevelUpClicked);
@@ -70,8 +73,12 @@ namespace PresentationModel
         {
             base.OnHide();
             _popup.SetActive(false);
+
             _presentationModel.PlayerLevel.OnLevelUp -= SetLevel;
             _presentationModel.OnExperienceChanged -= UpdateExperience;
+            _presentationModel.CharacterInfo.OnStatAdded -= AddStat;
+            _presentationModel.CharacterInfo.OnStatRemoved -= RemoveStat;
+
             _closeButton.onClick.RemoveListener(OnButtonCloseClicked);
             _buttonLevelUp.GetButton().onClick.RemoveListener(OnButtonLevelUpClicked);
         }
@@ -123,6 +130,19 @@ namespace PresentationModel
         private void SetIcon(Sprite sprite)
         {
             _icon.sprite = sprite;
+        }
+
+        private void AddStat(CharacterStat characterStat)
+        {
+            PopUpStat newPopUpStat = Instantiate(_statPrefab, _statsParent);
+            _statsDictionary.Add(characterStat, newPopUpStat);
+        }
+
+        private void RemoveStat(CharacterStat characterStat)
+        {
+            PopUpStat popUpStat = _statsDictionary[characterStat];
+            popUpStat.DestroyPopUpStat();
+            _statsDictionary.Remove(characterStat);
         }
     }
 }

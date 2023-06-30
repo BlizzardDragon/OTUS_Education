@@ -12,14 +12,14 @@ namespace PresentationModel
         [field: SerializeField] public UserInfo UserInfo { get; set; }
         [field: SerializeField] public PlayerLevel PlayerLevel { get; set; }
 
-        private PopUpStat _statPrefab;
-
         private string _localizationHP = "HP";
         private string _localizationLevel = "Level";
+        private const int STATS_LIMIT = 6;
 
         public event Action<string, float> OnExperienceChanged;
         public event Action OnAllowLevelUp;
         public event Action OnForbidLevelUp;
+        public event Action OnSpawnStat;
 
 
         [Inject]
@@ -32,13 +32,18 @@ namespace PresentationModel
 
         public void SetCharacterStats(CharacterStat[] stats)
         {
+            if (stats.Length > STATS_LIMIT)
+            {
+                throw new Exception("Stats limit exceeded!");
+            }
+
             foreach (var stat in stats)
             {
                 CharacterInfo.AddStat(stat);
             }
         }
 
-        public void OnShow()
+        public void OnShow(PopUpStat statPrefab)
         {
             UpdatePopupExperience(PlayerLevel.CurrentExperience);
             PlayerLevel.OnExperienceChanged += UpdatePopupExperience;

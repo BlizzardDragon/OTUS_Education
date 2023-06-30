@@ -15,6 +15,7 @@ namespace PresentationModel
         public event Action<string, float> OnExperienceChanged;
         public event Action OnAllowLevelUp;
         public event Action OnForbidLevelUp;
+        public event Action OnSpawnStat;
 
 
         string GetDescription();
@@ -23,6 +24,6 @@ namespace PresentationModel
         string GetName();
         void OnClosedClicked();
         void OnLevelUpClicked();
-        void OnShow();
+        void OnShow(PopUpStat statPrefab);
     }
 }
