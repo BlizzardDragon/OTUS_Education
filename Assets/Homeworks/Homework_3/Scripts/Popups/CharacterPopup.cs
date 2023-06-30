@@ -30,6 +30,9 @@ namespace PresentationModel
 
         private ICharacterPresentationModel _presentationModel;
 
+        private string _localizationHP = "HP";
+
+
         protected override void OnShow(object args)
         {
             if (args is not ICharacterPresentationModel presentationModel)
@@ -61,7 +64,7 @@ namespace PresentationModel
 
         public void UpdateExperience(string currentExp, string requiredExp, float fillAmount)
         {
-            _experience.text = $"HP: {currentExp} / {requiredExp}";
+            _experience.text = $"{_localizationHP}: {currentExp} / {requiredExp}";
             _progressBarScale.fillAmount = fillAmount;
 
             if (fillAmount < 1)
@@ -84,6 +87,11 @@ namespace PresentationModel
         {
             _progressBarCompleted.enabled = false;
             _buttonLevelUp.DeactivateButton();
+        }
+
+        public void SetLocalizationHP(string text)
+        {
+            _localizationHP = text;
         }
 
         // public void SetIcon(Sprite sprite)
