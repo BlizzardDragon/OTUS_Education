@@ -5,7 +5,8 @@ using Zenject;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using FrameworkUnity.Architecture.Zenject.GameManagers;
 using FrameworkUnity.Interfaces.Installed;
-
+using PresentationModel;
+using System;
 
 namespace FrameworkUnity.Architecture.Zenject.Installers
 {
@@ -16,6 +17,15 @@ namespace FrameworkUnity.Architecture.Zenject.Installers
             InstallGameListeners();
             InstallGameManager();
             InstallGameInstallables();
+            InstallGameSystems();
+        }
+
+        private void InstallGameSystems()
+        {
+            Container.Bind<CharacterPresentationModel>().AsSingle();
+            Container.Bind<PresentationModel.CharacterInfo>().AsSingle();
+            Container.Bind<PlayerLevel>().AsSingle();
+            Container.Bind<UserInfo>().AsSingle();
         }
 
         private void InstallGameListeners()
