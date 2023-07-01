@@ -25,16 +25,19 @@ namespace FrameworkUnity.GameSystems
             }
         }
 
-        public GameObject TrySpawn()
+        public bool TrySpawn(out GameObject obj)
         {
-            if (!_objectPool.TryDequeue(out var obj))
+            obj = null;
+
+            if (!_objectPool.TryDequeue(out var spawnedObject))
             {
-                return null;
+                return false;
             }
             else
             {
-                obj.transform.SetParent(_worldTransform);
-                return obj;
+                spawnedObject.transform.SetParent(_worldTransform);
+                obj = spawnedObject;
+                return true;
             }
         }
 
