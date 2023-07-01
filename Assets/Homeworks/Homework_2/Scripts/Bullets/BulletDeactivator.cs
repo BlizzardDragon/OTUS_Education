@@ -1,26 +1,14 @@
 using UnityEngine;
-using FrameworkUnity.Interfaces.Listeners.GameListeners;
-using FrameworkUnity.Architecture.DI;
+using System.Collections.Generic;
 
 
 namespace ShootEmUp
 {
-    public class BulletDeactivator : MonoBehaviour, IGameFinishListener
+    public class BulletDeactivator : MonoBehaviour
     {
-        private BulletSpawner _bulletSpawner;
-
-
-        [Inject]
-        public void Construct(BulletSpawner bulletSpawner)
+        public void DisableActiveBullets(HashSet<Bullet> activeBullets)
         {
-            _bulletSpawner = bulletSpawner;
-        }
-
-        public void OnFinishGame() => DisableActiveBullets();
-
-        public void DisableActiveBullets()
-        {
-            foreach (var bullet in _bulletSpawner.ActiveBullets)
+            foreach (var bullet in activeBullets)
             {
                 bullet.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             }
