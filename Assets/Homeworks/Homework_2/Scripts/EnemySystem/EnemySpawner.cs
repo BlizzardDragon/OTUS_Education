@@ -16,6 +16,7 @@ namespace ShootEmUp
         private EnemiesContainer _enemiesContainer;
 
         public event Action<GameObject> OnEnemySpawned;
+        public event Action<GameObject> OnEnemyUnspawned;
 
 
         [Inject]
@@ -52,6 +53,17 @@ namespace ShootEmUp
 
                 OnEnemySpawned?.Invoke(enemy);
             }
+        }
+        
+        public void UnspawnEnemy(GameObject enemy)
+        {
+            enemy.GetComponent<EnemyInstaller>().Uninstall();
+
+            _enemyPool.Unspawn(enemy);
+            _enemyPositions.RestoreAttackPosition(enemy);
+            _enemiesContainer.ActiveEnemies.Remove(enemy);
+
+            OnEnemyUnspawned?.Invoke(enemy);
         }
     }
 }

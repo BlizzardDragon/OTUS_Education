@@ -9,21 +9,21 @@ namespace ShootEmUp
     public class EnemyFinishObserver : MonoBehaviour
     {
         private EnemiesContainer _enemiesContainer;
-        private EnemyDeactivator _enemyDeactivator;
+        private EnemySpawner _enemySpawner;
 
 
         [Inject]
-        public void Construct(EnemiesContainer enemiesContainer, EnemyDeactivator enemyDeactivator)
+        public void Construct(EnemiesContainer enemiesContainer, EnemySpawner enemyDeactivator)
         {
             _enemiesContainer = enemiesContainer;
-            _enemyDeactivator = enemyDeactivator;
+            _enemySpawner = enemyDeactivator;
         }
 
         public void OnFinishGame()
         {
             foreach (var enemy in _enemiesContainer.ActiveEnemies)
             {
-                _enemyDeactivator.DeactivateEnemy(enemy);
+                _enemySpawner.UnspawnEnemy(enemy);
             }
         }
     }

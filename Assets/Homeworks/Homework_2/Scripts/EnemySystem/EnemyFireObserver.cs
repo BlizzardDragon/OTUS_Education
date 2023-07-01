@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Architecture.DI;
 using FrameworkUnity.Interfaces.Listeners.GameListeners;
-
+using System;
 
 namespace ShootEmUp
 {
@@ -15,20 +15,38 @@ namespace ShootEmUp
 
 
         [Inject]
-        public void Construct(EnemySpawner enemySpawner, BulletSpawner bulletSpawner, EnemyBulletConfigProvider enemyBulletConfigProvider)
+        public void Construct(
+            EnemySpawner enemySpawner,
+            BulletSpawner bulletSpawner,
+            EnemyBulletConfigProvider enemyBulletConfigProvider)
         {
             _enemySpawner = enemySpawner;
             _bulletSpawner = bulletSpawner;
             _enemyBulletConfigProvider = enemyBulletConfigProvider;
         }
 
-        public void OnStartGame() => _enemySpawner.OnEnemySpawned += OnFire;
-        public void OnFinishGame() => _enemySpawner.OnEnemySpawned -= OnFire;
+        public void OnStartGame()
+        {
+            _enemySpawner.OnEnemySpawned += OnFire;
+            _enemySpawner.OnEnemyUnspawned += OnDestroyEnemy;
+        }
+
+        public void OnFinishGame()
+        {
+            _enemySpawner.OnEnemySpawned -= OnFire;
+            _enemySpawner.OnEnemyUnspawned -= OnDestroyEnemy;
+        }
 
         private void OnFire(GameObject enemy)
         {
             var agent = enemy.GetComponent<EnemyAttackAgent>();
             agent.OnFire += OnEnemyFire;
+        }
+
+        private void OnDestroyEnemy(GameObject enemy)
+        {
+            var agent = enemy.GetComponent<EnemyAttackAgent>();
+            agent.OnFire -= OnEnemyFire;
         }
 
         public void OnEnemyFire(Vector2 position, Vector2 direction)

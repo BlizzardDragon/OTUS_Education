@@ -9,22 +9,34 @@ namespace ShootEmUp
     public class EnemyEmptyHPObserver : MonoBehaviour, IGameStartListener, IGameFinishListener
     {
         private EnemySpawner _enemySpawner;
-        private EnemyDestroyObserver _enemyDestroyObserver;
 
 
         [Inject]
-        public void Construct(EnemySpawner enemySpawner, EnemyDestroyObserver enemyDestroyObserver)
+        public void Construct(EnemySpawner enemySpawner)
         {
             _enemySpawner = enemySpawner;
-            _enemyDestroyObserver = enemyDestroyObserver;
         }
 
-        public void OnStartGame() => _enemySpawner.OnEnemySpawned += OnSpawn;
-        public void OnFinishGame() => _enemySpawner.OnEnemySpawned -= OnSpawn;
+        public void OnStartGame()
+        {
+            _enemySpawner.OnEnemySpawned += OnSpawn;
+            _enemySpawner.OnEnemyUnspawned += OnUnspawn;
+        }
+
+        public void OnFinishGame()
+        {
+            _enemySpawner.OnEnemySpawned -= OnSpawn;
+            _enemySpawner.OnEnemyUnspawned -= OnUnspawn;
+        }
 
         private void OnSpawn(GameObject enemy)
         {
-            enemy.GetComponent<HitPointsComponent>().OnEmptyHP += _enemyDestroyObserver.OnDestroyEnemy;
+            enemy.GetComponent<HitPointsComponent>().OnEmptyHP += _enemySpawner.UnspawnEnemy;
+        }
+
+        private void OnUnspawn(GameObject enemy)
+        {
+            enemy.GetComponent<HitPointsComponent>().OnEmptyHP -= _enemySpawner.UnspawnEnemy;
         }
     }
 }

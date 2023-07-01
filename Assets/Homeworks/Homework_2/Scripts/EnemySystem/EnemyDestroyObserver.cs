@@ -1,42 +1,28 @@
 using System;
-using FrameworkUnity.Architecture.DI;
 using UnityEngine;
+using FrameworkUnity.Architecture.DI;
+using FrameworkUnity.Interfaces.Listeners.GameListeners;
 
 // Готово.
 namespace ShootEmUp
 {
-    public class EnemyDestroyObserver : MonoBehaviour
+    public class EnemyDestroyObserver : MonoBehaviour, IGameStartListener, IGameFinishListener
     {
-        private EnemySpawnPool _enemyPool;
-        private EnemyPositions _enemyPositions;
         private ScoreManager _scoreManager;
-        private EnemyDeactivator _enemyDeactivator;
-        private EnemiesContainer _enemiesController;
-
-        public event Action OnEnemyDestroyed;
+        private EnemySpawner _enemySpawner;
 
 
         [Inject]
-        public void Construct(EnemySpawnPool enemyPool,
-            EnemyPositions enemyPositions,
-            ScoreManager scoreManager,
-            EnemyDeactivator enemyDeactivator,
-            EnemiesContainer enemySystemController)
+        public void Construct(ScoreManager scoreManager,
+            EnemySpawner enemySpawner)
         {
-            _enemyPool = enemyPool;
-            _enemyPositions = enemyPositions;
             _scoreManager = scoreManager;
-            _enemyDeactivator = enemyDeactivator;
-            _enemiesController = enemySystemController;
+            _enemySpawner = enemySpawner;
         }
 
-        public void OnDestroyEnemy(GameObject enemy)
-        {
-            _enemyPool.Unspawn(enemy);
-            _enemyPositions.RestoreAttackPosition(enemy);
-            _scoreManager.AddScore();
-            _enemyDeactivator.DeactivateEnemy(enemy);
-            _enemiesController.ActiveEnemies.Remove(enemy);
-        }
+        public void OnStartGame() => _enemySpawner.OnEnemyUnspawned += OnDestroyEnemy;
+        public void OnFinishGame() => _enemySpawner.OnEnemyUnspawned -= OnDestroyEnemy;
+
+        public void OnDestroyEnemy(GameObject enemy) => _scoreManager.AddScore();
     }
 }
