@@ -1,15 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using FrameworkUnity.Architecture.DI;
 using UnityEngine;
 
-
+// Готово.
 namespace ShootEmUp
 {
     public class EnemyDestroyObserver : MonoBehaviour
     {
-        private EnemyPool _enemyPool;
+        private EnemySpawnPool _enemyPool;
         private EnemyPositions _enemyPositions;
         private ScoreManager _scoreManager;
         private EnemyDeactivator _enemyDeactivator;
@@ -19,7 +17,7 @@ namespace ShootEmUp
 
 
         [Inject]
-        public void Construct(EnemyPool enemyPool,
+        public void Construct(EnemySpawnPool enemyPool,
             EnemyPositions enemyPositions,
             ScoreManager scoreManager,
             EnemyDeactivator enemyDeactivator,
@@ -34,7 +32,7 @@ namespace ShootEmUp
 
         public void OnDestroyEnemy(GameObject enemy)
         {
-            _enemyPool.UnspawnEnemy(enemy);
+            _enemyPool.Unspawn(enemy);
             _enemyPositions.RestoreAttackPosition(enemy);
             _scoreManager.AddScore();
             _enemyDeactivator.DeactivateEnemy(enemy);

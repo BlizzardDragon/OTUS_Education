@@ -1,7 +1,7 @@
+using System;
 using UnityEngine;
 using FrameworkUnity.Architecture.DI;
 using FrameworkUnity.Interfaces.Installed;
-using System;
 
 // Готово.
 namespace ShootEmUp
@@ -10,12 +10,12 @@ namespace ShootEmUp
     {
         [SerializeField] private int _enemyCount = 7;
 
-        private EnemyPool _enemyPool;
+        private EnemySpawnPool _enemyPool;
         private EnemyPositions _enemyPositions;
 
 
         [Inject]
-        public void Construct(EnemyPool enemyPool, EnemyPositions enemyPositions)
+        public void Construct(EnemySpawnPool enemyPool, EnemyPositions enemyPositions)
         {
             _enemyPool = enemyPool;
             _enemyPositions = enemyPositions;

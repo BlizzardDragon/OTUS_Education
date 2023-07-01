@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using FrameworkUnity.Architecture.DI;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace ShootEmUp
     {
         [SerializeField] private GameObject _character;
 
-        private EnemyPool _enemyPool;
+        private EnemySpawnPool _enemyPool;
         private FixedUpdater _fixedUpdater;
         private EnemyPositions _enemyPositions;
         private EnemiesContainer _enemySystemController;
@@ -19,7 +18,7 @@ namespace ShootEmUp
 
 
         [Inject]
-        public void Construct(EnemyPool enemyPool, FixedUpdater fixedUpdater, EnemyPositions enemyPositions, EnemiesContainer enemySystemController)
+        public void Construct(EnemySpawnPool enemyPool, FixedUpdater fixedUpdater, EnemyPositions enemyPositions, EnemiesContainer enemySystemController)
         {
             _enemyPool = enemyPool;
             _fixedUpdater = fixedUpdater;
@@ -31,7 +30,7 @@ namespace ShootEmUp
         {
             // Прочитал в Майкрософт код конвеншене, что при не явном присваивании нельзя писать var.
             // Но это ведь противоречит OCP? 
-            GameObject enemy = _enemyPool.TrySpawnEnemy();
+            GameObject enemy = _enemyPool.TrySpawn();
             if (enemy != null)
             {
                 var spawnPosition = _enemyPositions.RandomSpawnPosition();
