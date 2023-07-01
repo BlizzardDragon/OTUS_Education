@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,6 @@ namespace ShootEmUp
     public sealed class EnemyPool : MonoBehaviour
     {
         [Header("Spawn")]
-        [SerializeField] private int _enemyCount = 7;
         [SerializeField] private Transform _worldTransform;
 
         [Header("Pool")]
@@ -18,15 +16,9 @@ namespace ShootEmUp
         private readonly Queue<GameObject> _enemyPool = new();
 
 
-        public void InstallPool(int positionCount)
+        public void InstallPool(int enemyCount)
         {
-            if (positionCount < _enemyCount)
-            {
-                var message = "The number of enemies exceeds the number of attack points";
-                throw new ArgumentOutOfRangeException(nameof(positionCount), message);
-            }
-
-            for (var i = 0; i < _enemyCount; i++)
+            for (var i = 0; i < enemyCount; i++)
             {
                 var enemy = Instantiate(_enemyPrefab, _container);
                 _enemyPool.Enqueue(enemy);
