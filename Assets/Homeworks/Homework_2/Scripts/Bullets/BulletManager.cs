@@ -11,6 +11,9 @@ namespace ShootEmUp
         private BulletPool _bulletPool;
         private BulletCollisionHandler _bulletCollisionHandler;
 
+        public HashSet<Bullet> ActiveBullets => _activeBullets;
+        private readonly HashSet<Bullet> _activeBullets = new();
+
 
         [Inject]
         public void Construct(BulletPool bulletPool, BulletCollisionHandler bulletCollisionHandler)
@@ -38,18 +41,20 @@ namespace ShootEmUp
             bullet.IsPlayer = args.IsPlayer;
             bullet.SetVelocity(args.Velocity);
 
+            _activeBullets.Add(bullet);
             bullet.OnCollisionEntered += _bulletCollisionHandler.HandleCollision;
         }
 
         private void RemoveBullet(Bullet bullet)
         {
             bullet.OnCollisionEntered -= _bulletCollisionHandler.HandleCollision;
+            _activeBullets.Remove(bullet);
             _bulletPool.RemoveBullet(bullet);
         }
 
         public void DisableActiveBullets()
         {
-            foreach (var bullet in _bulletPool.ActiveBullets)
+            foreach (var bullet in _activeBullets)
             {
                 bullet.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             }

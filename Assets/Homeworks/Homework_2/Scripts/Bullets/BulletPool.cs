@@ -13,10 +13,7 @@ namespace ShootEmUp
         [SerializeField] private Transform _container;
         [SerializeField] private Transform _worldTransform;
 
-        public HashSet<Bullet> ActiveBullets => _activeBullets;
-
         private readonly Queue<Bullet> _bulletPool = new();
-        private readonly HashSet<Bullet> _activeBullets = new();
 
 
         public void InstallOnStart() => FillPool();
@@ -40,18 +37,14 @@ namespace ShootEmUp
             {
                 bullet = Instantiate(_prefab, _worldTransform);
             }
-            _activeBullets.Add(bullet);
 
             return bullet;
         }
 
         public void RemoveBullet(Bullet bullet)
         {
-            if (_activeBullets.Remove(bullet))
-            {
-                bullet.transform.SetParent(_container);
-                _bulletPool.Enqueue(bullet);
-            }
+            bullet.transform.SetParent(_container);
+            _bulletPool.Enqueue(bullet);
         }
     }
 }

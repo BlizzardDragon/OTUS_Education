@@ -11,15 +11,17 @@ namespace ShootEmUp
     {
         private BulletPool _bulletPool;
         private LevelBounds _levelBounds;
+        private BulletManager _bulletManager;
 
         private readonly List<Bullet> _cache = new();
 
 
         [Inject]
-        public void Construct(BulletPool bulletPool, LevelBounds levelBounds)
+        public void Construct(BulletPool bulletPool, LevelBounds levelBounds, BulletManager bulletManager)
         {
             _bulletPool = bulletPool;
             _levelBounds = levelBounds;
+            _bulletManager = bulletManager;
         }
 
         public void OnFixedUpdate(float fixedDeltaTime) => CheckOutBounds();
@@ -27,7 +29,7 @@ namespace ShootEmUp
         private void CheckOutBounds()
         {
             _cache.Clear();
-            _cache.AddRange(_bulletPool.ActiveBullets);
+            _cache.AddRange(_bulletManager.ActiveBullets);
 
             for (int i = 0, count = _cache.Count; i < count; i++)
             {
