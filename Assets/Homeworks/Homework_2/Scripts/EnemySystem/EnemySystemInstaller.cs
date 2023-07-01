@@ -6,7 +6,7 @@ using FrameworkUnity.Interfaces.Installed;
 // Готово.
 namespace ShootEmUp
 {
-    public class EnemyPoolController : MonoBehaviour, IInstallableOnStart
+    public class EnemySystemInstaller : MonoBehaviour, IInstallableOnStart
     {
         [SerializeField] private int _enemyCount = 7;
 
