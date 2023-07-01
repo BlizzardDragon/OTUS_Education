@@ -11,7 +11,7 @@ namespace ShootEmUp
         private EnemyPositions _enemyPositions;
         private ScoreManager _scoreManager;
         private EnemyDeactivator _enemyDeactivator;
-        private EnemiesContainer _enemySystemController;
+        private EnemiesContainer _enemiesController;
 
         public event Action OnEnemyDestroyed;
 
@@ -27,7 +27,7 @@ namespace ShootEmUp
             _enemyPositions = enemyPositions;
             _scoreManager = scoreManager;
             _enemyDeactivator = enemyDeactivator;
-            _enemySystemController = enemySystemController;
+            _enemiesController = enemySystemController;
         }
 
         public void OnDestroyEnemy(GameObject enemy)
@@ -36,7 +36,7 @@ namespace ShootEmUp
             _enemyPositions.RestoreAttackPosition(enemy);
             _scoreManager.AddScore();
             _enemyDeactivator.DeactivateEnemy(enemy);
-            _enemySystemController.ActiveEnemies.Remove(enemy);
+            _enemiesController.ActiveEnemies.Remove(enemy);
         }
     }
 }

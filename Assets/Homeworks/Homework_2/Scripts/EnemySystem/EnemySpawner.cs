@@ -1,39 +1,45 @@
 using System;
-using FrameworkUnity.Architecture.DI;
 using UnityEngine;
+using FrameworkUnity.Architecture.DI;
+using FrameworkUnity.Interfaces.Listeners.GameListeners;
 
 // Готово.
 namespace ShootEmUp
 {
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawner : MonoBehaviour, IGameStartListener, IGameFinishListener
     {
         [SerializeField] private GameObject _character;
 
         private EnemySpawnPool _enemyPool;
         private FixedUpdater _fixedUpdater;
         private EnemyPositions _enemyPositions;
-        private EnemiesContainer _enemySystemController;
+        private EnemiesContainer _enemiesContainer;
 
         public event Action<GameObject> OnEnemySpawned;
 
 
         [Inject]
-        public void Construct(EnemySpawnPool enemyPool, FixedUpdater fixedUpdater, EnemyPositions enemyPositions, EnemiesContainer enemySystemController)
+        public void Construct(
+            EnemySpawnPool enemyPool,
+            FixedUpdater fixedUpdater,
+            EnemyPositions enemyPositions,
+            EnemiesContainer enemiesContainer)
         {
             _enemyPool = enemyPool;
             _fixedUpdater = fixedUpdater;
             _enemyPositions = enemyPositions;
-            _enemySystemController = enemySystemController;
+            _enemiesContainer = enemiesContainer;
         }
+
+        public void OnStartGame() => OnEnemySpawned += _enemiesContainer.AddActiveEnemy;
+        public void OnFinishGame() => OnEnemySpawned -= _enemiesContainer.AddActiveEnemy;
 
         public void SpawnEnemy()
         {
-            // Прочитал в Майкрософт код конвеншене, что при не явном присваивании нельзя писать var.
-            // Но это ведь противоречит OCP? 
-            if (_enemyPool.TrySpawn(out var enemy))
+            if (_enemyPool.TrySpawn(out GameObject enemy))
             {
-                var spawnPosition = _enemyPositions.RandomSpawnPosition();
-                var attackPosition = _enemyPositions.GetRandomAttackPosition(enemy);
+                Transform spawnPosition = _enemyPositions.RandomSpawnPosition();
+                Transform attackPosition = _enemyPositions.GetRandomAttackPosition(enemy);
 
                 enemy.transform.position = spawnPosition.position;
                 enemy.GetComponent<EnemyMoveAgent>().SetDestination(attackPosition.position);
