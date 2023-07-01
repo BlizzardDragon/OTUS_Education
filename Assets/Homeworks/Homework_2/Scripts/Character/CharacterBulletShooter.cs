@@ -1,15 +1,13 @@
 using FrameworkUnity.Architecture.DI;
-using FrameworkUnity.Interfaces.Listeners.GameListeners;
 using UnityEngine;
 
 // Готово.
 namespace ShootEmUp
 {
-    public class CharacterFireHandler : MonoBehaviour, IGameFixedUpdateListener
+    public class CharacterBulletShooter : MonoBehaviour
     {
         private Character _character;
         private BulletSpawner _bulletSpawner;
-        private bool _fireRequired;
 
 
         [Inject]
@@ -19,18 +17,7 @@ namespace ShootEmUp
             _bulletSpawner = bulletSpawner;
         }
 
-        public void SetFireRequired(bool value) => _fireRequired = value;
-
-        public void OnFixedUpdate(float fixedDeltaTime)
-        {
-            if (_fireRequired)
-            {
-                OnFlyBullet();
-                _fireRequired = false;
-            }
-        }
-
-        private void OnFlyBullet()
+        public void OnFlyBullet()
         {
             WeaponComponent weapon = _character.WeaponComponent;
             BulletConfig bulletConfig = _character.BulletConfig;

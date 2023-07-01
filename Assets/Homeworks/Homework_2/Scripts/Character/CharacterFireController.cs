@@ -5,20 +5,32 @@ using FrameworkUnity.Architecture.DI;
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class CharacterFireController : MonoBehaviour, IGameStartListener, IGameFinishListener
+    public sealed class CharacterFireController : MonoBehaviour, IGameStartListener, IGameFinishListener, IGameFixedUpdateListener
     {
         private PlayerInput _playerInput;
-        private CharacterFireHandler _characterFireHandler;
+        private CharacterBulletShooter _characterBulletShooter;
+        private bool _fireRequired;
 
 
         [Inject]
-        public void Construct(PlayerInput playerInput, CharacterFireHandler characterFireHandler)
+        public void Construct(PlayerInput playerInput, CharacterBulletShooter characterBulletShooter)
         {
             _playerInput = playerInput;
-            _characterFireHandler = characterFireHandler;
+            _characterBulletShooter = characterBulletShooter;
         }
 
-        public void OnStartGame() => _playerInput.OnFire += _characterFireHandler.SetFireRequired;
-        public void OnFinishGame() => _playerInput.OnFire -= _characterFireHandler.SetFireRequired;
+        public void OnStartGame() => _playerInput.OnFire += SetFireRequired;
+        public void OnFinishGame() => _playerInput.OnFire -= SetFireRequired;
+
+        public void SetFireRequired(bool value) => _fireRequired = value;
+
+        public void OnFixedUpdate(float fixedDeltaTime)
+        {
+            if (_fireRequired)
+            {
+                _characterBulletShooter.OnFlyBullet();
+                _fireRequired = false;
+            }
+        }
     }
 }

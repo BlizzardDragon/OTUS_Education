@@ -1107,7 +1107,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3951702117947426122}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1134805361
 MonoBehaviour:
@@ -1121,6 +1121,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b55e0c0d37f64d1f835fe367d4939922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fireKey: 32
+  _moveLeft_1: 97
+  _moveLeft_2: 276
+  _moveRight_1: 100
+  _moveRight_2: 275
 --- !u!1 &1175425790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,7 +1625,7 @@ GameObject:
   - component: {fileID: 1879759793}
   - component: {fileID: 1879759792}
   m_Layer: 0
-  m_Name: CharacterController
+  m_Name: CharacterSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1639,7 +1644,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3951702117947426122}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1879759790
 MonoBehaviour:
@@ -2190,8 +2195,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1879759789}
   - {fileID: 1134805360}
+  - {fileID: 1879759789}
   - {fileID: 363245576}
   - {fileID: 562298204}
   - {fileID: 573179327}
