@@ -18,8 +18,8 @@ namespace ShootEmUp
         [Inject]
         public void Construct(PlayerInput playerInput) => _playerInput = playerInput;
 
-        public void OnStartGame() => _playerInput.OnUpdateDirection += SetHorizontalDirection;
-        public void OnFinishGame() => _playerInput.OnUpdateDirection -= SetHorizontalDirection;
+        public void OnStartGame() => _playerInput.OnMove += SetHorizontalDirection;
+        public void OnFinishGame() => _playerInput.OnMove -= SetHorizontalDirection;
 
         public void OnFixedUpdate(float fixedDeltaTime)
         {

@@ -18,7 +18,7 @@ namespace ShootEmUp
             _characterFireHandler = characterFireHandler;
         }
 
-        public void OnStartGame() => _playerInput.OnSpacePushed += _characterFireHandler.SetFireRequired;
-        public void OnFinishGame() => _playerInput.OnSpacePushed -= _characterFireHandler.SetFireRequired;
+        public void OnStartGame() => _playerInput.OnFire += _characterFireHandler.SetFireRequired;
+        public void OnFinishGame() => _playerInput.OnFire -= _characterFireHandler.SetFireRequired;
     }
 }

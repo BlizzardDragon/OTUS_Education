@@ -7,28 +7,34 @@ namespace ShootEmUp
 {
     public sealed class PlayerInput : MonoBehaviour, IGameUpdateListener
     {
-        public event Action<int> OnUpdateDirection;
-        public event Action<bool> OnSpacePushed;
+        [SerializeField] private KeyCode _fireKey = KeyCode.Space;
+        [SerializeField] private KeyCode _moveLeft_1 = KeyCode.A;
+        [SerializeField] private KeyCode _moveLeft_2 = KeyCode.LeftArrow;
+        [SerializeField] private KeyCode _moveRight_1 = KeyCode.D;
+        [SerializeField] private KeyCode _moveRight_2 = KeyCode.RightArrow;
+
+        public event Action<int> OnMove;
+        public event Action<bool> OnFire;
 
 
         void IGameUpdateListener.OnUpdate(float deltaTime)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(_fireKey))
             {
-                OnSpacePushed?.Invoke(true);
+                OnFire?.Invoke(true);
             }
 
-            if (Input.GetKey(KeyCode.LeftArrow) || (Input.GetKey(KeyCode.A)))
+            if (Input.GetKey(_moveLeft_1) || (Input.GetKey(_moveLeft_2)))
             {
-                OnUpdateDirection?.Invoke(-1);
+                OnMove?.Invoke(-1);
             }
-            else if (Input.GetKey(KeyCode.RightArrow) || (Input.GetKey(KeyCode.D)))
+            else if (Input.GetKey(_moveRight_1) || (Input.GetKey(_moveRight_2)))
             {
-                OnUpdateDirection?.Invoke(1);
+                OnMove?.Invoke(1);
             }
             else
             {
-                OnUpdateDirection?.Invoke(0);
+                OnMove?.Invoke(0);
             }
         }
     }
