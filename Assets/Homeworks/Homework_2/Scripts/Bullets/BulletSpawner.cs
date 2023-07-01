@@ -1,18 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FrameworkUnity.Architecture.DI;
-using FrameworkUnity.Interfaces.Listeners.GameListeners;
+using System;
 
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class BulletSpawner : MonoBehaviour, IGameFinishListener, IGameStartListener
+    public sealed class BulletSpawner : MonoBehaviour
     {
         private BulletPool _bulletPool;
         private BulletCollisionHandler _bulletCollisionHandler;
 
         private readonly HashSet<Bullet> _activeBullets = new();
         public HashSet<Bullet> ActiveBullets => _activeBullets;
+
+        public event Action<Bullet.Args> OnBulletSpawned;
+        public event Action<Bullet> OnBulletDespawned;
 
 
         [Inject]
@@ -22,13 +25,13 @@ namespace ShootEmUp
             _bulletCollisionHandler = bulletCollisionHandler;
         }
 
-        public void OnStartGame() => _bulletCollisionHandler.OnBulletRemoved += DespawnBullet;
-        public void OnFinishGame() => _bulletCollisionHandler.OnBulletRemoved -= DespawnBullet;
-
-        public void SpawnBullet(Bullet.Args args)
+        public void InvokeSpawnBullet(Bullet.Args args)
         {
-            Bullet bullet = _bulletPool.GetBullet();
+            OnBulletSpawned?.Invoke(args);
+        }
 
+        public void SpawnBullet(Bullet.Args args, Bullet bullet)
+        {
             bullet.SetPosition(args.Position);
             bullet.SetColor(args.Color);
             bullet.SetPhysicsLayer(args.PhysicsLayer);
@@ -37,16 +40,13 @@ namespace ShootEmUp
             bullet.SetVelocity(args.Velocity);
 
             _activeBullets.Add(bullet);
-
-            bullet.OnCollisionEntered += _bulletCollisionHandler.HandleCollision;
         }
 
         public void DespawnBullet(Bullet bullet)
         {
             _activeBullets.Remove(bullet);
             _bulletPool.RemoveBullet(bullet);
-
-            bullet.OnCollisionEntered -= _bulletCollisionHandler.HandleCollision;
+            OnBulletDespawned?.Invoke(bullet);
         }
     }
 }

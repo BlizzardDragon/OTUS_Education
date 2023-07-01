@@ -35,7 +35,7 @@ namespace ShootEmUp
             WeaponComponent weapon = _character.WeaponComponent;
             BulletConfig bulletConfig = _character.BulletConfig;
 
-            _bulletSpawner.SpawnBullet(new Bullet.Args
+            _bulletSpawner.InvokeSpawnBullet(new Bullet.Args
             {
                 IsPlayer = true,
                 PhysicsLayer = (int)bulletConfig.PhysicsLayer,

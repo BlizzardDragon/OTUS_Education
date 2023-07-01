@@ -34,7 +34,7 @@ namespace ShootEmUp
         public void OnEnemyFire(Vector2 position, Vector2 direction)
         {
             Bullet.Args config = _enemyBulletConfigProvider.GetConfig(position, direction);
-            _bulletSpawner.SpawnBullet(config);
+            _bulletSpawner.InvokeSpawnBullet(config);
         }
     }
 }

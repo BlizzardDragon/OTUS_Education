@@ -230,6 +230,8 @@ GameObject:
   - component: {fileID: 363245579}
   - component: {fileID: 363245580}
   - component: {fileID: 363245581}
+  - component: {fileID: 363245582}
+  - component: {fileID: 363245583}
   m_Layer: 0
   m_Name: BulletSystem
   m_TagString: Untagged
@@ -315,6 +317,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dfaa4f70d4fb8e46bef0ba0a55656f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &363245582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363245575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac59a348ed80a324094454aff83b8302, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &363245583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363245575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a43f7cdc8bb3ed49b72a06170af49b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &406648860
