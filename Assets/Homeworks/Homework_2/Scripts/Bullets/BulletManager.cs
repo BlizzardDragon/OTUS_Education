@@ -6,7 +6,7 @@ using FrameworkUnity.Interfaces.Listeners.GameListeners;
 // Готово.
 namespace ShootEmUp
 {
-    public sealed class BulletManager : MonoBehaviour, IGameFinishListener
+    public sealed class BulletManager : MonoBehaviour, IGameFinishListener, IGameStartListener
     {
         private BulletPool _bulletPool;
         private BulletCollisionHandler _bulletCollisionHandler;
@@ -19,7 +19,13 @@ namespace ShootEmUp
             _bulletCollisionHandler = bulletCollisionHandler;
         }
 
-        public void OnFinishGame() => DisableActiveBullets();
+        public void OnStartGame() => _bulletCollisionHandler.OnBulletRemoved += RemoveBullet;
+
+        public void OnFinishGame()
+        {
+            _bulletCollisionHandler.OnBulletRemoved -= RemoveBullet;
+            DisableActiveBullets();
+        }
 
         public void FlyBulletByArgs(Bullet.Args args)
         {
@@ -33,6 +39,12 @@ namespace ShootEmUp
             bullet.SetVelocity(args.Velocity);
 
             bullet.OnCollisionEntered += _bulletCollisionHandler.HandleCollision;
+        }
+
+        private void RemoveBullet(Bullet bullet)
+        {
+            bullet.OnCollisionEntered -= _bulletCollisionHandler.HandleCollision;
+            _bulletPool.RemoveBullet(bullet);
         }
 
         public void DisableActiveBullets()
