@@ -8,15 +8,15 @@ namespace ShootEmUp
     public class CharacterFireHandler : MonoBehaviour, IGameFixedUpdateListener
     {
         private Character _character;
-        private BulletManager _bulletSystem;
+        private BulletSpawner _bulletSpawner;
         private bool _fireRequired;
 
 
         [Inject]
-        public void Construct(Character character, BulletManager bulletSystem)
+        public void Construct(Character character, BulletSpawner bulletSpawner)
         {
             _character = character;
-            _bulletSystem = bulletSystem;
+            _bulletSpawner = bulletSpawner;
         }
 
         public void SetFireRequired(bool value) => _fireRequired = value;
@@ -35,7 +35,7 @@ namespace ShootEmUp
             WeaponComponent weapon = _character.WeaponComponent;
             BulletConfig bulletConfig = _character.BulletConfig;
 
-            _bulletSystem.FlyBulletByArgs(new Bullet.Args
+            _bulletSpawner.SpawnBullet(new Bullet.Args
             {
                 IsPlayer = true,
                 PhysicsLayer = (int)bulletConfig.PhysicsLayer,

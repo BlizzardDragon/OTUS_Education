@@ -13,7 +13,7 @@ namespace ShootEmUp
 
 
         [Inject]
-        public void Construct(PlayerInput playerInput, Character character, GameManager gameManager, BulletManager bulletSystem)
+        public void Construct(Character character, GameManager gameManager)
         {
             _character = character;
             _gameManager = gameManager;

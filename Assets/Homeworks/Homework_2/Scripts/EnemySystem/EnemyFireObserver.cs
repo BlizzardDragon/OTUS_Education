@@ -10,15 +10,15 @@ namespace ShootEmUp
     public class EnemyFireObserver : MonoBehaviour, IGameStartListener, IGameFinishListener
     {
         private EnemySpawner _enemySpawner;
-        private BulletManager _bulletManager;
+        private BulletSpawner _bulletSpawner;
         private EnemyBulletConfigProvider _enemyBulletConfigProvider;
 
 
         [Inject]
-        public void Construct(EnemySpawner enemySpawner, BulletManager bulletManager, EnemyBulletConfigProvider enemyBulletConfigProvider)
+        public void Construct(EnemySpawner enemySpawner, BulletSpawner bulletSpawner, EnemyBulletConfigProvider enemyBulletConfigProvider)
         {
             _enemySpawner = enemySpawner;
-            _bulletManager = bulletManager;
+            _bulletSpawner = bulletSpawner;
             _enemyBulletConfigProvider = enemyBulletConfigProvider;
         }
 
@@ -34,7 +34,7 @@ namespace ShootEmUp
         public void OnEnemyFire(Vector2 position, Vector2 direction)
         {
             Bullet.Args config = _enemyBulletConfigProvider.GetConfig(position, direction);
-            _bulletManager.FlyBulletByArgs(config);
+            _bulletSpawner.SpawnBullet(config);
         }
     }
 }

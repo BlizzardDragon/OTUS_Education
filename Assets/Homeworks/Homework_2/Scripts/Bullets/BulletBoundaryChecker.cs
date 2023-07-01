@@ -9,19 +9,17 @@ namespace ShootEmUp
 {
     public class BulletBoundaryChecker : MonoBehaviour, IGameFixedUpdateListener
     {
-        private BulletPool _bulletPool;
         private LevelBounds _levelBounds;
-        private BulletManager _bulletManager;
+        private BulletSpawner _bulletSpawner;
 
         private readonly List<Bullet> _cache = new();
 
 
         [Inject]
-        public void Construct(BulletPool bulletPool, LevelBounds levelBounds, BulletManager bulletManager)
+        public void Construct(LevelBounds levelBounds, BulletSpawner bulletSpawner)
         {
-            _bulletPool = bulletPool;
             _levelBounds = levelBounds;
-            _bulletManager = bulletManager;
+            _bulletSpawner = bulletSpawner;
         }
 
         public void OnFixedUpdate(float fixedDeltaTime) => CheckOutBounds();
@@ -29,14 +27,14 @@ namespace ShootEmUp
         private void CheckOutBounds()
         {
             _cache.Clear();
-            _cache.AddRange(_bulletManager.ActiveBullets);
+            _cache.AddRange(_bulletSpawner.ActiveBullets);
 
             for (int i = 0, count = _cache.Count; i < count; i++)
             {
                 Bullet bullet = _cache[i];
                 if (!_levelBounds.InBounds(bullet.transform.position))
                 {
-                    _bulletPool.RemoveBullet(bullet);
+                    _bulletSpawner.DespawnBullet(bullet);
                 }
             }
         }
