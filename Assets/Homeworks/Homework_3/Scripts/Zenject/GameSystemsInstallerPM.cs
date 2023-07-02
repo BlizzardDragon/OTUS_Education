@@ -6,12 +6,14 @@ using FrameworkUnity.Architecture.Zenject.Installers;
 
 namespace PresentationModel
 {
-    public class GameSystemsInstallerPM : GameSystemsInstaller
+    public class GameSystemsInstallerPM : BaseGameSystemsInstaller
     {
-        public override void InstallBindings()
+        protected override void InstallGameSystems()
         {
-            base.InstallBindings();
-
+            Container.Bind<CharacterPopupPresentationModel>().AsSingle();
+            Container.Bind<PresentationModel.CharacterInfo>().AsSingle();
+            Container.Bind<PlayerLevel>().AsSingle();
+            Container.Bind<UserInfo>().AsSingle();
         }
     }
 }
