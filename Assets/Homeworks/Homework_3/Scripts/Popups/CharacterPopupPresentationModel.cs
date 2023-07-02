@@ -40,6 +40,9 @@ namespace PresentationModel
             foreach (var stat in stats)
             {
                 CharacterInfo.AddStat(stat);
+                
+                int randomValue = UnityEngine.Random.Range(1, 31);
+                stat.ChangeValue(randomValue);
             }
 
             UserInfo.ChangeName(name);

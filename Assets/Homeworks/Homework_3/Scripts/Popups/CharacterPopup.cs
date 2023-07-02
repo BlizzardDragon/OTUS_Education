@@ -159,7 +159,8 @@ namespace PresentationModel
             popUpStat.SetText(characterStat.Name + ": " + characterStat.Value);
         }
 
-        public TKey GetKeyByValue<TKey, TValue>(Dictionary<TKey, TValue> dictionary, TValue value)
+        private CharacterStat GetKeyByValue<CharacterStat, PopUpStat>
+            (Dictionary<CharacterStat, PopUpStat> dictionary, PopUpStat value)
         {
             var key = dictionary.FirstOrDefault(x => x.Value.Equals(value)).Key;
             if (key == null)
