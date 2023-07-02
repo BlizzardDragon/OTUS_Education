@@ -248,6 +248,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterPopup: {fileID: 1659913312}
+  _name: Paladin247
+  _icon: {fileID: 21300000, guid: 954d79ad0f5124da59b33552ab47a641, type: 3}
+  _description: I'm the best warrior in the light Kingdom!
   _characterStats:
   - <Name>k__BackingField: Move Speed
   - <Name>k__BackingField: Intelligence
@@ -804,6 +807,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1213643558}
     m_Modifications:
+    - target: {fileID: 488032147416409757, guid: 981b7472ab9078844acbecb59415e20c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 488032147599455828, guid: 981b7472ab9078844acbecb59415e20c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 488032147915418422, guid: 981b7472ab9078844acbecb59415e20c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 488032147980007618, guid: 981b7472ab9078844acbecb59415e20c,
         type: 3}
       propertyPath: m_Pivot.x
@@ -913,6 +931,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CharacterPopUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 488032148117238321, guid: 981b7472ab9078844acbecb59415e20c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 488032148121515522, guid: 981b7472ab9078844acbecb59415e20c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 488032148629506745, guid: 981b7472ab9078844acbecb59415e20c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 488032149240589355, guid: 981b7472ab9078844acbecb59415e20c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 488032149441708110, guid: 981b7472ab9078844acbecb59415e20c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 981b7472ab9078844acbecb59415e20c, type: 3}

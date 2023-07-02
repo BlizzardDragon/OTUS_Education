@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 
 namespace PresentationModel
 {
@@ -26,7 +27,7 @@ namespace PresentationModel
         [SerializeField] private Transform _statsParent;
 
         [SerializeField] private Button _closeButton;
-        
+
         [SerializeField] private ButtonLevelUp _buttonLevelUp;
 
         [SerializeField] private PopUpStat _statPrefab;
@@ -136,7 +137,10 @@ namespace PresentationModel
         {
             PopUpStat newPopUpStat = Instantiate(_statPrefab, _statsParent);
             _statsDictionary.Add(characterStat, newPopUpStat);
-            newPopUpStat.SetText(characterStat.Name + ": " + characterStat.Value);
+            UpdateTextToPopUpStat(newPopUpStat, characterStat.Value);
+            
+            characterStat.OnValueChanged += newPopUpStat.UpdateText;
+            newPopUpStat.OnUpdateValue += UpdateTextToPopUpStat;
         }
 
         private void RemoveStat(CharacterStat characterStat)
@@ -144,6 +148,25 @@ namespace PresentationModel
             PopUpStat popUpStat = _statsDictionary[characterStat];
             popUpStat.DestroyPopUpStat();
             _statsDictionary.Remove(characterStat);
+
+            characterStat.OnValueChanged -= popUpStat.UpdateText;
+            popUpStat.OnUpdateValue -= UpdateTextToPopUpStat;
+        }
+
+        private void UpdateTextToPopUpStat(PopUpStat popUpStat, int value)
+        {
+            CharacterStat characterStat = GetKeyByValue(_statsDictionary, popUpStat);
+            popUpStat.SetText(characterStat.Name + ": " + characterStat.Value);
+        }
+
+        public TKey GetKeyByValue<TKey, TValue>(Dictionary<TKey, TValue> dictionary, TValue value)
+        {
+            var key = dictionary.FirstOrDefault(x => x.Value.Equals(value)).Key;
+            if (key == null)
+            {
+                throw new KeyNotFoundException($"The value '{value}' was not found in the dictionary.");
+            }
+            return key;
         }
     }
 }

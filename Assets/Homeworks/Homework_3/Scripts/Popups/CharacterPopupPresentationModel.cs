@@ -30,7 +30,7 @@ namespace PresentationModel
             UserInfo = userInfo;
         }
 
-        public void SetCharacterStats(CharacterStat[] stats)
+        public void SetCharacterStats(string name, Sprite icon, string description, CharacterStat[] stats)
         {
             if (stats.Length > STATS_LIMIT)
             {
@@ -41,6 +41,10 @@ namespace PresentationModel
             {
                 CharacterInfo.AddStat(stat);
             }
+
+            UserInfo.ChangeName(name);
+            UserInfo.ChangeIcon(icon);
+            UserInfo.ChangeDescription(description);
         }
 
         public void OnShow(PopUpStat statPrefab)
