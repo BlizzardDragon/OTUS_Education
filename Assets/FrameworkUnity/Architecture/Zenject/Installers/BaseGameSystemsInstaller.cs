@@ -29,7 +29,7 @@ namespace FrameworkUnity.Architecture.Zenject.Installers
         private void InstallGameManager()
         {
             Container.Bind<GameManagerContext>().AsSingle();
-            Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<GameManagerZenject>().FromComponentInHierarchy().AsSingle();
 
             // Примеры биндинга.
             // Container.Bind<IGameManager>().To<GameManagerPM>().FromInstance(_gameManager).AsSingle();

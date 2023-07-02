@@ -17,7 +17,7 @@ namespace FrameworkUnity.Architecture.Zenject.GameManagers
         GameOver = 6
     }
 
-    public sealed class GameManager : MonoBehaviour, IInstallableOnAwake
+    public sealed class GameManagerZenject : MonoBehaviour, IInstallableOnAwake
     {
         public GameState State { get; private set; }
         private float _fixedDeltaTime;
