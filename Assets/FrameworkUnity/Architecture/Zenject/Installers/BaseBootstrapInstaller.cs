@@ -9,12 +9,12 @@ namespace FrameworkUnity.Architecture.Zenject.Installers
 {
     public class BaseBootstrapInstaller : MonoBehaviour
     {
-        protected BaseGameManager _gameManager;
+        protected GameManager _gameManager;
         protected DiContainer _container;
 
 
         [Inject]
-        private void Construct(BaseGameManager gameManager, DiContainer diContainer)
+        private void Construct(GameManager gameManager, DiContainer diContainer)
         {
             _gameManager = gameManager;
             _container = diContainer;
