@@ -713,6 +713,8 @@ GameObject:
   m_Component:
   - component: {fileID: 488032147980007618}
   - component: {fileID: 488032147980007677}
+  - component: {fileID: 2313558713921273032}
+  - component: {fileID: 4850280709838202536}
   m_Layer: 0
   m_Name: CharacterPopUp
   m_TagString: Untagged
@@ -764,6 +766,32 @@ MonoBehaviour:
   _statsParent: {fileID: 488032147476562965}
   _closeButton: {fileID: 488032148117238320}
   _buttonLevelUp: {fileID: 213580045796874244}
+--- !u!114 &2313558713921273032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488032147980007619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5eaa570e106f04192f9edd244e3cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterPopup: {fileID: 488032147980007677}
+  _statsSpawner: {fileID: 4850280709838202536}
+--- !u!114 &4850280709838202536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488032147980007619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a8cca4fe736ee4687e1141589044f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _statPrefab: {fileID: 6465564615798493364, guid: 5074614ea02ec614b936b3e22f9a6617,
     type: 3}
 --- !u!1 &488032148117238326

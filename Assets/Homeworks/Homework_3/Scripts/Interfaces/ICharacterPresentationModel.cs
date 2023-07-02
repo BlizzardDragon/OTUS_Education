@@ -24,6 +24,6 @@ namespace PresentationModel
         string GetName();
         void OnClosedClicked();
         void OnLevelUpClicked();
-        void OnShow(PopUpStat statPrefab);
+        void OnShow();
     }
 }

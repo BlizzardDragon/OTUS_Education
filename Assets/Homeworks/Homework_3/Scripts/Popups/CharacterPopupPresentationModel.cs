@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
+
 namespace PresentationModel
 {
     public class CharacterPopupPresentationModel : ICharacterPresentationModel
@@ -40,7 +41,7 @@ namespace PresentationModel
             foreach (var stat in stats)
             {
                 CharacterInfo.AddStat(stat);
-                
+
                 int randomValue = UnityEngine.Random.Range(1, 31);
                 stat.ChangeValue(randomValue);
             }
@@ -50,7 +51,7 @@ namespace PresentationModel
             UserInfo.ChangeDescription(description);
         }
 
-        public void OnShow(PopUpStat statPrefab)
+        public void OnShow()
         {
             UpdatePopupExperience(PlayerLevel.CurrentExperience);
             PlayerLevel.OnExperienceChanged += UpdatePopupExperience;

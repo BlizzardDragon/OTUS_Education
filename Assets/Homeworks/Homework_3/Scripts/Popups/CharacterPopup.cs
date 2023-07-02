@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
-using System.Linq;
+
 
 namespace PresentationModel
 {
@@ -30,10 +30,10 @@ namespace PresentationModel
 
         [SerializeField] private ButtonLevelUp _buttonLevelUp;
 
-        [SerializeField] private PopUpStat _statPrefab;
-
-        private Dictionary<CharacterStat, PopUpStat> _statsDictionary = new();
         private ICharacterPresentationModel _presentationModel;
+
+        public event Action<CharacterStat, Transform> OnAddStat;
+        public event Action<CharacterStat> OnRemoveStat;
 
 
         protected override void OnShow(object args)
@@ -64,7 +64,7 @@ namespace PresentationModel
             _presentationModel.OnAllowLevelUp += AllowLevelUp;
             _presentationModel.OnForbidLevelUp += ForbidLevelUp;
 
-            _presentationModel.OnShow(_statPrefab);
+            _presentationModel.OnShow();
 
             _closeButton.onClick.AddListener(OnButtonCloseClicked);
             _buttonLevelUp.GetButton().onClick.AddListener(OnButtonLevelUpClicked);
@@ -113,61 +113,12 @@ namespace PresentationModel
             _buttonLevelUp.DeactivateButton();
         }
 
-        private void SetLevel()
-        {
-            _level.text = _presentationModel.GetLevel();
-        }
+        private void SetLevel() => _level.text = _presentationModel.GetLevel();
+        private void SetDescription(string text) => _description.text = text;
+        private void SetName(string text) => _name.text = text;
+        private void SetIcon(Sprite sprite) => _icon.sprite = sprite;
 
-        private void SetDescription(string text)
-        {
-            _description.text = text;
-        }
-
-        private void SetName(string text)
-        {
-            _name.text = text;
-        }
-
-        private void SetIcon(Sprite sprite)
-        {
-            _icon.sprite = sprite;
-        }
-
-        private void AddStat(CharacterStat characterStat)
-        {
-            PopUpStat newPopUpStat = Instantiate(_statPrefab, _statsParent);
-            _statsDictionary.Add(characterStat, newPopUpStat);
-            UpdateTextToPopUpStat(newPopUpStat, characterStat.Value);
-            
-            characterStat.OnValueChanged += newPopUpStat.UpdateText;
-            newPopUpStat.OnUpdateValue += UpdateTextToPopUpStat;
-        }
-
-        private void RemoveStat(CharacterStat characterStat)
-        {
-            PopUpStat popUpStat = _statsDictionary[characterStat];
-            popUpStat.DestroyPopUpStat();
-            _statsDictionary.Remove(characterStat);
-
-            characterStat.OnValueChanged -= popUpStat.UpdateText;
-            popUpStat.OnUpdateValue -= UpdateTextToPopUpStat;
-        }
-
-        private void UpdateTextToPopUpStat(PopUpStat popUpStat, int value)
-        {
-            CharacterStat characterStat = GetKeyByValue(_statsDictionary, popUpStat);
-            popUpStat.SetText(characterStat.Name + ": " + characterStat.Value);
-        }
-
-        private CharacterStat GetKeyByValue<CharacterStat, PopUpStat>
-            (Dictionary<CharacterStat, PopUpStat> dictionary, PopUpStat value)
-        {
-            var key = dictionary.FirstOrDefault(x => x.Value.Equals(value)).Key;
-            if (key == null)
-            {
-                throw new KeyNotFoundException($"The value '{value}' was not found in the dictionary.");
-            }
-            return key;
-        }
+        private void AddStat(CharacterStat characterStat) => OnAddStat?.Invoke(characterStat, _statsParent);
+        private void RemoveStat(CharacterStat characterStat) => OnRemoveStat?.Invoke(characterStat);
     }
 }
