@@ -1,4 +1,3 @@
-using FrameworkUnity.Interfaces.Services;
 using UnityEngine;
 
 
@@ -6,12 +5,14 @@ namespace FrameworkUnity.Architecture.Locators
 {
     public class ServiceLocatorInstaller : MonoBehaviour
     {
+        [SerializeField] private MonoBehaviour[] _servoces;
+
+
         public void InstallServices()
         {
-            IService[] initListeners = GetComponentsInChildren<IService>();
-            foreach (var listener in initListeners)
+            foreach (var service in _servoces)
             {
-                ServiceLocator.AddService(listener);
+                ServiceLocator.AddService(service);
             }
         }
     }

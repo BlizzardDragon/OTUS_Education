@@ -1,15 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using FrameworkUnity.Interfaces.Services;
 
 
 namespace FrameworkUnity.Architecture.Locators
 {
     public static class ServiceLocator
     {
-        private static readonly List<IService> _services = new List<IService>();
+        private static readonly List<object> _services = new List<object>();
 
         public static T GetService<T>()
         {
@@ -51,7 +49,7 @@ namespace FrameworkUnity.Architecture.Locators
             return result;
         }
 
-        public static void AddService(IService newService)
+        public static void AddService(object newService)
         {
             foreach (var service in _services)
             {
