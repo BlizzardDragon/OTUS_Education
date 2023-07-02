@@ -31,6 +31,7 @@ namespace FrameworkUnity.Architecture.Zenject.Installers
             Container.Bind<GameManagerContext>().AsSingle();
             Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle();
 
+            // Примеры биндинга.
             // Container.Bind<IGameManager>().To<GameManagerPM>().FromInstance(_gameManager).AsSingle();
             // Container.Bind<IGameManager>().FromInstance(_gameManager).AsSingle();
         }
