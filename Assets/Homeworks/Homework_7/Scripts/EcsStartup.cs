@@ -1,10 +1,13 @@
+using System;
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 using UnityEngine;
 
 namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
 {
     sealed class EcsStartup : MonoBehaviour
     {
+        [SerializeField] private SharedData _sharedData;
         EcsWorld _world;
         IEcsSystems _systems;
 
@@ -24,6 +27,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
                 // .Add (new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem ("events"))
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
+                .Inject(_sharedData)
                 .Init();
         }
 
@@ -54,4 +58,14 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
             }
         }
     }
+}
+
+[Serializable]
+public struct SharedData
+{
+    public int SpawnCount;
+    public int ColumnCount;
+
+    public Transform SpawnPointTeam1;
+    public Transform SpawnPointTeam2;
 }
