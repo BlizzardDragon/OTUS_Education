@@ -61,10 +61,14 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
 }
 
 [Serializable]
-public struct SharedData
+public class SharedData
 {
-    public int SpawnCount;
+    public int TeamCount {get; private set;} = 2;
+    
+    public int UnitsPerTeam;
     public int ColumnCount;
+
+    public int Health;
 
     public Transform SpawnPointTeam1;
     public Transform SpawnPointTeam2;
