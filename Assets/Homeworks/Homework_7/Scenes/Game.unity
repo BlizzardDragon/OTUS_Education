@@ -412,8 +412,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sharedData:
-    SpawnCount: 30
+    UnitsPerTeam: 30
     ColumnCount: 7
+    UnitHealth: 5
+    UnitAttackPeriod: 1.5
     SpawnPointTeam1: {fileID: 693923829}
     SpawnPointTeam2: {fileID: 1343073191}
 --- !u!1 &1877831405

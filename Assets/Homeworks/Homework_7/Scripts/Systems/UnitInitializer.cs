@@ -14,6 +14,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
             EcsWorld world = systems.GetWorld();
             EcsPool<UnitViewComponent> poolView = world.GetPool<UnitViewComponent>();
             EcsPool<HealthComponent> poolHealth = world.GetPool<HealthComponent>();
+            EcsPool<AttackComponent> poolAttack = world.GetPool<AttackComponent>();
             EcsPool<ColorComponent> poolColor = world.GetPool<ColorComponent>();
             EcsPool<MoveComponent> poolMove = world.GetPool<MoveComponent>();
             EcsPool<TeamComponent> poolTeam = world.GetPool<TeamComponent>();
@@ -22,7 +23,8 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
             for (int i = 0; i < entityCount; i++)
             {
                 int entity = world.NewEntity();
-                poolHealth.Add(entity).Health = _sharedData.Value.Health;
+                poolHealth.Add(entity).Health = _sharedData.Value.UnitHealth;
+                poolAttack.Add(entity);
                 poolColor.Add(entity);
                 poolMove.Add(entity);
                 poolTeam.Add(entity);

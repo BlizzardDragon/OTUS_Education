@@ -68,7 +68,8 @@ public class SharedData
     public int UnitsPerTeam;
     public int ColumnCount;
 
-    public int Health;
+    public int UnitHealth;
+    public float UnitAttackPeriod;
 
     public Transform SpawnPointTeam1;
     public Transform SpawnPointTeam2;
