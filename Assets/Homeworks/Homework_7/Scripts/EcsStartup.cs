@@ -18,6 +18,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
             _systems = new EcsSystems(_world);
             _systems
                 .Add(new UnitInitializer())
+                .Add(new UnitSpawner())
 
                 // register additional worlds here, for example:
                 // .AddWorld (new EcsWorld (), "events")
@@ -70,6 +71,11 @@ public class SharedData
     public int UnitHealth;
     public float UnitAttackPeriod;
     public float UnitMoveSpeed;
+
+    public string UnitPrefabPath;
+
+    public Color ColorTeam1;
+    public Color ColorTeam2;
 
     public Transform SpawnPointTeam1;
     public Transform SpawnPointTeam2;

@@ -1,8 +1,8 @@
 public enum Teams
 {
     Null,
-    Blue,
-    Red
+    Team_1,
+    Team_2
 }
 
 namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components

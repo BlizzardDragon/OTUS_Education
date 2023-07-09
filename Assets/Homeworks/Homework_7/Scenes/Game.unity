@@ -217,7 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 693923829}
   m_Layer: 0
-  m_Name: SpawnPoint(Team1)
+  m_Name: SpawnPoint(Team2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -236,7 +236,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1343073190
 GameObject:
@@ -248,7 +248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1343073191}
   m_Layer: 0
-  m_Name: 'SpawnPoint(Team2) '
+  m_Name: 'SpawnPoint(Team1) '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -267,7 +267,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1538729348
 GameObject:
@@ -417,8 +417,11 @@ MonoBehaviour:
     UnitHealth: 5
     UnitAttackPeriod: 1.5
     UnitMoveSpeed: 1
-    SpawnPointTeam1: {fileID: 693923829}
-    SpawnPointTeam2: {fileID: 1343073191}
+    UnitPrefabPath: Prefabs/Unit
+    ColorTeam1: {r: 0, g: 0.04942441, b: 1, a: 0}
+    ColorTeam2: {r: 1, g: 0, b: 0, a: 0}
+    SpawnPointTeam1: {fileID: 1343073191}
+    SpawnPointTeam2: {fileID: 693923829}
 --- !u!1 &1877831405
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 
             int teamCount = _sharedData.Value.TeamCount;
             int entityCount = _sharedData.Value.UnitsPerTeam * teamCount;
-            
+
             for (int i = 0; i < entityCount; i++)
             {
                 int entity = world.NewEntity();
@@ -32,13 +32,13 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 
                 if (i < entityCount / teamCount)
                 {
-                    poolColorC.Add(entity).OriginColor = Color.blue;
-                    poolTeamC.Add(entity).Team = Teams.Blue;
+                    poolColorC.Add(entity).OriginColor = _sharedData.Value.ColorTeam1;
+                    poolTeamC.Add(entity).Team = Teams.Team_1;
                 }
                 else
                 {
-                    poolColorC.Add(entity).OriginColor = Color.red;
-                    poolTeamC.Add(entity).Team = Teams.Red;
+                    poolColorC.Add(entity).OriginColor = _sharedData.Value.ColorTeam2;
+                    poolTeamC.Add(entity).Team = Teams.Team_2;
                 }
             }
         }
