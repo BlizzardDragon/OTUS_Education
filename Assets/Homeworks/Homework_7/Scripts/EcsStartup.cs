@@ -79,6 +79,6 @@ public class SharedData
     public Color ColorTeam1;
     public Color ColorTeam2;
 
-    public Transform SpawnPointTeam1;
-    public Transform SpawnPointTeam2;
+    public Transform SpawnPointTeam_1;
+    public Transform SpawnPointTeam_2;
 }

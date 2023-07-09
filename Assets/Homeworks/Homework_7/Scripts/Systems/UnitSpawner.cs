@@ -32,6 +32,15 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                 colorC.MeshRenderer = meshRenderer;
                 colorC.MeshRenderer.material.color = colorC.OriginColor;
 
+                if (_poolTeamC.Value.Get(entity).Team == Teams.Team_1)
+                {
+                    unit.transform.parent = _sharedData.Value.SpawnPointTeam_1;
+                }
+                else if (_poolTeamC.Value.Get(entity).Team == Teams.Team_2)
+                {
+                    unit.transform.parent = _sharedData.Value.SpawnPointTeam_2;
+                }
+
                 view.UnitObject = unit;
             }
         }
@@ -51,11 +60,10 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                 unitIndex = entity;
                 int columnNumber = unitIndex % columnCount;
                 rowNumber = GetRowNumber(unitIndex);
-                Debug.Log(columnNumber);
 
                 position = new Vector3(columnNumber, 0, -rowNumber);
                 offset = position * unitSpawnOffset;
-                spawnPosition = position + offset + _sharedData.Value.SpawnPointTeam1.position;
+                spawnPosition = position + offset + _sharedData.Value.SpawnPointTeam_1.position;
             }
             else if (_poolTeamC.Value.Get(entity).Team == Teams.Team_2)
             {
@@ -75,7 +83,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 
                 position = new Vector3(columnNumber, 0, rowNumber);
                 offset = position * unitSpawnOffset;
-                spawnPosition = position + offset + _sharedData.Value.SpawnPointTeam2.position;
+                spawnPosition = position + offset + _sharedData.Value.SpawnPointTeam_2.position;
             }
             else
             {
