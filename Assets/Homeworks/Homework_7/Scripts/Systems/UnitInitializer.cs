@@ -23,8 +23,8 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
             for (int i = 0; i < entityCount; i++)
             {
                 int entity = world.NewEntity();
+                poolAttack.Add(entity).AttackPeriod = _sharedData.Value.UnitAttackPeriod;
                 poolHealth.Add(entity).Health = _sharedData.Value.UnitHealth;
-                poolAttack.Add(entity);
                 poolColor.Add(entity);
                 poolMove.Add(entity);
                 poolTeam.Add(entity);

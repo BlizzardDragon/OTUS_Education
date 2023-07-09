@@ -1,6 +1,7 @@
 using System;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems;
 using UnityEngine;
 
 namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
@@ -16,9 +17,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
             _systems
-                // register your systems here, for example:
-                // .Add (new TestSystem1 ())
-                // .Add (new TestSystem2 ())
+                .Add(new UnitInitializer())
 
                 // register additional worlds here, for example:
                 // .AddWorld (new EcsWorld (), "events")
@@ -63,8 +62,8 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
 [Serializable]
 public class SharedData
 {
-    public int TeamCount {get; private set;} = 2;
-    
+    public int TeamCount { get; private set; } = 2;
+
     public int UnitsPerTeam;
     public int ColumnCount;
 
