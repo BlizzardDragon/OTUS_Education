@@ -17,7 +17,6 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 
         public void Init(IEcsSystems systems)
         {
-
             foreach (var entity in _filterUnits.Value)
             {
                 ref var colorC = ref _poolColorC.Value.Get(entity);
@@ -40,25 +39,43 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
         private Vector3 GetPosition(int entity)
         {
             Vector3 spawnPosition;
-            float count = 0;
-
-            foreach (var item in _filterUnits.Value)
-            {
-                count++;
-            }
-
-            int columnNumber = entity % _sharedData.Value.ColumnCount;
-            int rowNumber = Mathf.FloorToInt(count / entity);
+            Vector3 position;
+            Vector3 offset;
+            int unitIndex;
+            int rowNumber;
+            int columnCount = _sharedData.Value.ColumnCount;
+            float unitSpawnOffset = _sharedData.Value.UnitSpawnOffset;
 
             if (_poolTeamC.Value.Get(entity).Team == Teams.Team_1)
             {
-                spawnPosition =
-                    new Vector3(columnNumber, 0, -rowNumber) + _sharedData.Value.SpawnPointTeam1.position;
+                unitIndex = entity;
+                int columnNumber = unitIndex % columnCount;
+                rowNumber = GetRowNumber(unitIndex);
+                Debug.Log(columnNumber);
+
+                position = new Vector3(columnNumber, 0, -rowNumber);
+                offset = position * unitSpawnOffset;
+                spawnPosition = position + offset + _sharedData.Value.SpawnPointTeam1.position;
             }
             else if (_poolTeamC.Value.Get(entity).Team == Teams.Team_2)
             {
-                spawnPosition =
-                    new Vector3(columnNumber, 0, rowNumber) + _sharedData.Value.SpawnPointTeam2.position;
+                int team1Count = 0;
+
+                foreach (var unit in _filterUnits.Value)
+                {
+                    if (_poolTeamC.Value.Get(unit).Team == Teams.Team_1)
+                    {
+                        team1Count++;
+                    }
+                }
+
+                unitIndex = entity - team1Count;
+                int columnNumber = unitIndex % columnCount;
+                rowNumber = GetRowNumber(unitIndex);
+
+                position = new Vector3(columnNumber, 0, rowNumber);
+                offset = position * unitSpawnOffset;
+                spawnPosition = position + offset + _sharedData.Value.SpawnPointTeam2.position;
             }
             else
             {
@@ -67,6 +84,8 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 
             return spawnPosition;
         }
+
+        private int GetRowNumber(int unitIndex) => Mathf.CeilToInt(unitIndex / _sharedData.Value.ColumnCount);
 
         private Quaternion GetRotation(int entity)
         {

@@ -418,6 +418,7 @@ MonoBehaviour:
     UnitAttackPeriod: 1.5
     UnitMoveSpeed: 1
     UnitPrefabPath: Prefabs/Unit
+    UnitSpawnOffset: 1
     ColorTeam1: {r: 0, g: 0.04942441, b: 1, a: 0}
     ColorTeam2: {r: 1, g: 0, b: 0, a: 0}
     SpawnPointTeam1: {fileID: 1343073191}

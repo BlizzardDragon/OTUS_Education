@@ -74,6 +74,8 @@ public class SharedData
 
     public string UnitPrefabPath;
 
+    public float UnitSpawnOffset;
+
     public Color ColorTeam1;
     public Color ColorTeam2;
 
