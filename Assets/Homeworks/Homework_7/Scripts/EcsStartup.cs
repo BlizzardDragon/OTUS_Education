@@ -70,8 +70,9 @@ public class SharedData
     public int ColumnCount;
 
     public int UnitHealth;
-    public float UnitAttackPeriod;
     public float UnitMoveSpeed;
+    public float UnitAttackPeriod;
+    public float UnitAttackPeriodRandomMultiplier;
 
     public string UnitPrefabPath;
 
