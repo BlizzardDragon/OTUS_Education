@@ -12,23 +12,34 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
         public void Init(IEcsSystems systems)
         {
             EcsWorld world = systems.GetWorld();
-            EcsPool<UnitViewComponent> poolView = world.GetPool<UnitViewComponent>();
-            EcsPool<HealthComponent> poolHealth = world.GetPool<HealthComponent>();
-            EcsPool<AttackComponent> poolAttack = world.GetPool<AttackComponent>();
-            EcsPool<ColorComponent> poolColor = world.GetPool<ColorComponent>();
-            EcsPool<MoveComponent> poolMove = world.GetPool<MoveComponent>();
-            EcsPool<TeamComponent> poolTeam = world.GetPool<TeamComponent>();
+            EcsPool<UnitViewComponent> poolViewC = world.GetPool<UnitViewComponent>();
+            EcsPool<HealthComponent> poolHealthC = world.GetPool<HealthComponent>();
+            EcsPool<AttackComponent> poolAttackC = world.GetPool<AttackComponent>();
+            EcsPool<ColorComponent> poolColorC = world.GetPool<ColorComponent>();
+            EcsPool<MoveComponent> poolMoveC = world.GetPool<MoveComponent>();
+            EcsPool<TeamComponent> poolTeamC = world.GetPool<TeamComponent>();
 
-            int entityCount = _sharedData.Value.UnitsPerTeam * _sharedData.Value.TeamCount;
+            int teamCount = _sharedData.Value.TeamCount;
+            int entityCount = _sharedData.Value.UnitsPerTeam * teamCount;
+            
             for (int i = 0; i < entityCount; i++)
             {
                 int entity = world.NewEntity();
-                poolAttack.Add(entity).AttackPeriod = _sharedData.Value.UnitAttackPeriod;
-                poolHealth.Add(entity).Health = _sharedData.Value.UnitHealth;
-                poolColor.Add(entity);
-                poolMove.Add(entity);
-                poolTeam.Add(entity);
-                poolView.Add(entity);
+                poolAttackC.Add(entity).AttackPeriod = _sharedData.Value.UnitAttackPeriod;
+                poolHealthC.Add(entity).Health = _sharedData.Value.UnitHealth;
+                poolMoveC.Add(entity).MoveSpeed = _sharedData.Value.UnitMoveSpeed;
+                poolViewC.Add(entity);
+
+                if (i < entityCount / teamCount)
+                {
+                    poolColorC.Add(entity).OriginColor = Color.blue;
+                    poolTeamC.Add(entity).Team = Teams.Blue;
+                }
+                else
+                {
+                    poolColorC.Add(entity).OriginColor = Color.red;
+                    poolTeamC.Add(entity).Team = Teams.Red;
+                }
             }
         }
     }

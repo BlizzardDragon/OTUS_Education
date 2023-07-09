@@ -69,6 +69,7 @@ public class SharedData
 
     public int UnitHealth;
     public float UnitAttackPeriod;
+    public float UnitMoveSpeed;
 
     public Transform SpawnPointTeam1;
     public Transform SpawnPointTeam2;

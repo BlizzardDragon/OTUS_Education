@@ -416,6 +416,7 @@ MonoBehaviour:
     ColumnCount: 7
     UnitHealth: 5
     UnitAttackPeriod: 1.5
+    UnitMoveSpeed: 1
     SpawnPointTeam1: {fileID: 693923829}
     SpawnPointTeam2: {fileID: 1343073191}
 --- !u!1 &1877831405
