@@ -19,6 +19,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
             _systems
                 .Add(new UnitInitializer())
                 .Add(new UnitSpawner())
+                .Add(new UnitMoveSystem())
 
                 // register additional worlds here, for example:
                 // .AddWorld (new EcsWorld (), "events")
