@@ -7,8 +7,10 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
         public float AttackTimer;
         public float AttackPeriod;
 
+        public float AttackDistance;
+
         public bool AttackIsReady;
-        
+
         public Transform AttackTarget; 
     }
 }

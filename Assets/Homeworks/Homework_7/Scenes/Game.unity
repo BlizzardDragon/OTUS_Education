@@ -676,8 +676,10 @@ MonoBehaviour:
     UnitsPerTeam: 30
     ColumnCount: 7
     UnitHealth: 5
-    UnitAttackPeriod: 1.5
     UnitMoveSpeed: 1
+    UnitAttackPeriod: 1.5
+    UnitAttackDistance: 5
+    UnitAttackPeriodRandomMultiplier: 0.2
     UnitPrefabPath: Prefabs/Unit
     UnitSpawnOffset: 1
     ColorTeam1: {r: 0, g: 0.04942441, b: 1, a: 0}

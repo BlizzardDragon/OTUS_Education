@@ -2,6 +2,7 @@ using System;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components;
+using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Services;
 using UnityEngine;
 
 namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
@@ -10,6 +11,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
     {
         private readonly EcsFilterInject<Inc<UnitViewComponent>> _filterUnits;
         private readonly EcsCustomInject<SharedData> _sharedData;
+        private readonly EcsCustomInject<TeamStorage> _teamStorage;
 
         private readonly EcsPoolInject<UnitViewComponent> _poolViewC;
         private readonly EcsPoolInject<ColorComponent> _poolColorC;
@@ -35,10 +37,12 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                 if (_poolTeamC.Value.Get(entity).Team == Teams.Team_1)
                 {
                     unit.transform.parent = _sharedData.Value.SpawnPointTeam_1;
+                    _teamStorage.Value.AddToTeam1(unit.transform);
                 }
                 else if (_poolTeamC.Value.Get(entity).Team == Teams.Team_2)
                 {
                     unit.transform.parent = _sharedData.Value.SpawnPointTeam_2;
+                    _teamStorage.Value.AddToTeam2(unit.transform);
                 }
 
                 view.UnitObject = unit;

@@ -25,10 +25,14 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
             for (int i = 0; i < entityCount; i++)
             {
                 int entity = world.NewEntity();
-                poolAttackC.Add(entity).AttackPeriod = _sharedData.Value.UnitAttackPeriod;
                 poolHealthC.Add(entity).Health = _sharedData.Value.UnitHealth;
                 poolMoveC.Add(entity).MoveSpeed = _sharedData.Value.UnitMoveSpeed;
                 poolViewC.Add(entity);
+
+                poolAttackC.Add(entity);
+                ref var attackC = ref poolAttackC.Get(entity);
+                attackC.AttackPeriod = _sharedData.Value.UnitAttackPeriod;
+                attackC.AttackDistance = _sharedData.Value.UnitAttackDistance;
 
                 if (i < entityCount / teamCount)
                 {

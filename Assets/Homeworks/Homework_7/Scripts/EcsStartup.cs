@@ -1,6 +1,7 @@
 using System;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Services;
 using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
     sealed class EcsStartup : MonoBehaviour
     {
         [SerializeField] private SharedData _sharedData;
+        private TeamStorage _teamStorage;
         EcsWorld _world;
         IEcsSystems _systems;
 
@@ -29,6 +31,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
                 .Inject(_sharedData)
+                .Inject(_teamStorage)
                 .Init();
         }
 
@@ -72,6 +75,7 @@ public class SharedData
     public int UnitHealth;
     public float UnitMoveSpeed;
     public float UnitAttackPeriod;
+    public float UnitAttackDistance;
     public float UnitAttackPeriodRandomMultiplier;
 
     public string UnitPrefabPath;
