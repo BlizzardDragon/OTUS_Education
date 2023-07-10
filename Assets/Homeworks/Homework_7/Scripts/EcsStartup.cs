@@ -10,7 +10,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
     sealed class EcsStartup : MonoBehaviour
     {
         [SerializeField] private SharedData _sharedData;
-        private TeamStorage _teamStorage;
+        [SerializeField] private TeamStorage _teamStorage;
         EcsWorld _world;
         IEcsSystems _systems;
 

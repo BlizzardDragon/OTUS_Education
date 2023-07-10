@@ -1,12 +1,14 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Services
 {
+    [Serializable]
     public class TeamStorage
     {
-        public HashSet<Transform> TransformsTeam_1 { get; private set; } = new();
-        public HashSet<Transform> TransformsTeam_2 { get; private set; } = new();
+        [field: SerializeField] public HashSet<Transform> TransformsTeam_1 { get; private set; } = new();
+        [field: SerializeField] public HashSet<Transform> TransformsTeam_2 { get; private set; } = new();
 
         public void AddToTeam1(Transform transform)
         {
