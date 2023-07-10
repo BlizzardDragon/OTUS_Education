@@ -66,24 +66,30 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
 [Serializable]
 public class SharedData
 {
-    public int TeamCount { get; private set; } = 2;
-
+    [Header("Game")]
     public int UnitsPerTeam;
     public int ColumnCount;
-
+    [Space]
+    public Color ColorTeam1;
+    public Color ColorTeam2;
+    [Space]
+    public Transform SpawnPointTeam_1;
+    public Transform SpawnPointTeam_2;
+    [Space]
+    [Header("Units")]
     public int UnitHealth;
     public float UnitMoveSpeed;
     public float UnitAttackPeriod;
     public float UnitAttackDistance;
     public float UnitAttackPeriodRandomMultiplier;
-
+    [Space]
     public string UnitPrefabPath;
-
     public float UnitSpawnOffset;
+    [Space]
+    [Header("Bullets")]
+    public float BulletMoveSpeed;
+    public int BulletDamage;
+    public string BulletPrefabPath;
 
-    public Color ColorTeam1;
-    public Color ColorTeam2;
-
-    public Transform SpawnPointTeam_1;
-    public Transform SpawnPointTeam_2;
+    public int TeamCount { get; private set; } = 2;
 }

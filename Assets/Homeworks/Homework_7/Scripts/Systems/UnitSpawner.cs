@@ -2,7 +2,6 @@ using System;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components;
-using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Services;
 using UnityEngine;
 
 namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
@@ -13,6 +12,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
         private readonly EcsCustomInject<SharedData> _sharedData;
 
         private readonly EcsPoolInject<UnitViewComponent> _poolViewC;
+        private readonly EcsPoolInject<AttackComponent> _poolAttackC;
         private readonly EcsPoolInject<ColorComponent> _poolColorC;
         private readonly EcsPoolInject<TeamComponent> _poolTeamC;
 
@@ -20,6 +20,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
         {
             foreach (var entity in _filterUnits.Value)
             {
+                ref var attackC = ref _poolAttackC.Value.Get(entity);
                 ref var colorC = ref _poolColorC.Value.Get(entity);
                 ref var view = ref _poolViewC.Value.Get(entity);
 
@@ -30,8 +31,10 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                         GetRotation(entity));
 
                 MeshRenderer meshRenderer = unit.GetComponent<MeshRendererComponent>().MeshRenderer;
+                UnitGun unitGun = unit.GetComponent<UnitGun>();
                 colorC.MeshRenderer = meshRenderer;
                 colorC.MeshRenderer.material.color = colorC.OriginColor;
+                attackC.BulletSpawn = unitGun.Gun;
 
                 if (_poolTeamC.Value.Get(entity).Team == Teams.Team_1)
                 {
