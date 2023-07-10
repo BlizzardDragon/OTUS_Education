@@ -24,28 +24,28 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                 ref var colorC = ref _poolColorC.Value.Get(entity);
                 ref var view = ref _poolViewC.Value.Get(entity);
 
-                var unit =
+                var newUnit =
                     GameObject.Instantiate(
                         Resources.Load<GameObject>(_sharedData.Value.UnitPrefabPath),
                         GetPosition(entity),
                         GetRotation(entity));
 
-                MeshRenderer meshRenderer = unit.GetComponent<MeshRendererComponent>().MeshRenderer;
-                UnitGun unitGun = unit.GetComponent<UnitGun>();
+                MeshRenderer meshRenderer = newUnit.GetComponent<MeshRendererComponent>().MeshRenderer;
+                UnitGun unitGun = newUnit.GetComponent<UnitGun>();
                 colorC.MeshRenderer = meshRenderer;
                 colorC.MeshRenderer.material.color = colorC.OriginColor;
                 attackC.BulletSpawn = unitGun.Gun;
 
                 if (_poolTeamC.Value.Get(entity).Team == Teams.Team_1)
                 {
-                    unit.transform.parent = _sharedData.Value.SpawnPointTeam_1;
+                    newUnit.transform.parent = _sharedData.Value.SpawnPointUnitsTeam_1;
                 }
                 else if (_poolTeamC.Value.Get(entity).Team == Teams.Team_2)
                 {
-                    unit.transform.parent = _sharedData.Value.SpawnPointTeam_2;
+                    newUnit.transform.parent = _sharedData.Value.SpawnPointUnitsTeam_2;
                 }
 
-                view.UnitObject = unit;
+                view.UnitObject = newUnit;
             }
         }
 
@@ -67,7 +67,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 
                 position = new Vector3(columnNumber, 0, -rowNumber);
                 offset = position * unitSpawnOffset;
-                spawnPosition = position + offset + _sharedData.Value.SpawnPointTeam_1.position;
+                spawnPosition = position + offset + _sharedData.Value.SpawnPointUnitsTeam_1.position;
             }
             else if (_poolTeamC.Value.Get(entity).Team == Teams.Team_2)
             {
@@ -87,7 +87,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 
                 position = new Vector3(columnNumber, 0, rowNumber);
                 offset = position * unitSpawnOffset;
-                spawnPosition = position + offset + _sharedData.Value.SpawnPointTeam_2.position;
+                spawnPosition = position + offset + _sharedData.Value.SpawnPointUnitsTeam_2.position;
             }
             else
             {

@@ -73,8 +73,11 @@ public class SharedData
     public Color ColorTeam1;
     public Color ColorTeam2;
     [Space]
-    public Transform SpawnPointTeam_1;
-    public Transform SpawnPointTeam_2;
+    public Transform SpawnPointUnitsTeam_1;
+    public Transform SpawnPointUnitsTeam_2;
+    [Space]
+    public Transform BulletsParentTeam_1;
+    public Transform BulletsParentTeam_2;
     [Space]
     [Header("Units")]
     public int UnitHealth;
