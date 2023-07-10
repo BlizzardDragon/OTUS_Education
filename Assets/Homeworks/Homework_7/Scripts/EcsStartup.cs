@@ -1,7 +1,6 @@
 using System;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
-using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Services;
 using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems;
 using UnityEngine;
 
@@ -15,13 +14,17 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
 
         void Start()
         {
+            var bulletSpawner = new BulletSpawner();
+            
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
             _systems
                 .Add(new UnitInitializer())
                 .Add(new UnitSpawner())
                 .Add(new UnitMoveSystem())
+                .Add(new UnitAttackSystem(bulletSpawner))
                 .Add(new EnemySearchSystem())
+                .Add(bulletSpawner)
 
                 // register additional worlds here, for example:
                 // .AddWorld (new EcsWorld (), "events")
@@ -31,7 +34,6 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
                 .Inject(_sharedData)
-                .Inject(new BulletSpawner())
                 .Init();
         }
 

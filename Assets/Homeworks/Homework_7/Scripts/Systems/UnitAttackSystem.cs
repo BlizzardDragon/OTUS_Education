@@ -6,11 +6,17 @@ using UnityEngine;
 
 namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 {
-    public struct UnitAttackSystem : IEcsRunSystem
+    public class UnitAttackSystem : IEcsRunSystem
     {
         private readonly EcsFilterInject<Inc<AttackComponent>> _filterAttack;
         private readonly EcsPoolInject<AttackComponent> _poolAttackC;
         private readonly EcsCustomInject<SharedData> _sharedData;
+        BulletSpawner _bulletSpawner;
+
+        public UnitAttackSystem(BulletSpawner bulletSpawner)
+        {
+            _bulletSpawner = bulletSpawner;
+        }
 
         public void Run(IEcsSystems systems)
         {
@@ -20,36 +26,27 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 
                 if (attackC.AttackIsReady)
                 {
-                    // Проверка дистанции до ближайшегов врага.
+                    if (attackC.AttackTarget == null) return;
 
-                    if (true)
-                    {
-                        float rate = _sharedData.Value.UnitAttackPeriod;
-                        float multiplier = _sharedData.Value.UnitAttackPeriodRandomMultiplier;
+                    float rate = _sharedData.Value.UnitAttackPeriod;
+                    float multiplier = _sharedData.Value.UnitAttackPeriodRandomMultiplier;
 
-                        // Bullet Spawn
-                        attackC.AttackIsReady = false;
-                        attackC.AttackTimer = 0;
-                        attackC.AttackPeriod = Random.Range(rate - rate * multiplier, rate + rate * multiplier);
+                    _bulletSpawner.SpawnBullet(entity);
+                    attackC.AttackIsReady = false;
+                    attackC.AttackTimer = 0;
+                    attackC.AttackPeriod = Random.Range(rate - rate * multiplier, rate + rate * multiplier);
 
-                    }
                 }
                 else
                 {
-                    if (attackC.AttackTimer < attackC.AttackPeriod)
-                    {
-                        attackC.AttackTimer += Time.deltaTime;
-                    }
-                    else
+                    attackC.AttackTimer += Time.deltaTime;
+
+                    if (attackC.AttackTimer > attackC.AttackPeriod)
                     {
                         attackC.AttackIsReady = true;
                     }
                 }
             }
-
-            // int count = 0;
-            //     Debug.Log($"{count} : {entity} = count : entity");
-            //     count++;
         }
     }
 }

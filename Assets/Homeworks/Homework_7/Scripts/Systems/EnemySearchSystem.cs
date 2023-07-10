@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 {
+    // Можно ли как-нибудь сделать структурой?
     public class EnemySearchSystem : IEcsRunSystem
     {
         private readonly EcsFilterInject<Inc<TeamComponent, UnitViewComponent>> _filterTeanms;
