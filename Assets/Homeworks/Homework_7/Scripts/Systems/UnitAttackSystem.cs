@@ -18,7 +18,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
             {
                 ref var attackC = ref _poolAttackC.Value.Get(entity);
 
-                if (attackC.IsReady)
+                if (attackC.AttackIsReady)
                 {
                     // Проверка дистанции до ближайшегов врага.
 
@@ -28,7 +28,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                         float multiplier = _sharedData.Value.UnitAttackPeriodRandomMultiplier;
 
                         // Bullet Spawn
-                        attackC.IsReady = false;
+                        attackC.AttackIsReady = false;
                         attackC.AttackTimer = 0;
                         attackC.AttackPeriod = Random.Range(rate - rate * multiplier, rate + rate * multiplier);
 
@@ -42,7 +42,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                     }
                     else
                     {
-                        attackC.IsReady = true;
+                        attackC.AttackIsReady = true;
                     }
                 }
             }
