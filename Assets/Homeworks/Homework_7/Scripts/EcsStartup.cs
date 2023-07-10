@@ -10,7 +10,6 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
     sealed class EcsStartup : MonoBehaviour
     {
         [SerializeField] private SharedData _sharedData;
-        [SerializeField] private TeamStorage _teamStorage;
         EcsWorld _world;
         IEcsSystems _systems;
 
@@ -22,6 +21,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
                 .Add(new UnitInitializer())
                 .Add(new UnitSpawner())
                 .Add(new UnitMoveSystem())
+                .Add(new EnemySearchSystem())
 
                 // register additional worlds here, for example:
                 // .AddWorld (new EcsWorld (), "events")
@@ -31,7 +31,6 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
                 .Inject(_sharedData)
-                .Inject(_teamStorage)
                 .Init();
         }
 

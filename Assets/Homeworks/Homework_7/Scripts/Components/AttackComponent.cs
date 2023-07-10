@@ -11,6 +11,6 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
 
         public bool AttackIsReady;
 
-        public Transform AttackTarget; 
+        public GameObject AttackTarget; 
     }
 }
