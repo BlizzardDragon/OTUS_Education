@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Leopotam.EcsLite.Di;
 using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components;
 using UnityEngine;
@@ -10,7 +7,6 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 {
     public struct BulletSpawner
     {
-        private readonly EcsFilterInject<Inc<UnitViewComponent>> _filterUnits;
         private readonly EcsPoolInject<UnitViewComponent> _poolUnitViewC;
         private readonly EcsPoolInject<AttackComponent> _poolAttackC;
 

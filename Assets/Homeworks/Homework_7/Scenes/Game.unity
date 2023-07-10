@@ -722,8 +722,10 @@ MonoBehaviour:
     ColumnCount: 7
     ColorTeam1: {r: 0, g: 0.04942441, b: 1, a: 0}
     ColorTeam2: {r: 1, g: 0, b: 0, a: 0}
-    SpawnPointTeam_1: {fileID: 1343073191}
-    SpawnPointTeam_2: {fileID: 693923829}
+    SpawnPointUnitsTeam_1: {fileID: 1343073191}
+    SpawnPointUnitsTeam_2: {fileID: 693923829}
+    BulletsParentTeam_1: {fileID: 603628577}
+    BulletsParentTeam_2: {fileID: 241297787}
     UnitHealth: 5
     UnitMoveSpeed: 1
     UnitAttackPeriod: 1.5

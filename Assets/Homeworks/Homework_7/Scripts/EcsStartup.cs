@@ -31,6 +31,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
                 .Inject(_sharedData)
+                .Inject(new BulletSpawner())
                 .Init();
         }
 
