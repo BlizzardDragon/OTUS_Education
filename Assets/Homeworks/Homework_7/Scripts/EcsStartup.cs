@@ -15,13 +15,13 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
         void Start()
         {
             var bulletSpawner = new BulletSpawner();
-            
+
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
             _systems
                 .Add(new UnitInitializer())
                 .Add(new UnitSpawner())
-                .Add(new UnitMoveSystem())
+                .Add(new MoveForwardSystem())
                 .Add(new UnitAttackSystem(bulletSpawner))
                 .Add(new EnemySearchSystem())
                 .Add(bulletSpawner)

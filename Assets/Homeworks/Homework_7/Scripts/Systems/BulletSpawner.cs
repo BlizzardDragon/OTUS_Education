@@ -9,10 +9,8 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
     // Можно ли как-нибудь сделать структурой?
     public class BulletSpawner : IEcsInitSystem
     {
-        private readonly EcsPoolInject<UnitViewComponent> _poolUnitViewC;
+        private readonly EcsPoolInject<ViewComponent> _poolViewC;
         private readonly EcsPoolInject<AttackComponent> _poolAttackC;
-
-        private readonly EcsPoolInject<BulletViewComponent> _poolBulletViewC;
         private readonly EcsPoolInject<DamageComponent> _poolDamageC;
         private readonly EcsPoolInject<ColorComponent> _poolColorC;
         private readonly EcsPoolInject<MoveComponent> _poolMoveC;
@@ -31,19 +29,25 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
             Teams team = _poolTeamC.Value.Get(entity).Team;
             Transform bulletParent;
 
-            _poolBulletViewC.Value.Add(bulletEntity);
             _poolDamageC.Value.Add(bulletEntity).DamageValue = _sharedData.Value.BulletDamage;
-            _poolColorC.Value.Add(bulletEntity);
-            _poolMoveC.Value.Add(bulletEntity).MoveSpeed = _sharedData.Value.BulletMoveSpeed;
             _poolTeamC.Value.Add(bulletEntity).Team = team;
+
+            ref var colorC = ref _poolColorC.Value.Add(bulletEntity);
+            ref var view = ref _poolViewC.Value.Add(bulletEntity);
+
+            ref var moveC = ref _poolMoveC.Value.Add(bulletEntity);
+            moveC.MoveSpeed = _sharedData.Value.BulletMoveSpeed;
+            moveC.MoveAlloved = true;
 
             if (team == Teams.Team_1)
             {
                 bulletParent = _sharedData.Value.BulletsParentTeam_1;
+                colorC.OriginColor = _sharedData.Value.ColorTeam1;
             }
             else if (team == Teams.Team_2)
             {
                 bulletParent = _sharedData.Value.BulletsParentTeam_2;
+                colorC.OriginColor = _sharedData.Value.ColorTeam2;
             }
             else
             {
@@ -56,11 +60,15 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                     _poolAttackC.Value.Get(entity).BulletSpawn.position,
                     GetRotation(entity, targerPosition),
                     bulletParent);
+            
+            view.ViewObject = newBullet;
+            colorC.MeshRenderer = newBullet.GetComponent<MeshRendererComponent>().MeshRenderer;
+            colorC.MeshRenderer.material.color = colorC.OriginColor;
         }
 
         private Quaternion GetRotation(int entity, Vector3 targerPos)
         {
-            Vector3 currenPos = _poolUnitViewC.Value.Get(entity).UnitObject.transform.position;
+            Vector3 currenPos = _poolViewC.Value.Get(entity).ViewObject.transform.position;
             Vector3 direction = currenPos - targerPos;
 
             Quaternion rotation = Quaternion.identity * Quaternion.Euler(direction);

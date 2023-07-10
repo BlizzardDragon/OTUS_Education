@@ -12,7 +12,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
         public void Init(IEcsSystems systems)
         {
             EcsWorld world = systems.GetWorld();
-            EcsPool<UnitViewComponent> poolViewC = world.GetPool<UnitViewComponent>();
+            EcsPool<ViewComponent> poolViewC = world.GetPool<ViewComponent>();
             EcsPool<HealthComponent> poolHealthC = world.GetPool<HealthComponent>();
             EcsPool<AttackComponent> poolAttackC = world.GetPool<AttackComponent>();
             EcsPool<ColorComponent> poolColorC = world.GetPool<ColorComponent>();

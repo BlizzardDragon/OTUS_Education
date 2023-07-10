@@ -8,18 +8,21 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 {
     public struct UnitSpawner : IEcsInitSystem
     {
-        private readonly EcsFilterInject<Inc<UnitViewComponent>> _filterUnits;
+        private readonly EcsFilterInject<Inc<ViewComponent>> _filterUnits;
         private readonly EcsCustomInject<SharedData> _sharedData;
 
-        private readonly EcsPoolInject<UnitViewComponent> _poolViewC;
+        private readonly EcsPoolInject<ViewComponent> _poolViewC;
         private readonly EcsPoolInject<AttackComponent> _poolAttackC;
         private readonly EcsPoolInject<ColorComponent> _poolColorC;
         private readonly EcsPoolInject<TeamComponent> _poolTeamC;
+        private readonly EcsPoolInject<MoveComponent> _poolMoveC;
 
         public void Init(IEcsSystems systems)
         {
             foreach (var entity in _filterUnits.Value)
             {
+                _poolMoveC.Value.Get(entity).MoveAlloved = true;
+
                 ref var attackC = ref _poolAttackC.Value.Get(entity);
                 ref var colorC = ref _poolColorC.Value.Get(entity);
                 ref var view = ref _poolViewC.Value.Get(entity);
@@ -45,7 +48,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                     newUnit.transform.parent = _sharedData.Value.SpawnPointUnitsTeam_2;
                 }
 
-                view.UnitObject = newUnit;
+                view.ViewObject = newUnit;
             }
         }
 

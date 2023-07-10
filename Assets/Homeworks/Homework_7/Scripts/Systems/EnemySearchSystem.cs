@@ -9,11 +9,12 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
     // Можно ли как-нибудь сделать структурой?
     public class EnemySearchSystem : IEcsRunSystem
     {
-        private readonly EcsFilterInject<Inc<TeamComponent, UnitViewComponent>> _filterTeanms;
+        private readonly EcsFilterInject<Inc<AttackComponent>> _filterTeanms;
 
-        private readonly EcsPoolInject<TeamComponent> _poolTeamC;
-        private readonly EcsPoolInject<UnitViewComponent> _poolViewC;
         private readonly EcsPoolInject<AttackComponent> _poolAttackC;
+        private readonly EcsPoolInject<TeamComponent> _poolTeamC;
+        private readonly EcsPoolInject<ViewComponent> _poolViewC;
+        private readonly EcsPoolInject<MoveComponent> _poolMoveC;
 
         private readonly HashSet<int> _cacheTeam_1 = new();
         private readonly HashSet<int> _cacheTeam_2 = new();
@@ -43,14 +44,23 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
         {
             foreach (var entity in currentEntities)
             {
-                if (!_poolAttackC.Value.Get(entity).AttackTarget)
+                ref var attackC = ref _poolAttackC.Value.Get(entity);
+                ref var moveC = ref _poolMoveC.Value.Get(entity);
+
+                if (!attackC.AttackTarget)
                 {
                     (bool targetIsReceived, int targetEntity) = GetNearestEntity(entity, targetEntities);
+                    
                     if (targetIsReceived)
                     {
-                        GameObject targer = _poolViewC.Value.Get(targetEntity).UnitObject;
-                        _poolAttackC.Value.Get(entity).AttackTarget = targer;
+                        GameObject targer = _poolViewC.Value.Get(targetEntity).ViewObject;
+                        attackC.AttackTarget = targer;
+                        moveC.MoveAlloved = false;
                     }
+                }
+                else
+                {
+                    moveC.MoveAlloved = true;
                 }
             }
         }
@@ -58,7 +68,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
         private (bool, int) GetNearestEntity(int currentEntity, HashSet<int> targetEntities)
         {
             float attackDistance = _poolAttackC.Value.Get(currentEntity).AttackDistance;
-            Vector3 currentEntityPos = _poolViewC.Value.Get(currentEntity).UnitObject.transform.position;
+            Vector3 currentEntityPos = _poolViewC.Value.Get(currentEntity).ViewObject.transform.position;
             Vector3 targetEntityPos;
 
             float minDistance = float.MaxValue;
@@ -66,7 +76,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 
             foreach (var targetEntity in targetEntities)
             {
-                targetEntityPos = _poolViewC.Value.Get(targetEntity).UnitObject.transform.position;
+                targetEntityPos = _poolViewC.Value.Get(targetEntity).ViewObject.transform.position;
                 float distance = Vector3.Distance(targetEntityPos, currentEntityPos);
 
                 if (distance > attackDistance) continue;
