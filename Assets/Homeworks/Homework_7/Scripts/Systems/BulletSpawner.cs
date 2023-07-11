@@ -5,6 +5,7 @@ using Leopotam.EcsLite.Di;
 using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components;
 using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Services;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 {
@@ -87,9 +88,12 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
         private async void InvokeDestroyBullet(EcsPackedEntity ecsPacked)
         {
             await Task.Delay(5000);
-            var entity = UnpackEntityUtils.UnpackEntity(_world, ecsPacked);
-            GameObject.DestroyImmediate(_poolViewC.Value.Get(entity).ViewObject);
-            _world.DelEntity(entity);
+
+            if (ecsPacked.Unpack(_world, out int entity))
+            {
+                Object.DestroyImmediate(_poolViewC.Value.Get(entity).ViewObject);
+                _world.DelEntity(entity);
+            }
         }
     }
 }

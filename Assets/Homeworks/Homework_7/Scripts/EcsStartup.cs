@@ -25,6 +25,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
                 .Add(new UnitAttackSystem(bulletSpawner))
                 .Add(new EnemySearchSystem())
                 .Add(bulletSpawner)
+                .Add(new DamageSystem())
 
                 // register additional worlds here, for example:
                 // .AddWorld (new EcsWorld (), "events")
