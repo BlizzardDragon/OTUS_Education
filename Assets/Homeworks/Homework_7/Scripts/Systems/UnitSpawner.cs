@@ -47,6 +47,10 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                 {
                     newUnit.transform.parent = _sharedData.Value.SpawnPointUnitsTeam_2;
                 }
+                else
+                {
+                    throw new Exception("Team not set");
+                }
 
                 view.ViewObject = newUnit;
             }

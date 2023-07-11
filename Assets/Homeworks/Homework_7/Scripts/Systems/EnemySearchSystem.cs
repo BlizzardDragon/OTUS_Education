@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
@@ -34,6 +35,10 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                 {
                     _cacheTeam_2.Add(entity);
                 }
+                else
+                {
+                    throw new Exception("Team not set");
+                }
             }
 
             TrySetTargetsForEntities(_cacheTeam_1, _cacheTeam_2);
@@ -50,17 +55,18 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                 if (!attackC.AttackTarget)
                 {
                     (bool targetIsReceived, int targetEntity) = GetNearestEntity(entity, targetEntities);
-                    
+
                     if (targetIsReceived)
                     {
                         GameObject targer = _poolViewC.Value.Get(targetEntity).ViewObject;
                         attackC.AttackTarget = targer;
-                        moveC.MoveAlloved = false;
                     }
+                    
+                    moveC.MoveAlloved = true;
                 }
                 else
                 {
-                    moveC.MoveAlloved = true;
+                    moveC.MoveAlloved = false;
                 }
             }
         }
