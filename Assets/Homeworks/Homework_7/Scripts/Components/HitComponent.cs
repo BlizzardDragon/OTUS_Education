@@ -4,7 +4,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
 {
     public struct HitComponent
     {
-        public GameObject FirstCollide;        
-        public GameObject SecondCollide;        
+        public EcsMonoObject FirstCollide;        
+        public EcsMonoObject SecondCollide;        
     }
 }

@@ -31,7 +31,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 
                     float rate = _sharedData.Value.UnitAttackPeriod;
                     float multiplier = _sharedData.Value.UnitAttackPeriodRandomMultiplier;
-
+                    
                     _bulletSpawner.SpawnBullet(entity);
                     attackC.AttackIsReady = false;
                     attackC.AttackTimer = 0;
