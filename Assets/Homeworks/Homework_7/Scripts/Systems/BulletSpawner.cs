@@ -66,6 +66,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
             colorC.MeshRenderer.material.color = colorC.OriginColor;
             view.ViewObject = newBullet;
             cObj.Init(_world);
+            cObj.PackEntity(bulletEntity);
         }
 
         private Quaternion GetRotation(int entity, Vector3 targerPos)

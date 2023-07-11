@@ -43,6 +43,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                 colorC.MeshRenderer.material.color = colorC.OriginColor;
                 attackC.BulletSpawn = unitGun.Gun;
                 cObj.Init(world);
+                cObj.PackEntity(entity);
 
                 if (_poolTeamC.Value.Get(entity).Team == Teams.Team_1)
                 {
