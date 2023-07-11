@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CollidingObject : EcsMonoObject
+public class CollidingUnit : EcsMonoObject
 {
     private void OnTriggerEnter(Collider other)
     {

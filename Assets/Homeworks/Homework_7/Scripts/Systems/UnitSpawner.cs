@@ -36,7 +36,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                         GetRotation(entity));
 
                 MeshRenderer meshRenderer = newUnit.GetComponent<MeshRendererComponent>().MeshRenderer;
-                CollidingObject cObj = newUnit.GetComponent<StorageCollidingObject>().CollidingObject;
+                EcsMonoObject cObj = newUnit.GetComponent<StorageCollidingObject>().CollidingObject;
                 UnitGun unitGun = newUnit.GetComponent<UnitGun>();
 
                 colorC.MeshRenderer = meshRenderer;

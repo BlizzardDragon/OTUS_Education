@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class StorageCollidingObject : MonoBehaviour
 {
-    [SerializeField] private CollidingObject _collidingObject;
-    public CollidingObject CollidingObject => _collidingObject;
+    [SerializeField] private EcsMonoObject _collidingObject;
+    public EcsMonoObject CollidingObject => _collidingObject;
 }

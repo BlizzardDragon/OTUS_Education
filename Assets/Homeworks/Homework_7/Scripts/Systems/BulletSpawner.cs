@@ -63,7 +63,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                     GetRotation(entity, targerPosition),
                     bulletParent);
 
-            CollidingObject cObj = newBullet.GetComponent<StorageCollidingObject>().CollidingObject;
+            EcsMonoObject cObj = newBullet.GetComponent<StorageCollidingObject>().CollidingObject;
             colorC.MeshRenderer = newBullet.GetComponent<MeshRendererComponent>().MeshRenderer;
             colorC.MeshRenderer.material.color = colorC.OriginColor;
             view.ViewObject = newBullet;

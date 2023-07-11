@@ -19,6 +19,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
             foreach (var entity in _filterHitC.Value)
             {
                 ref var hitC = ref _poolHitC.Value.Get(entity);
+                
             }
         }
     }
