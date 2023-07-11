@@ -1,7 +1,9 @@
 using System;
+using System.Threading.Tasks;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components;
+using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Services;
 using UnityEngine;
 
 namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
@@ -67,6 +69,9 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
             view.ViewObject = newBullet;
             cObj.Init(_world);
             cObj.PackEntity(bulletEntity);
+
+            EcsPackedEntity ecsPacked = _world.PackEntity(bulletEntity);
+            InvokeDestroyBullet(ecsPacked);
         }
 
         private Quaternion GetRotation(int entity, Vector3 targerPos)
@@ -77,6 +82,14 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 
             Quaternion rotation = Quaternion.Euler(new Vector3(0, engle, 0)); //Quaternion.LookRotation(direction); 
             return rotation;
+        }
+
+        private async void InvokeDestroyBullet(EcsPackedEntity ecsPacked)
+        {
+            await Task.Delay(5000);
+            var entity = UnpackEntityUtils.UnpackEntity(_world, ecsPacked);
+            GameObject.DestroyImmediate(_poolViewC.Value.Get(entity).ViewObject);
+            _world.DelEntity(entity);
         }
     }
 }
