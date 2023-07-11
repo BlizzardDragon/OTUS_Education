@@ -60,7 +60,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                     _poolAttackC.Value.Get(entity).BulletSpawn.position,
                     GetRotation(entity, targerPosition),
                     bulletParent);
-            
+
             view.ViewObject = newBullet;
             colorC.MeshRenderer = newBullet.GetComponent<MeshRendererComponent>().MeshRenderer;
             colorC.MeshRenderer.material.color = colorC.OriginColor;
@@ -69,9 +69,10 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
         private Quaternion GetRotation(int entity, Vector3 targerPos)
         {
             Vector3 currenPos = _poolViewC.Value.Get(entity).ViewObject.transform.position;
-            Vector3 direction = currenPos - targerPos;
+            Vector3 targetDirection = targerPos - currenPos;
+            float engle = Vector3.Angle(Vector3.forward, targetDirection);
 
-            Quaternion rotation = Quaternion.identity * Quaternion.Euler(direction);
+            Quaternion rotation = Quaternion.Euler(new Vector3(0, engle, 0)); //Quaternion.LookRotation(direction); 
             return rotation;
         }
     }
