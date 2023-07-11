@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Leopotam.EcsLite;
 using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components;
 using UnityEngine;

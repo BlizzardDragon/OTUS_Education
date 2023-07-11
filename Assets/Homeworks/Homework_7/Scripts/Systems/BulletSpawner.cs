@@ -61,9 +61,11 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                     GetRotation(entity, targerPosition),
                     bulletParent);
 
-            view.ViewObject = newBullet;
+            CollidingObject cObj = newBullet.GetComponent<StorageCollidingObject>().CollidingObject;
             colorC.MeshRenderer = newBullet.GetComponent<MeshRendererComponent>().MeshRenderer;
             colorC.MeshRenderer.material.color = colorC.OriginColor;
+            view.ViewObject = newBullet;
+            cObj.Init(_world);
         }
 
         private Quaternion GetRotation(int entity, Vector3 targerPos)

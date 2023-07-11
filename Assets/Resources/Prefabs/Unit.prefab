@@ -42,6 +42,8 @@ GameObject:
   - component: {fileID: 2430075481165991162}
   - component: {fileID: 5152363256077743885}
   - component: {fileID: 3910907652910827958}
+  - component: {fileID: 5301717158476071389}
+  - component: {fileID: 2117532505880127056}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -92,6 +94,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gun: {fileID: 3804351860560537784}
+--- !u!54 &5301717158476071389
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5271900803070649126}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &2117532505880127056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5271900803070649126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a37e44a43505344b8e5925d7aa851b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collidingObject: {fileID: 8942667137172919323}
 --- !u!1 &7893406548585892779
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +135,7 @@ GameObject:
   - component: {fileID: 3038645194031628361}
   - component: {fileID: 6925644600464073439}
   - component: {fileID: 8855478521509583761}
-  - component: {fileID: 6982226267830251799}
+  - component: {fileID: 8942667137172919323}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -190,19 +221,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &6982226267830251799
-Rigidbody:
+--- !u!114 &8942667137172919323
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7893406548585892779}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b359da49d3eedd148a5ac4314dfbb848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
