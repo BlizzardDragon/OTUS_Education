@@ -718,7 +718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sharedData:
-    UnitsPerTeam: 30
+    UnitsPerTeam: 500
     ColumnCount: 7
     ColorTeam1: {r: 0, g: 0.04942441, b: 1, a: 0}
     ColorTeam2: {r: 1, g: 0, b: 0, a: 0}
@@ -728,6 +728,7 @@ MonoBehaviour:
     BulletsParentTeam_2: {fileID: 241297787}
     UnitHealth: 5
     UnitMoveSpeed: 2
+    RotationSpeed: 5
     UnitAttackPeriod: 1.5
     UnitAttackDistance: 20
     UnitAttackPeriodRandomMultiplier: 0.2

@@ -13,11 +13,12 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
         {
             EcsWorld world = systems.GetWorld();
             EcsPool<ViewComponent> poolViewC = world.GetPool<ViewComponent>();
-            EcsPool<HealthComponent> poolHealthC = world.GetPool<HealthComponent>();
-            EcsPool<AttackComponent> poolAttackC = world.GetPool<AttackComponent>();
-            EcsPool<ColorComponent> poolColorC = world.GetPool<ColorComponent>();
             EcsPool<MoveComponent> poolMoveC = world.GetPool<MoveComponent>();
             EcsPool<TeamComponent> poolTeamC = world.GetPool<TeamComponent>();
+            EcsPool<ColorComponent> poolColorC = world.GetPool<ColorComponent>();
+            EcsPool<HealthComponent> poolHealthC = world.GetPool<HealthComponent>();
+            EcsPool<AttackComponent> poolAttackC = world.GetPool<AttackComponent>();
+            EcsPool<RotationComponent> poolRotationC = world.GetPool<RotationComponent>();
             EcsPool<CollisionComponent> poolCollisionC = world.GetPool<CollisionComponent>();
 
             int teamCount = _sharedData.Value.TeamCount;
@@ -26,10 +27,11 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
             for (int i = 0; i < entityCount; i++)
             {
                 int entity = world.NewEntity();
+                poolCollisionC.Add(entity);
+                poolRotationC.Add(entity).RotationSpeed = _sharedData.Value.RotationSpeed;
                 poolHealthC.Add(entity).Health = _sharedData.Value.UnitHealth;
                 poolMoveC.Add(entity).MoveSpeed = _sharedData.Value.UnitMoveSpeed;
                 poolViewC.Add(entity);
-                poolCollisionC.Add(entity);
 
                 poolAttackC.Add(entity);
                 ref var attackC = ref poolAttackC.Get(entity);

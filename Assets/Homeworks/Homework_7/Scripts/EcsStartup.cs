@@ -28,6 +28,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
                 .Add(new DamageSystem())
                 .Add(new CollisionHandlingSystem())
                 .Add(new DisplacementSystem())
+                .Add(new RotationSystem())
                 .Add(new DestroyCollisionComponentsSystem())
                 .Add(new DestroySystem())
 
@@ -90,6 +91,7 @@ public class SharedData
     [Header("Units")]
     public int UnitHealth;
     public float UnitMoveSpeed;
+    public float RotationSpeed;
     public float UnitAttackPeriod;
     public float UnitAttackDistance;
     public float UnitAttackPeriodRandomMultiplier;
