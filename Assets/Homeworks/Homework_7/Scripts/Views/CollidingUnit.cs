@@ -6,7 +6,7 @@ public class CollidingUnit : EcsMonoObject
     {
         if(other.TryGetComponent(out EcsMonoObject collide))
         {
-            OnTriggerAction(this, collide);
+            OnTriggerEnterEvent(this, collide);
         }
     }
 }

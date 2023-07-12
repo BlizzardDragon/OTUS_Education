@@ -11,7 +11,7 @@ public abstract class EcsMonoObject : MonoBehaviour
 
     public void PackEntity(int entity) => EcsPacked = _world.PackEntity(entity);
 
-    public virtual void OnTriggerAction(EcsMonoObject firstCollide, EcsMonoObject secondCollide)
+    public virtual void OnTriggerEnterEvent(EcsMonoObject firstCollide, EcsMonoObject secondCollide)
     {
         if (_world != null)
         {
@@ -20,6 +20,17 @@ public abstract class EcsMonoObject : MonoBehaviour
             ref var hitC = ref poolHitC.Add(entity);
             hitC.FirstCollide = firstCollide;
             hitC.SecondCollide = secondCollide;
+        }
+    }
+
+    public virtual void OnTriggerExitEvent(EcsMonoObject thisObject)
+    {
+        if (_world != null)
+        {
+            var entity = _world.NewEntity();
+            var poolLeavingC = _world.GetPool<LeavingComponent>();
+            ref var LeavingC = ref poolLeavingC.Add(entity);
+            LeavingC.LeavingObject = thisObject;
         }
     }
 }

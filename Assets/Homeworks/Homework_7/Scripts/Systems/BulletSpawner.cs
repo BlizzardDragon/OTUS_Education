@@ -80,9 +80,9 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
             Vector3 currenPos = _poolViewC.Value.Get(entity).ViewObject.transform.position;
             Vector3 targetDirection = targerPos - currenPos;
             float randomEngle = Random.Range(- _sharedData.Value.ErrorAngle, _sharedData.Value.ErrorAngle);
-            float engle = Vector3.Angle(Vector3.forward, targetDirection) + randomEngle;
+            float engle = Vector3.SignedAngle(Vector3.forward, targetDirection, Vector3.up) + randomEngle;
 
-            Quaternion rotation = Quaternion.Euler(new Vector3(0, -engle, 0)); //Quaternion.LookRotation(direction); 
+            Quaternion rotation = Quaternion.Euler(new Vector3(0, engle, 0)); //Quaternion.LookRotation(direction); 
             return rotation;
         }
 
