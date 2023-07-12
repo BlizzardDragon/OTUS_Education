@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components;
-using OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Services;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 {
@@ -79,9 +79,10 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
         {
             Vector3 currenPos = _poolViewC.Value.Get(entity).ViewObject.transform.position;
             Vector3 targetDirection = targerPos - currenPos;
-            float engle = Vector3.Angle(Vector3.forward, targetDirection);
+            float randomEngle = Random.Range(- _sharedData.Value.ErrorAngle, _sharedData.Value.ErrorAngle);
+            float engle = Vector3.Angle(Vector3.forward, targetDirection) + randomEngle;
 
-            Quaternion rotation = Quaternion.Euler(new Vector3(0, engle, 0)); //Quaternion.LookRotation(direction); 
+            Quaternion rotation = Quaternion.Euler(new Vector3(0, -engle, 0)); //Quaternion.LookRotation(direction); 
             return rotation;
         }
 

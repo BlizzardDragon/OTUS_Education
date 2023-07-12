@@ -97,6 +97,7 @@ public class SharedData
     [Header("Bullets")]
     public float BulletMoveSpeed;
     public int BulletDamage;
+    public float ErrorAngle;
     public string BulletPrefabPath;
 
     public int TeamCount { get; private set; } = 2;

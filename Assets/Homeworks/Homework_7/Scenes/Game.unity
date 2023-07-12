@@ -727,14 +727,15 @@ MonoBehaviour:
     BulletsParentTeam_1: {fileID: 603628577}
     BulletsParentTeam_2: {fileID: 241297787}
     UnitHealth: 5
-    UnitMoveSpeed: 1
+    UnitMoveSpeed: 2
     UnitAttackPeriod: 1.5
     UnitAttackDistance: 20
     UnitAttackPeriodRandomMultiplier: 0.2
     UnitPrefabPath: Prefabs/Unit
     UnitSpawnOffset: 1
-    BulletMoveSpeed: 10
+    BulletMoveSpeed: 20
     BulletDamage: 1
+    ErrorAngle: 5
     BulletPrefabPath: Prefabs/Bullet
 --- !u!1 &1877831405
 GameObject:
