@@ -26,9 +26,10 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
                 .Add(new EnemySearchSystem())
                 .Add(bulletSpawner)
                 .Add(new DamageSystem())
-                .Add(new DestroySystem())
-
+                .Add(new CollisionHandlingSystem())
+                .Add(new DisplacementSystem())
                 .Add(new DestroyCollisionComponentsSystem())
+                .Add(new DestroySystem())
 
                 // register additional worlds here, for example:
                 // .AddWorld (new EcsWorld (), "events")

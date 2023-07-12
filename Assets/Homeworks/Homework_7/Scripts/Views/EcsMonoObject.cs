@@ -23,14 +23,15 @@ public abstract class EcsMonoObject : MonoBehaviour
         }
     }
 
-    public virtual void OnTriggerStayEvent(EcsMonoObject thisObject)
+    public virtual void OnTriggerStayEvent(EcsMonoObject firstCollide, EcsMonoObject secondCollide)
     {
         if (_world != null)
         {
             var entity = _world.NewEntity();
             var poolCollisionStayC = _world.GetPool<CollisionStayComponent>();
             ref var CollisionStayC = ref poolCollisionStayC.Add(entity);
-            CollisionStayC.CollideObject = thisObject;
+            CollisionStayC.FirstCollide = firstCollide;
+            CollisionStayC.SecondCollide = secondCollide;
         }
     }
 

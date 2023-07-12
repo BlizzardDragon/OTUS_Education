@@ -22,7 +22,10 @@ public class CollidingUnit : EcsMonoObject
     {
         if (other.GetComponent<CollidingUnit>())
         {
-            OnTriggerStayEvent(this);
+            if (other.TryGetComponent(out EcsMonoObject collide))
+            {
+                OnTriggerStayEvent(this, collide);
+            }
         }
     }
 }
