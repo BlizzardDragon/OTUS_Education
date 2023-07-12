@@ -52,6 +52,19 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                 ref var attackC = ref _poolAttackC.Value.Get(entity);
                 ref var moveC = ref _poolMoveC.Value.Get(entity);
 
+                // Сброс цели.
+                if (!moveC.MoveAlloved && attackC.AttackTarget)
+                {
+                    Vector3 entityPos = _poolViewC.Value.Get(entity).ViewObject.transform.position;
+                    Vector3 targetPos = attackC.AttackTarget.transform.position;
+                    float distanceToTorget = Vector3.Distance(entityPos, targetPos);
+
+                    if (distanceToTorget > attackC.AttackDistance)
+                    {
+                        attackC.AttackTarget = null;
+                    }
+                }
+
                 if (!attackC.AttackTarget)
                 {
                     (bool targetIsReceived, int targetEntity) = GetNearestEntity(entity, targetEntities);
@@ -61,7 +74,7 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                         GameObject targer = _poolViewC.Value.Get(targetEntity).ViewObject;
                         attackC.AttackTarget = targer;
                     }
-                    
+
                     moveC.MoveAlloved = true;
                 }
                 else

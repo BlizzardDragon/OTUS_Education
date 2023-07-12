@@ -731,6 +731,7 @@ MonoBehaviour:
     UnitAttackPeriod: 1.5
     UnitAttackDistance: 20
     UnitAttackPeriodRandomMultiplier: 0.2
+    MaxContactTime: 2
     UnitPrefabPath: Prefabs/Unit
     UnitSpawnOffset: 1
     BulletMoveSpeed: 20

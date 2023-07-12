@@ -93,6 +93,7 @@ public class SharedData
     public float UnitAttackPeriod;
     public float UnitAttackDistance;
     public float UnitAttackPeriodRandomMultiplier;
+    public float MaxContactTime;
     [Space]
     public string UnitPrefabPath;
     public float UnitSpawnOffset;

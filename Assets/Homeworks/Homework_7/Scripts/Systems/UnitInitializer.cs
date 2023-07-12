@@ -19,7 +19,6 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
             EcsPool<MoveComponent> poolMoveC = world.GetPool<MoveComponent>();
             EcsPool<TeamComponent> poolTeamC = world.GetPool<TeamComponent>();
             EcsPool<CollisionComponent> poolCollisionC = world.GetPool<CollisionComponent>();
-            EcsPool<DisplacementComponent> poolDisplacementC = world.GetPool<DisplacementComponent>();
 
             int teamCount = _sharedData.Value.TeamCount;
             int entityCount = _sharedData.Value.UnitsPerTeam * teamCount;
@@ -31,7 +30,6 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                 poolMoveC.Add(entity).MoveSpeed = _sharedData.Value.UnitMoveSpeed;
                 poolViewC.Add(entity);
                 poolCollisionC.Add(entity);
-                poolDisplacementC.Add(entity);
 
                 poolAttackC.Add(entity);
                 ref var attackC = ref poolAttackC.Get(entity);

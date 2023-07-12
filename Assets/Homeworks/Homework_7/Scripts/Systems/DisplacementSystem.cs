@@ -46,7 +46,6 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                     {
                         throw new Exception("Dorection not set!");
                     }
-                    Debug.Log("IsInContact");
 
                     transform.position += transform.TransformVector(direction) * moveC.MoveSpeed * Time.deltaTime;
                 }
