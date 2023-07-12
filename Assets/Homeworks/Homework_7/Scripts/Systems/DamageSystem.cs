@@ -31,23 +31,14 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
                     if (bulletTeamC.Team != unitTeamC.Team)
                     {
                         ref var healthC = ref _poolHealthC.Value.Get(entitiyCollide1);
-                        var unitView = _poolViewC.Value.Get(entitiyCollide1).ViewObject;
 
                         var damageC = _poolDamegeC.Value.Get(entitiyCollide2);
                         var bulletView = _poolViewC.Value.Get(entitiyCollide2).ViewObject;
 
-                        if (healthC.Health - damageC.DamageValue <= 0)
-                        {
-                            Object.DestroyImmediate(unitView);
-                            Object.DestroyImmediate(bulletView);
-                            _world.Value.DelEntity(entitiyCollide1);
-                            _world.Value.DelEntity(entitiyCollide2);
-                        }
-                        else
-                        {
-                            Object.DestroyImmediate(bulletView);
-                            _world.Value.DelEntity(entitiyCollide2);
-                        }
+                        healthC.Health -= damageC.DamageValue;
+
+                        Object.DestroyImmediate(bulletView);
+                        _world.Value.DelEntity(entitiyCollide2);
                     }
                 }
                 _world.Value.DelEntity(entity);
