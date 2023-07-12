@@ -44,9 +44,6 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Systems
 
                     }
                 }
-
-
-                _world.Value.DelEntity(entity);
             }
         }
     }

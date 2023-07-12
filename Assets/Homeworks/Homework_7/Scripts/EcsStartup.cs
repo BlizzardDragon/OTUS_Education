@@ -28,6 +28,8 @@ namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
                 .Add(new DamageSystem())
                 .Add(new DestroySystem())
 
+                .Add(new DestroyCollisionComponentsSystem())
+
                 // register additional worlds here, for example:
                 // .AddWorld (new EcsWorld (), "events")
 #if UNITY_EDITOR
