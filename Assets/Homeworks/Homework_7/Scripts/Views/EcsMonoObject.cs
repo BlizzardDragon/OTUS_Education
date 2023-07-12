@@ -23,14 +23,25 @@ public abstract class EcsMonoObject : MonoBehaviour
         }
     }
 
+    public virtual void OnTriggerStayEvent(EcsMonoObject thisObject)
+    {
+        if (_world != null)
+        {
+            var entity = _world.NewEntity();
+            var poolCollisionStayC = _world.GetPool<CollisionStayComponent>();
+            ref var CollisionStayC = ref poolCollisionStayC.Add(entity);
+            CollisionStayC.CollideObject = thisObject;
+        }
+    }
+
     public virtual void OnTriggerExitEvent(EcsMonoObject thisObject)
     {
         if (_world != null)
         {
             var entity = _world.NewEntity();
-            var poolLeavingC = _world.GetPool<LeavingComponent>();
-            ref var LeavingC = ref poolLeavingC.Add(entity);
-            LeavingC.LeavingObject = thisObject;
+            var poolCollisionExitC = _world.GetPool<CollisionExitComponent>();
+            ref var CollisionExitC = ref poolCollisionExitC.Add(entity);
+            CollisionExitC.LeaveObject = thisObject;
         }
     }
 }

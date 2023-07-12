@@ -1,7 +1,7 @@
 namespace OTUS_Education.Assets.Homeworks.Homework_7.Scripts.Components
 {
-    public struct LeavingComponent
+    public struct CollisionComponent
     {
-        public EcsMonoObject LeavingObject;
+        public bool IsInContact;
     }
 }
