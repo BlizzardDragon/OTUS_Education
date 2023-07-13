@@ -48,7 +48,11 @@ namespace PresentationModel
             base.OnShow(args);
             _popup.SetActive(true);
 
-            _presentationModel.OnLevelChanged += SetLevel;
+            _presentationModel.OnLevelUp += SetLevel;
+            _presentationModel.OnLevelUp += UpdateExperience;
+            _presentationModel.OnLevelUp += UpdateProgressBar;
+            _presentationModel.OnLevelUp += CheckCanLevelUp;
+
             _presentationModel.OnIconChanged += SetIcon;
             _presentationModel.OnNameChanged += SetName;
             _presentationModel.OnDescriptionChanged += SetDescription;
@@ -75,7 +79,11 @@ namespace PresentationModel
             base.OnHide();
             _popup.SetActive(false);
 
-            _presentationModel.OnLevelChanged -= SetLevel;
+            _presentationModel.OnLevelUp -= SetLevel;
+            _presentationModel.OnLevelUp -= UpdateExperience;
+            _presentationModel.OnLevelUp -= UpdateProgressBar;
+            _presentationModel.OnLevelUp -= CheckCanLevelUp;
+
             _presentationModel.OnIconChanged -= SetIcon;
             _presentationModel.OnNameChanged -= SetName;
             _presentationModel.OnDescriptionChanged -= SetDescription;

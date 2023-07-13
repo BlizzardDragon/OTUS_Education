@@ -11,7 +11,7 @@ namespace PresentationModel
         public event Action OnDescriptionChanged;
         public event Action OnIconChanged;
         public event Action OnNameChanged;
-        public event Action OnLevelChanged;
+        public event Action OnLevelUp;
 
         public event Action<CharacterStat> OnStatAdded;
         public event Action<CharacterStat> OnStatRemoved;

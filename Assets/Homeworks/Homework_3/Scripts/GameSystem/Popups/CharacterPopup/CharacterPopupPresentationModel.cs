@@ -17,18 +17,24 @@ namespace PresentationModel
         private string _localizationLevel = "Level";
         private const int STATS_LIMIT = 6;
 
-        public event Action OnDescriptionChanged;
+        public event Action OnLevelUp;
         public event Action OnIconChanged;
         public event Action OnNameChanged;
-        public event Action OnLevelChanged;
+        public event Action OnDescriptionChanged;
 
+        public event Action OnExperienceChanged;
+
+        public event Action OnAllowLevelUp;
+        public event Action OnForbidLevelUp;
+        
         public event Action<CharacterStat> OnStatAdded;
         public event Action<CharacterStat> OnStatRemoved;
 
-        public event Action OnExperienceChanged;
-        public event Action OnAllowLevelUp;
-        public event Action OnForbidLevelUp;
+
+
         public event Action OnSpawnStat;
+
+
 
         [Inject]
         public void Construct(CharacterInfo characterInfo, PlayerLevel playerLevel, UserInfo userInfo)
@@ -60,34 +66,34 @@ namespace PresentationModel
 
         public void OnStart()
         {
-            _userInfo.OnDescriptionChanged += CallEvent_ChangeDescription;
+            _playerLevel.OnLevelUp += CallEvent_OnLevelUp;
             _userInfo.OnIconChanged += CallEvent_ChangeIcon;
             _userInfo.OnNameChanged += CallEvent_ChangeName;
-            _playerLevel.OnLevelUp += CallEvent_ChangeLevel;
+            _userInfo.OnDescriptionChanged += CallEvent_ChangeDescription;
+
+            _playerLevel.OnExperienceChanged += CallEvent_ChangedExperience;
 
             _characterInfo.OnStatAdded += CallEvent_AddStat;
-            _characterInfo.OnStatRemoved += CallEvent_RemoveStat;
-            
-            _playerLevel.OnExperienceChanged += CallEvent_ChangedExperience;
+            _characterInfo.OnStatRemoved += CallEvent_RemoveStat;   
         }
 
         public void OnStop()
         {
-            _userInfo.OnDescriptionChanged -= CallEvent_ChangeDescription;
+            _playerLevel.OnLevelUp -= CallEvent_OnLevelUp;
             _userInfo.OnIconChanged -= CallEvent_ChangeIcon;
             _userInfo.OnNameChanged -= CallEvent_ChangeName;
-            _playerLevel.OnLevelUp -= CallEvent_ChangeLevel;
+            _userInfo.OnDescriptionChanged -= CallEvent_ChangeDescription;
+
+            _playerLevel.OnExperienceChanged -= CallEvent_ChangedExperience;
 
             _characterInfo.OnStatAdded -= CallEvent_AddStat;
             _characterInfo.OnStatRemoved -= CallEvent_RemoveStat;
-
-            _playerLevel.OnExperienceChanged -= CallEvent_ChangedExperience;
         }
 
         private void CallEvent_ChangeDescription(string text) => OnDescriptionChanged?.Invoke();
         private void CallEvent_ChangeIcon(Sprite sprite) => OnIconChanged?.Invoke();
         private void CallEvent_ChangeName(string text) => OnNameChanged?.Invoke();
-        private void CallEvent_ChangeLevel() => OnLevelChanged?.Invoke();
+        private void CallEvent_OnLevelUp() => OnLevelUp?.Invoke();
 
         private void CallEvent_AddStat(CharacterStat stat) => OnStatAdded?.Invoke(stat);
         private void CallEvent_RemoveStat(CharacterStat stat) => OnStatRemoved?.Invoke(stat);
