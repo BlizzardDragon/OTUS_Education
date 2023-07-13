@@ -8,11 +8,16 @@ namespace PresentationModel
 {
     public interface ICharacterPresentationModel
     {
-        public CharacterInfo CharacterInfo { get; set; }
-        public UserInfo UserInfo { get; set; }
-        public PlayerLevel PlayerLevel { get; set; }
+        public event Action OnDescriptionChanged;
+        public event Action OnIconChanged;
+        public event Action OnNameChanged;
+        public event Action OnLevelChanged;
 
-        public event Action<string, float> OnExperienceChanged;
+        public event Action<CharacterStat> OnStatAdded;
+        public event Action<CharacterStat> OnStatRemoved;
+
+
+        public event Action OnExperienceChanged;
         public event Action OnAllowLevelUp;
         public event Action OnForbidLevelUp;
         public event Action OnSpawnStat;
@@ -25,5 +30,8 @@ namespace PresentationModel
         void OnStop();
         void OnLevelUpClicked();
         void OnStart();
+        string GetExperienceSliderText();
+        float GetFillAmount();
+        void CheckCanLevelUp();
     }
 }

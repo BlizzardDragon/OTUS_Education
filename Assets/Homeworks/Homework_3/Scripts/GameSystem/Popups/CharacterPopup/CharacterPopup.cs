@@ -48,26 +48,26 @@ namespace PresentationModel
             base.OnShow(args);
             _popup.SetActive(true);
 
-            SetLevel();
-            SetIcon(_presentationModel.GetIcon());
-            SetName(_presentationModel.GetName());
-            SetDescription(_presentationModel.GetDescription());
-
-            _presentationModel.PlayerLevel.OnLevelUp += SetLevel;
-            _presentationModel.UserInfo.OnIconChanged += SetIcon;
-            _presentationModel.UserInfo.OnNameChanged += SetName;
-            _presentationModel.UserInfo.OnDescriptionChanged += SetDescription;
-            _presentationModel.CharacterInfo.OnStatAdded += AddStat;
-            _presentationModel.CharacterInfo.OnStatRemoved += RemoveStat;
+            _presentationModel.OnLevelChanged += SetLevel;
+            _presentationModel.OnIconChanged += SetIcon;
+            _presentationModel.OnNameChanged += SetName;
+            _presentationModel.OnDescriptionChanged += SetDescription;
 
             _presentationModel.OnExperienceChanged += UpdateExperience;
+            _presentationModel.OnExperienceChanged += UpdateProgressBar;
+            _presentationModel.OnExperienceChanged += CheckCanLevelUp;
+
             _presentationModel.OnAllowLevelUp += AllowLevelUp;
             _presentationModel.OnForbidLevelUp += ForbidLevelUp;
 
-            _presentationModel.OnStart();
+            _presentationModel.OnStatAdded += AddStat;
+            _presentationModel.OnStatRemoved += RemoveStat;
 
             _closeButton.onClick.AddListener(OnButtonCloseClicked);
             _buttonLevelUp.GetButton().onClick.AddListener(OnButtonLevelUpClicked);
+
+            _presentationModel.OnStart();
+            UpdateStats();
         }
 
         protected override void OnHide()
@@ -75,14 +75,59 @@ namespace PresentationModel
             base.OnHide();
             _popup.SetActive(false);
 
-            _presentationModel.PlayerLevel.OnLevelUp -= SetLevel;
+            _presentationModel.OnLevelChanged -= SetLevel;
+            _presentationModel.OnIconChanged -= SetIcon;
+            _presentationModel.OnNameChanged -= SetName;
+            _presentationModel.OnDescriptionChanged -= SetDescription;
+
             _presentationModel.OnExperienceChanged -= UpdateExperience;
-            _presentationModel.CharacterInfo.OnStatAdded -= AddStat;
-            _presentationModel.CharacterInfo.OnStatRemoved -= RemoveStat;
+            _presentationModel.OnExperienceChanged -= UpdateProgressBar;
+            _presentationModel.OnExperienceChanged -= CheckCanLevelUp;
+
+            _presentationModel.OnAllowLevelUp -= AllowLevelUp;
+            _presentationModel.OnForbidLevelUp -= ForbidLevelUp;
+
+            _presentationModel.OnStatAdded -= AddStat;
+            _presentationModel.OnStatRemoved -= RemoveStat;
 
             _closeButton.onClick.RemoveListener(OnButtonCloseClicked);
             _buttonLevelUp.GetButton().onClick.RemoveListener(OnButtonLevelUpClicked);
         }
+
+        private void UpdateStats()
+        {
+            SetLevel();
+            SetDescription();
+            SetName();
+            SetIcon();
+            UpdateExperience();
+            UpdateProgressBar();
+            CheckCanLevelUp();
+        }
+
+        private void SetLevel() => _level.text = _presentationModel.GetLevel();
+        private void SetDescription() => _description.text = _presentationModel.GetDescription();
+        private void SetName() => _name.text = _presentationModel.GetName();
+        private void SetIcon() => _icon.sprite = _presentationModel.GetIcon();
+
+        private void UpdateExperience() => _experience.text = _presentationModel.GetExperienceSliderText();
+        private void UpdateProgressBar() => _progressBarScale.fillAmount = _presentationModel.GetFillAmount();
+        private void CheckCanLevelUp() => _presentationModel.CheckCanLevelUp();
+
+        private void AllowLevelUp()
+        {
+            _progressBarCompleted.enabled = true;
+            _buttonLevelUp.ActivateButton();
+        }
+
+        private void ForbidLevelUp()
+        {
+            _progressBarCompleted.enabled = false;
+            _buttonLevelUp.DeactivateButton();
+        }
+
+        private void AddStat(CharacterStat characterStat) => OnAddStat?.Invoke(characterStat, _statsParent);
+        private void RemoveStat(CharacterStat characterStat) => OnRemoveStat?.Invoke(characterStat);
 
         private void OnButtonCloseClicked()
         {
@@ -90,35 +135,6 @@ namespace PresentationModel
             _presentationModel.OnStop();
         }
 
-        private void OnButtonLevelUpClicked()
-        {
-            _presentationModel.OnLevelUpClicked();
-        }
-
-        public void UpdateExperience(string text, float fillAmount)
-        {
-            _experience.text = text;
-            _progressBarScale.fillAmount = fillAmount;
-        }
-
-        public void AllowLevelUp()
-        {
-            _progressBarCompleted.enabled = true;
-            _buttonLevelUp.ActivateButton();
-        }
-
-        public void ForbidLevelUp()
-        {
-            _progressBarCompleted.enabled = false;
-            _buttonLevelUp.DeactivateButton();
-        }
-
-        private void SetLevel() => _level.text = _presentationModel.GetLevel();
-        private void SetDescription(string text) => _description.text = text;
-        private void SetName(string text) => _name.text = text;
-        private void SetIcon(Sprite sprite) => _icon.sprite = sprite;
-
-        private void AddStat(CharacterStat characterStat) => OnAddStat?.Invoke(characterStat, _statsParent);
-        private void RemoveStat(CharacterStat characterStat) => OnRemoveStat?.Invoke(characterStat);
+        private void OnButtonLevelUpClicked() => _presentationModel.OnLevelUpClicked();
     }
 }
