@@ -22,8 +22,8 @@ namespace PresentationModel
         Sprite GetIcon();
         string GetLevel();
         string GetName();
-        void OnClosedClicked();
+        void OnStop();
         void OnLevelUpClicked();
-        void OnShow();
+        void OnStart();
     }
 }

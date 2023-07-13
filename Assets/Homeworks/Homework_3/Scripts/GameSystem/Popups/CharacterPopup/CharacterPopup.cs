@@ -64,7 +64,7 @@ namespace PresentationModel
             _presentationModel.OnAllowLevelUp += AllowLevelUp;
             _presentationModel.OnForbidLevelUp += ForbidLevelUp;
 
-            _presentationModel.OnShow();
+            _presentationModel.OnStart();
 
             _closeButton.onClick.AddListener(OnButtonCloseClicked);
             _buttonLevelUp.GetButton().onClick.AddListener(OnButtonLevelUpClicked);
@@ -87,7 +87,7 @@ namespace PresentationModel
         private void OnButtonCloseClicked()
         {
             Hide();
-            _presentationModel.OnClosedClicked();
+            _presentationModel.OnStop();
         }
 
         private void OnButtonLevelUpClicked()

@@ -51,13 +51,13 @@ namespace PresentationModel
             UserInfo.ChangeDescription(description);
         }
 
-        public void OnShow()
+        public void OnStart()
         {
             UpdatePopupExperience(PlayerLevel.CurrentExperience);
             PlayerLevel.OnExperienceChanged += UpdatePopupExperience;
         }
 
-        public void OnClosedClicked()
+        public void OnStop()
         {
             PlayerLevel.OnExperienceChanged -= UpdatePopupExperience;
         }
